@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 
 /**
  * Dev Jeu
@@ -63,49 +63,55 @@ function OnTriggerEnter(other: Collider) {
 	//:::::::::::::: Gérer le SCORE TEXTE
     if(other.gameObject.tag)
     {
-        switch(other.gameObject.tag)
-            {
-                case "bonbon"://cleA 
-                    nbVies++;
-                    var message="un bonbon";
-                    Debug.Log("bonbon");
-                    Destroy(other.gameObject);
-
-                    break;
-
-                case "gateau"://cleA 
-                    nbVies++;
-                    message="un gateau";
-                    Debug.Log("gateau");
-                    Destroy(other.gameObject);
-                    break;
-
-                case "potionVie"://cleA 
-                    nbVies++;
-                    message="une potion Vie";
-                    Debug.Log("potionVie");
-                    Destroy(other.gameObject);
-                    break;
-
-                case "potionReveille"://cleA 
-                    nbVies++;
-                    message="une potion Reveille";
-                    Debug.Log("potionReveille");
-                    Destroy(other.gameObject);
-                    break;
-
-                case "potionSort"://cleA 
-                    nbVies++;
-                    message="une potion jeter un sort";
-                    Debug.Log("potionSort");
-                    Destroy(other.gameObject);
-                    break;
-             }
-             gestionscAffichage.MettreAJourVie(nbVies);
-            // mettre à jour le text affiché, cette fonction est dans scAffichageTP.js
-             gestionscAffichage.MettreAJourMessage(message);
-            // mettre à jour le text affiché, cette fonction est dans scAffichageTP.js
+//        switch(other.gameObject.tag)
+//        {
+//            case "bonbon"://cleA 
+//                nbVies++;
+//                var message="un bonbon";
+//                Debug.Log("bonbon");
+//                Destroy(other.gameObject);
+//
+//                break;
+//
+//            case "gateau"://cleA 
+//                nbVies++;
+//                message="un gateau";
+//                Debug.Log("gateau");
+//                Destroy(other.gameObject);
+//                break;
+//
+//            case "potionVie"://cleA 
+//                nbVies++;
+//                message="une potion Vie";
+//                Debug.Log("potionVie");
+//                Destroy(other.gameObject);
+//                break;
+//
+//            case "potionReveille"://cleA 
+//                nbVies++;
+//                message="une potion Reveille";
+//                Debug.Log("potionReveille");
+//                Destroy(other.gameObject);
+//                break;
+//
+//            case "potionSort"://cleA 
+//                nbVies++;
+//                message="une potion jeter un sort";
+//                Debug.Log("potionSort");
+//                Destroy(other.gameObject);
+//                break;
+//         }
+        if (other.gameObject.tag == "bonbon" || other.gameObject.tag == "gateau" || other.gameObject.tag == "potionVie" || other.gameObject.tag == "potionReveille" || other.gameObject.tag == "potionSort") {
+            nbVies++;
+            var message="un bonbon";
+            Debug.Log("bonbon");
+            Destroy(other.gameObject);
             JoueSonVictoire();
+        }
+        gestionscAffichage.MettreAJourVie(nbVies);
+        // mettre à jour le text affiché, cette fonction est dans scAffichageTP.js
+         gestionscAffichage.MettreAJourMessage(message);
+        // mettre à jour le text affiché, cette fonction est dans scAffichageTP.js
     }
 
 }
@@ -114,6 +120,10 @@ function OnTriggerEnter(other: Collider) {
 
 //:::::::::::::: function jouer une fois l'AudioVictoire :::::::::::::://
 function JoueSonVictoire(){
-        yield WaitForSeconds(0.3);// attendre 0.3 sec
-        GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
+    GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
+}
+
+function updateDommages(dommages:int) {
+    nbVies -= dommages;
+    Debug.Log(nbVies);
 }

@@ -1,4 +1,7 @@
 #pragma strict 
+
+import UnityEngine.SceneManagement;
+
 /**
 * Script de gestion des éléments du menu
 * @author David Lachambre
@@ -196,12 +199,12 @@ function Update() {
 
 //Méthode qui charge la scène de tutoriel.
 function demarrerTuto() {
-    Application.LoadLevel("tutoriel");
+    SceneManager.LoadScene("tutoriel");
 }
 
 //Méthode qui charge la scène de sélection du personnage.
 function demarrerJeu() {
-    Application.LoadLevel("choixPerso");
+    SceneManager.LoadScene("choixPerso");
 }
 
 //Méthode qui affiche le panneau des crédits et au besoin cache les autres panneaux ouverts.
