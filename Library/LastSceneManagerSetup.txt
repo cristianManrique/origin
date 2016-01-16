@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Scenes/test_Malcom.unity
-  isLoaded: 1
-  isActive: 1
