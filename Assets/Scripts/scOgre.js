@@ -230,3 +230,9 @@ function frapper() {
     yield WaitForSeconds(delaiCoupOgre);
     donnerUnCoup = true;
 }
+
+//:::::::::::::: function updateDommages :::::::::::::://
+function updateDommages(dommages:int) {
+    pointsVieOgre -= dommages;
+    Debug.Log(pointsVieOgre);
+}
