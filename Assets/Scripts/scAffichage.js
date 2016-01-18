@@ -8,14 +8,14 @@ import UnityEngine.UI;
  * Mise à jour Text UI, username UI, Message UI
  * @author Cristian Manrique
  * @author Jonathan Martel
- * @date 2015-11-25
+ * @date 2016-01-16
  * 
  */
 
  //:::::::::::variables :::::::::://
 	/*
 	* GameObject contient les panneaux
-	* @access public
+	* @access private
 	* @var GameObject
 	*/
 	private var canvas:GameObject;
@@ -24,7 +24,7 @@ import UnityEngine.UI;
 	/*
 	* Objet Text dans le UI
 	* @access public
-	* @var GameObject
+	* @var Text
 	*/
 	public var ObjetTextVie:Text;
 	public var ObjetText1:Text;
@@ -45,15 +45,15 @@ import UnityEngine.UI;
     /*
     * Contient les images UI des potions 
     * @access public
-    * @var integer
+    * @var GameObject
     */
     public var potion01: GameObject;//potionVie
     public var potion02: GameObject;//potionSort
 
     /*
-    * Contient les images UI des potions 
+    * Contient les images UI des coeurs
     * @access public
-    * @var integer
+    * @var GameObject
     */
     public var coeur01: GameObject;
     public var coeur02: GameObject;
@@ -63,21 +63,31 @@ import UnityEngine.UI;
     /*
     * Contient les images UI des potions 
     * pour diminuer le alpha
-    * @access public
-    * @var integer
+    * @access private
+    * @var Image
     */
     private var  RenderPotion1:Image;
     private var  RenderPotion2:Image;
 
     /*
-    * Contient les images UI des potions 
+    * Contient le rendu des potions 
     * pour diminuer le alpha
-    * @access public
-    * @var integer
+    * @access private
+    * @var Image
     */
     private var  RenderCoeur1:Image;
     private var  RenderCoeur2:Image;
     private var  RenderCoeur3:Image;
+
+    //::::::::::::::::::::://
+    /*
+    * GameObject contient les panneaux du UI
+    * @access public
+    * @var GameObject
+    */
+    public var PanneauBarreVieEnnemi:GameObject;
+
+
 
 	
 
@@ -89,7 +99,6 @@ function Start () {
     RenderCoeur1  = coeur01.GetComponent.<Image>();
     RenderCoeur2  = coeur02.GetComponent.<Image>();
     RenderCoeur3  = coeur03.GetComponent.<Image>();
-    //Debug.Log(RenderPotion1.color);
 
     //:: Débuter le ALPHA des SPRITES UI
     RenderPotion1.color.a = 0.3 ;
@@ -190,28 +199,12 @@ function AugmenteAlphaCoeurUI(AlphaCoeur, numCoeur) {
                 RenderCoeur1.color.a += 0.1; 
                 break;
         }
+}
+
+//:::::::::::function AfficherPanneauBarreVieEnnemi :::::::::://
+function AfficherPanneauBarreVieEnnemi(state: boolean){
+
+        PanneauBarreVieEnnemi.SetActive(state);
+        //active ou pas (true ou false);            
 }  
 
-
-//:::::::::::::: function MettreAJourCoeur :::::::::::::://
-function MettreAJourC(nbCoeurs){
-
-
-    switch(nbCoeurs)
-        {
-            case 2:
-                RenderCoeur3.color.a = 0; 
-                break;
-
-            case 1:
-                RenderCoeur2.color.a = 0; 
-                break;
-
-            case 0:
-                RenderCoeur1.color.a = 0; 
-                break;
-
-        }
-
-
-}

@@ -47,20 +47,13 @@ import UnityEngine.UI;
      */
 	private var Limite:float = 0.0;
 
-	/**
-     * Gérer le alpha du coeur
-     * @access public
-     * @var float
-     */
-	public var AlphaCoeur:float;
-
 	//::::::::::::::::::::://
 	/*
 	* Slider Barre de vie
 	* @access private
 	* @var int
 	*/
-	public var vieSlider:Slider;
+	public var EnnemiSlider:Slider;
 
 
 	//::::::::::::::::::::://
@@ -80,11 +73,8 @@ import UnityEngine.UI;
 	*/
 	public var restant:int;
 
-	/*
-	* Indique le coeur à diminuer le alpha
-	* @access public
-	* @var int
-	*/
+
+	public var AlphaCoeur:float;
 
 	public var numCoeur:int = 3;
 
@@ -92,7 +82,7 @@ import UnityEngine.UI;
 //:::::::::::Start :::::::::://
 function Start () {
 
-	restant= maxBarre;//Débuter 
+	restant= maxBarre;//Débuter à 10 comme la valeur dans slider
 	canvas = GameObject.FindWithTag("canvas");
 
 
@@ -105,43 +95,36 @@ function Start () {
 //:::::::::::::: UPDATE :::::::::::::://
 function Update () {
 
-	//:: Diminuer var restant à chq TempsDim
-	if (Time.time > Limite) {
-		//:: Time.time : c'est le temps réal qui passe
-		Limite = Time.time + TempsDim;
-		restant--;
-	}
-
 	//::Diminuer le Slider
-	if(vieSlider.value != restant) {
+	if(EnnemiSlider.value != restant) {
 
-		vieSlider.value = restant;
+		EnnemiSlider.value = restant;
 		AlphaCoeur = restant;//:: permet de diminuer la alpha du coeur
 		gestionscAffichage.DiminueAlphaCoeurUI(AlphaCoeur, numCoeur);
 		//:: ATTENTION: function appeler dans scAffichage.js
 	}
 
+	/*
 	//:: Éliminer un coeur/vie
-	if (vieSlider.value == 0) {
-		restant=maxBarre;//Remettre idem à maxBarre
+	if (EnnemiSlider.value == 0 && numCoeur<= 0) {
+		restant=10;//Remettre à 10
 		numCoeur--;//elimine un coeur
 
-		if (numCoeur<= 0){numCoeur=0;}
-
 	}
+	*/
 
 }
 
 
-//:::::::::::::: function diminuerBarreVies :::::::::::::://
-function DiminuerBarreVies () {
+//:::::::::::::: function DiminuerBarreViesEnnemi :::::::::::::://
+function DiminuerBarreViesEnnemi () {
 	restant--;
-	vieSlider.value = restant;
+	EnnemiSlider.value = restant;
 }
 
 
-//:::::::::::::: function AugmenteBarreVies :::::::::::::://
-function AugmenteBarreVies () {
+//:::::::::::::: function AugmenteBarreViesEnnemi :::::::::::::://
+function AugmenteBarreViesEnnemi () {
 	restant++;
-	vieSlider.value = restant;
+	EnnemiSlider.value = restant;
 }

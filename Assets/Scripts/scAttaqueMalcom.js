@@ -44,13 +44,13 @@ function Update () {
 
 
 
-    if(Input.GetButtonDown("Fire1"))//:: Si space est enfoncé
+    if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncé
     {
         attack = true;
         animateur.SetBool('animeAtack', true);
         //:: dire à l'animator d'utiliser cette variable du code
     }
-    if(Input.GetButtonUp("Fire1"))//:: Si space est enfoncé
+    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncé
     {
         attack = false;
         animateur.SetBool('animeAtack', false);
