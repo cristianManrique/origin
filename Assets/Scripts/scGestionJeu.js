@@ -45,7 +45,21 @@
     */
     public var AudioVictoire: AudioClip;
 
+   
 
+    public var messageBonbon:GameObject;
+
+    public var messagePotionSort:GameObject;
+  
+  	public var messageOgre:GameObject;
+
+  	public var messageFeeVolante:GameObject;
+
+  	public var messageDiable:GameObject;
+
+  	public var messageFantome:GameObject;
+
+  	public var messageLutin:GameObject;
 
 function Start () {
     //:: ACTIVER LES SCRIPTS JS
@@ -104,7 +118,7 @@ function OnTriggerEnter(other: Collider) {
         if (other.gameObject.tag == "bonbon" || other.gameObject.tag == "gateau" || other.gameObject.tag == "potionVie" || other.gameObject.tag == "potionReveille" || other.gameObject.tag == "potionSort") {
             nbVies++;
             var message="un bonbon";
-            Debug.Log("bonbon");
+           Debug.Log("bonbon");
             Destroy(other.gameObject);
             JoueSonVictoire();
         }
@@ -113,8 +127,71 @@ function OnTriggerEnter(other: Collider) {
          gestionscAffichage.MettreAJourMessage(message);
         // mettre à jour le text affiché, cette fonction est dans scAffichageTP.js
     }
+    if(other.gameObject.tag=='MessageBonbon')
+	{
+		//regleBonbon.informationBonbon(true);
+		messageBonbon.SetActive(true);
+		Time.timeScale=0;
+		Destroy(other.gameObject);
+
+	}
+	if(other.gameObject.tag=='MessagePotionSort')
+	{
+		
+		messagePotionSort.SetActive(true);
+		Time.timeScale=0;
+		Destroy(other.gameObject);
+
+	}
+
+	if(other.gameObject.tag=='MessageOgre')
+	{
+		
+		messageOgre.SetActive(true);
+		Time.timeScale=0;
+		Destroy(other.gameObject);
+
+	}
+	if(other.gameObject.tag=='MessageFeeVolante')
+	{
+		
+		messageFeeVolante.SetActive(true);
+		Time.timeScale=0;
+		Destroy(other.gameObject);
+
+	}
+
+	if(other.gameObject.tag=='MessageDiable')
+	{
+		
+		messageDiable.SetActive(true);
+		Time.timeScale=0;
+		Destroy(other.gameObject);
+
+	}
+
+	if(other.gameObject.tag=='MessageFantome')
+	{
+		
+		messageFantome.SetActive(true);
+		Time.timeScale=0;
+		Destroy(other.gameObject);
+
+	}
+
+	if(other.gameObject.tag=='MessageLutin')
+	{
+		
+		messageLutin.SetActive(true);
+		Time.timeScale=0;
+		Destroy(other.gameObject);
+
+	}
+
 
 }
+
+
 
 
 

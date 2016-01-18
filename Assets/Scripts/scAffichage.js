@@ -36,6 +36,21 @@ import UnityEngine.UI;
 	*/
 	public var messageText:Text;
 
+	/*******/
+	public var messageBonbon:GameObject;
+
+	public var messagePotionSort:GameObject;
+
+	public var messageOgre:GameObject;
+
+	public var messageFeeVolante:GameObject;
+
+	public var messageDiable:GameObject;
+
+	public var messageFantome:GameObject;
+
+	public var messageLutin:GameObject;
+
 function Start () {
 
 }
@@ -64,4 +79,52 @@ function MettreAJourVie(objet01:int)
 function MettreAJourMessage(message:String){
 	messageText.text = message;
 
+}
+
+function informationBonbon(etat:boolean)
+{
+	messageBonbon.SetActive(etat);
+	Time.timeScale=0;
+}
+
+function fermerInformationBonbon()
+{
+	messageBonbon.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationPotionSort()
+{
+	messagePotionSort.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationOgre()
+{
+	messageOgre.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationFeeVolante()
+{
+	messageFeeVolante.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationDiable()
+{
+	messageDiable.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationFantome()
+{
+	messageFantome.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationLutin()
+{
+	messageLutin.SetActive(false);
+	Time.timeScale=1;
 }
