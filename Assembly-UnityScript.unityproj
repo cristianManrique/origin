@@ -47,9 +47,13 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\scAffichage.js" />
      <Compile Include="Assets\Scripts\scAttaqueMalcom.js" />
+     <Compile Include="Assets\Scripts\scAutoDestroyThis.js" />
+     <Compile Include="Assets\Scripts\scBarreEnnemi.js" />
+     <Compile Include="Assets\Scripts\scBarreVies.js" />
      <Compile Include="Assets\Scripts\scBgVideo.js" />
      <Compile Include="Assets\Scripts\scCamera.js" />
      <Compile Include="Assets\Scripts\scDeplacementPerso.js" />
+     <Compile Include="Assets\Scripts\scEpeeMalcom.js" />
      <Compile Include="Assets\Scripts\scGestionJeu.js" />
      <Compile Include="Assets\Scripts\scMassueOgre.js" />
      <Compile Include="Assets\Scripts\scMenuIntro.js" />
