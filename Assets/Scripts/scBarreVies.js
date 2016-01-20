@@ -24,6 +24,13 @@ import UnityEngine.UI;
     */
     private var canvas: GameObject;
 
+    /*
+	* Héros (Clara ou Malcom).
+	* @access private
+	* @var GameObject
+	*/
+	private var heros:GameObject;
+
 	//::::::::::::::::::::://
     /*
     * Contient le script scAffichage.js
@@ -31,6 +38,13 @@ import UnityEngine.UI;
     * @var scAffichage.js
     */
 	private var gestionscAffichage: scAffichage;
+
+	/*
+    * Contient le script scHeros.js
+    * @access private
+    * @var scHeros.js
+    */
+	private var gestionscHeros: scHeros;
 
 	//::::::::::::::::::::://	
 	/**
@@ -78,15 +92,23 @@ import UnityEngine.UI;
 	* @access private
 	* @var int
 	*/
-	public var restant:int;
+	private var restant:int;
 
 	/*
 	* Indique le coeur à diminuer le alpha
-	* @access public
+	* @access private
 	* @var int
 	*/
-
 	public var numCoeur:int = 3;
+
+
+//:::::::::::Awake :::::::::://
+function Awake()
+{
+
+    
+	
+}
 
 
 //:::::::::::Start :::::::::://
@@ -94,10 +116,12 @@ function Start () {
 
 	restant= maxBarre;//Débuter 
 	canvas = GameObject.FindWithTag("canvas");
+	heros = GameObject.FindWithTag("heros");
 
 
 	//:: Chercher LE SCRIPTS JS
     gestionscAffichage=canvas.GetComponent.<scAffichage>();
+    gestionscHeros=heros.GetComponent.<scHeros>();
 
 }
 
@@ -125,6 +149,11 @@ function Update () {
 	if (vieSlider.value == 0) {
 		restant=maxBarre;//Remettre idem à maxBarre
 		numCoeur--;//elimine un coeur
+
+		var nbVies = numCoeur;// idem
+
+		// diminue une vie à l'héros
+		gestionscHeros.DiminueVies(nbVies);
 
 		if (numCoeur<= 0){numCoeur=0;}
 

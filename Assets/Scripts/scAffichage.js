@@ -26,7 +26,6 @@ import UnityEngine.UI;
 	* @access public
 	* @var Text
 	*/
-	public var ObjetTextVie:Text;
 	public var ObjetText1:Text;
 	public var ObjetText2:Text;
 	public var messageText:Text;
@@ -121,7 +120,7 @@ function Update () {
 function MettreAJourVie(objet01:int)
 {
 	//:: convertir en entier
-	ObjetTextVie.text = objet01.ToString();
+	//ObjetTextVie.text = objet01.ToString();
 
 	//écraser le texte UI
 
@@ -203,7 +202,6 @@ function AugmenteAlphaCoeurUI(AlphaCoeur, numCoeur) {
 
 //:::::::::::function AfficherPanneauBarreVieEnnemi :::::::::://
 function AfficherPanneauBarreVieEnnemi(state: boolean){
-
         PanneauBarreVieEnnemi.SetActive(state);
         //active ou pas (true ou false);            
 }  

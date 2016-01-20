@@ -4,21 +4,47 @@
 
 /**
  * TP Developpement de JEU
- * Gestion du personnage principale HOPE
+ * Gestion du Héros
+ *  gérer l'attaque, les vies, le nombre de potions et le health et les déplacements
  * @author Cristian Manrique
  * @author Jonathan Martel
- * @date 2015-11-25
+ * @date 2016-01-20
+
+oui l'affichage c'est de la gestion du jeu. 
+Pense au script du héros comme son blueprint. 
+Il peut faire quoi (se déplacer, attaquer). 
+Il est caractérisé par quoi (des vies, un health). 
+Il a x nb de vies, il perd x nombre de points, etc. 
+C'est son propre update qui gère tout ça.
+
+
+Le script gestionJeu va créer des ennemis, 
+dire au script d'affichage d'afficher les trucs 
+en fonctions de ce qui se passe dans 
+le jeu, faire le chargement des niveaux, etc. 
+C'est un peu le "controler" du MVC
+
  * 
  */
 
 //:::::::::::variables :::::::::://
 
     /*
-     * Contient le controller (accès par l'inspecteur)
-     * @access public
-     * @var CharacterController
-     */
-    public var controller:CharacterController;
+    * Nombre de Vie du héros
+    * @access private
+    * @var GameObject
+    */
+    private var Vies: int= 3;
+
+    /*
+    * Sante
+    * @access private
+    * @var GameObject
+    */
+    private var Sante: int= 10;
+
+
+    //::::::::::::::::::::://
     /**
      * Vitesse de déplacement de base
      * @access private
@@ -89,7 +115,18 @@
     * @var checkSiFin
     */
     private var checkSiFin:boolean = false;
-
+    /**
+     * Gerer si peut attack
+     * @access private
+     * @var boolean
+     */
+    private var attack: boolean = false;
+    /**
+     * Gerer si anime attack
+     * @access private
+     * @var boolean
+     */
+    private var animeAtack: boolean = false;
 
 
     //::::::::::::::::::::://
@@ -101,15 +138,20 @@
     private var checkPanneauPause: int = 0;
 
 
-
     //::::::::::::::::::::://
     /**
      * Contient le controleur d'animation
      * @access public
      * @var Animator
      */
-    public var animateur: Animator;
+    private var animateur: Animator;
 
+     /*
+     * Contient le controller (accès par l'inspecteur)
+     * @access private
+     * @var CharacterController
+     */
+    private var controller:CharacterController;
 
 
     //::::::::::::::::::::://
@@ -141,14 +183,15 @@
 //:::::::::::Awake :::::::::://
 function Awake()
 {
+
+    animateur = this.gameObject.GetComponent.<Animator>();
+    controller =this.gameObject.GetComponent.<CharacterController>();
 	
 }
 
 //:::::::::::Start :::::::::://
 function Start () 
 {
-
-    //:: Débuter tous les affichages à FALSE
 
     //::chercher le composant de type AudioSource
     TypeAudioSource = GetComponent.<AudioSource>();
@@ -160,7 +203,21 @@ function Start ()
 function Update()
 {
 
-	//:: Lecture des variables d'axe
+//:::::::::::::: GERER VIES :::::::::://
+    if(Sante ==0)
+    {
+      Vies--;
+
+    }
+
+    if(Vies==0)
+    {
+        Debug.Log("GAMEOVER");
+    }
+
+
+//:::::::::::::: GERER DEPLACEMENT :::::::::://
+    //:: Lecture des variables d'axe
 	var inputX = Input.GetAxis('Horizontal');	
 	var inputY = Input.GetAxis('Vertical');
 
@@ -195,6 +252,21 @@ function Update()
 		animateur.SetFloat('vitesseDeplace', inputY * course);
 		//:: dire à l'animator d'utiliser cette variable du code	
 		dirMouvement = transform.TransformDirection(dirMouvement);
+
+
+//:::::::::::::: GERER ATTAQUE :::::::::://
+    if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncé
+    {
+        attack = true;
+        animateur.SetBool('animeAtack', true);
+        //:: dire à l'animator d'utiliser cette variable du code
+    }
+    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncé
+    {
+        attack = false;
+        animateur.SetBool('animeAtack', false);
+        //:: dire à l'animator d'utiliser cette variable du code
+    }
 
 
 //:::::::::::::: GERER COURSE :::::::::://
@@ -243,7 +315,7 @@ function Update()
 
 
 
-//:::::::::::::: GÉRER le Jetpack  :::::::::://
+//:::::::::::::: GÉRER VOLE :::::::::://
 	if(Input.GetKey(KeyCode.Z) && voler==true)
     {
 
@@ -300,7 +372,7 @@ function Update()
 function OnTriggerEnter(other: Collider) {
     if (other.gameObject.name == 'trigger') 
     {
-    	Debug.Log("trigger");
+    	//Debug.Log("trigger");
         
     }
 
@@ -314,7 +386,7 @@ function OnTriggerEnter(other: Collider) {
 function OnTriggerStay(other: Collider){
 
     //:::::::::::::: ACTIVER Jetpack   
-    if (other.gameObject.tag == 'FeeVolante') 
+    if (other.gameObject.tag == 'feeVolante') 
     {
         voler=true;// mettre a true
 
@@ -323,15 +395,40 @@ function OnTriggerStay(other: Collider){
 }//FIN OnTriggerStay
 
 
-
-
 //:::::::::::::: OnTriggerExit :::::::::::::://
 function OnTriggerExit(other: Collider) {
 
-	voler = false;
-    //Debug.Log('Zone pas voler');
-
-    
+	//:::::::::::::: ACTIVER Jetpack   
+    if (other.gameObject.tag == 'feeVolante') 
+    {
+        voler = false;// mettre a true
+    }
 }//FIN OnTriggerExit
+
+
+
+
+//:::::::::::::: function DiminueVies :::::::::::::://
+function DiminueVies(nbVies:int) {
+    Vies -= nbVies;
+    Debug.Log("Vies du héros"+Vies);
+}
+
+
+//:::::::::::::: function AugmenteVies :::::::::::::://
+function AugmenteVies(nbVies:int) {
+    Vies += nbVies;
+    Debug.Log("Vies du héros"+Vies);
+}
+
+
+
+
+
+//:::::::::::::: function updateDommages :::::::::::::://
+function updateDommages(dommagesInfliges:int) {
+    Sante -= dommagesInfliges;
+    Debug.Log("Santée du héros" +Sante);
+}
 
 
