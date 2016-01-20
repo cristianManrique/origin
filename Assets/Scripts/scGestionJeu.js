@@ -54,7 +54,6 @@
     public var AudioVictoire: AudioClip;
 
 
-<<<<<<< HEAD
    
    /*
 	* GameObject contient les panneaux avec le texte pour l'informations du jeu pour chaque éléments.
@@ -68,8 +67,8 @@
   	public var messageDiable:GameObject;
   	public var messageFantome:GameObject;
   	public var messageLutin:GameObject;
-=======
->>>>>>> parent of 11b4910... Messages personnalisés du tuto
+
+
 
     //::::::::::::::::::::://
     /*
@@ -104,7 +103,7 @@
     private var AlphaCoeurG:float;
 
     
->>>>>>> origin/master
+
 
 function Start () {
 
@@ -188,7 +187,7 @@ function OnTriggerEnter(other: Collider) {
                 gestionscBarreVies.AugmenteBarreVies();
                 AlphaCoeurG++;//Augmente le Alpha
                 gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
-                var message="un bonbon";
+                //var message="un bonbon";
                 //Debug.Log("bonbon");
                 Destroy(other.gameObject);
                 break;
@@ -255,7 +254,7 @@ function OnTriggerEnter(other: Collider) {
         gestionscAffichage.MettreAJourText(objet01, objet02);
         // mettre à jour le text affiché, cette fonction est dans scAffichage.js
     }
-<<<<<<< HEAD
+
 
 
 
@@ -266,6 +265,7 @@ function OnTriggerEnter(other: Collider) {
 		messageBonbon.SetActive(true);
 		Time.timeScale=0;
 		Destroy(other.gameObject);
+
 
 	}
 	if(other.gameObject.tag=='MessagePotionSort')
@@ -336,20 +336,19 @@ function OnTriggerExit(other:Collider) {
     }
 
 
-=======
->>>>>>> parent of 11b4910... Messages personnalisés du tuto
+
+
 
 }
 
 
 
-<<<<<<< HEAD
 
 
 
 
-=======
->>>>>>> parent of 11b4910... Messages personnalisés du tuto
+
+
 //:::::::::::::: function jouer une fois l'AudioVictoire :::::::::::::://
 function JoueSonVictoire(){
     GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
