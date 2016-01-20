@@ -8,7 +8,6 @@ import UnityEngine.UI;
  * Mise à jour Text UI, username UI, Message UI
  * @author Cristian Manrique
  * @author Jonathan Martel
- * @author Stéphane Leclerc
  * @date 2016-01-16
  * 
  */
@@ -31,19 +30,6 @@ import UnityEngine.UI;
 	public var ObjetText1:Text;
 	public var ObjetText2:Text;
 	public var messageText:Text;
-
-	/*
-	* GameObject contient les panneaux avec le texte pour l'informations du jeu pour chaque éléments.
-	*@acces public
-	* var GameObject
-	*/
-	public var messageBonbon:GameObject;
-	public var messagePotionSort:GameObject;
-	public var messageOgre:GameObject;
-	public var messageFeeVolante:GameObject;
-	public var messageDiable:GameObject;
-	public var messageFantome:GameObject;
-	public var messageLutin:GameObject;
 
 	//::::::::::::::::::::://
     /*
@@ -105,7 +91,6 @@ import UnityEngine.UI;
 
 	
 
-
 function Start () {
 
 	//:: Chercher le composant Image dans les sprites UI 
@@ -150,51 +135,6 @@ function MettreAJourMessage(message:String){
 
 }
 
-
-
-/* function qui permet de fermer le panneau d'information en un clic sur le X*/
-function fermerInformationBonbon()
-{
-	messageBonbon.SetActive(false);
-	Time.timeScale=1;
-}
-
-function fermerInformationPotionSort()
-{
-	messagePotionSort.SetActive(false);
-	Time.timeScale=1;
-}
-
-function fermerInformationOgre()
-{
-	messageOgre.SetActive(false);
-	Time.timeScale=1;
-}
-
-function fermerInformationFeeVolante()
-{
-	messageFeeVolante.SetActive(false);
-	Time.timeScale=1;
-}
-
-function fermerInformationDiable()
-{
-	messageDiable.SetActive(false);
-	Time.timeScale=1;
-}
-
-function fermerInformationFantome()
-{
-	messageFantome.SetActive(false);
-	Time.timeScale=1;
-}
-
-function fermerInformationLutin()
-{
-	messageLutin.SetActive(false);
-	Time.timeScale=1;
-}
-/* FiN function qui permet de fermer le panneau d'information en un clic sur le X*/
 
 //::: MettreAJourText afficher sur UI:::::::::://
 //ATTENTION: cette function est appelé dans scGestionJeu.js 
@@ -267,5 +207,4 @@ function AfficherPanneauBarreVieEnnemi(state: boolean){
         PanneauBarreVieEnnemi.SetActive(state);
         //active ou pas (true ou false);            
 }  
-
 
