@@ -54,6 +54,7 @@
     public var AudioVictoire: AudioClip;
 
 
+<<<<<<< HEAD
    
    /*
 	* GameObject contient les panneaux avec le texte pour l'informations du jeu pour chaque éléments.
@@ -67,6 +68,8 @@
   	public var messageDiable:GameObject;
   	public var messageFantome:GameObject;
   	public var messageLutin:GameObject;
+=======
+>>>>>>> parent of 11b4910... Messages personnalisés du tuto
 
     //::::::::::::::::::::://
     /*
@@ -175,7 +178,7 @@ function OnTriggerEnter(other: Collider) {
         if (other.gameObject.tag == "bonbon" || other.gameObject.tag == "gateau" || other.gameObject.tag == "potionVie" || other.gameObject.tag == "potionReveille" || other.gameObject.tag == "potionSort") {
             nbVies++;
             var message="un bonbon";
-           Debug.Log("bonbon");
+            Debug.Log("bonbon");
             Destroy(other.gameObject);
             JoueSonVictoire();
 
@@ -252,6 +255,7 @@ function OnTriggerEnter(other: Collider) {
         gestionscAffichage.MettreAJourText(objet01, objet02);
         // mettre à jour le text affiché, cette fonction est dans scAffichage.js
     }
+<<<<<<< HEAD
 
 
 
@@ -332,15 +336,20 @@ function OnTriggerExit(other:Collider) {
     }
 
 
+=======
+>>>>>>> parent of 11b4910... Messages personnalisés du tuto
 
 }
 
 
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> parent of 11b4910... Messages personnalisés du tuto
 //:::::::::::::: function jouer une fois l'AudioVictoire :::::::::::::://
 function JoueSonVictoire(){
     GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);

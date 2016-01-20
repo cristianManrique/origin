@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 import UnityEngine.UI;
 // permet d'importer les éléments du UI canvas jeu
 
@@ -37,6 +37,7 @@ import UnityEngine.UI;
 	*@acces public
 	* var GameObject
 	*/
+
 	public var messageBonbon:GameObject;
 	public var messagePotionSort:GameObject;
 	public var messageOgre:GameObject;
@@ -103,7 +104,6 @@ import UnityEngine.UI;
 
 
 
-	
 
 
 function Start () {
