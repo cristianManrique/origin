@@ -112,6 +112,7 @@ function OnTriggerEnter(other: Collider) {
     {
         switch(other.gameObject.tag)
         {
+            //:::::::::::::: Gestion des objets trouvées
             case "bonbon":
                 gestionscBarreVies.AugmenteBarreVies();
                 AlphaCoeurG++;//Augmente le Alpha
@@ -165,11 +166,64 @@ function OnTriggerEnter(other: Collider) {
                 checkPotion2=false;//remettre à false
                 break;
 
+            //:::::::::::::: Gestion Barre de vies Ennemis
             case "ogre":
                 gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
                 message="Attention c'est un ennemi";
                 //Debug.Log("potionSort");
                 break;
+            /*
+            //:::::::::::::: Gestion Panneaux Tuto
+            case "MessageBonbon":
+                //regleBonbon.informationBonbon(true);
+                messageBonbon.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessagePotionSort":
+                messagePotionSort.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageOgre":
+                messageOgre.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageFeeVolante":
+                messageFeeVolante.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageDiable":
+                messageDiable.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageFantome":
+                messageFantome.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageLutin":
+                messageLutin.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageBonbon":
+                //regleBonbon.informationBonbon(true);
+                messageBonbon.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+            */
 
 
         }
