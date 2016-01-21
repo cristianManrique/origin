@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\NewBehaviourScript.js" />
      <Compile Include="Assets\Scripts\scAffichage.js" />
      <Compile Include="Assets\Scripts\scAttaqueMalcom.js" />
      <Compile Include="Assets\Scripts\scAutoDestroyThis.js" />
@@ -52,9 +53,12 @@
      <Compile Include="Assets\Scripts\scBarreVies.js" />
      <Compile Include="Assets\Scripts\scBgVideo.js" />
      <Compile Include="Assets\Scripts\scCamera.js" />
+     <Compile Include="Assets\Scripts\scDeplacementFee.js" />
      <Compile Include="Assets\Scripts\scDeplacementPerso.js" />
+     <Compile Include="Assets\Scripts\scDetectionProx.js" />
      <Compile Include="Assets\Scripts\scEpeeMalcom.js" />
      <Compile Include="Assets\Scripts\scGestionJeu.js" />
+     <Compile Include="Assets\Scripts\scLutin.js" />
      <Compile Include="Assets\Scripts\scMassueOgre.js" />
      <Compile Include="Assets\Scripts\scMenuIntro.js" />
      <Compile Include="Assets\Scripts\scOgre.js" />

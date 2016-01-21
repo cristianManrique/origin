@@ -47,6 +47,13 @@ import UnityEngine.UI;
      */
 	private var Limite:float = 0.0;
 
+	/**
+     * Gérer le alpha du coeur
+     * @access public
+     * @var float
+     */
+	public var AlphaCoeur:float;
+
 	//::::::::::::::::::::://
 	/*
 	* Slider Barre de vie
@@ -73,21 +80,27 @@ import UnityEngine.UI;
 	*/
 	public var restant:int;
 
-
-	public var AlphaCoeur:float;
-
+	/*
+	* Indique le coeur à diminuer le alpha
+	* @access private
+	* @var int
+	*/
 	public var numCoeur:int = 3;
 
+
+//:::::::::::Awake :::::::::://
+function Awake()
+{
+
+    
+	
+}
 
 //:::::::::::Start :::::::::://
 function Start () {
 
-	restant= maxBarre;//Débuter à 10 comme la valeur dans slider
-	canvas = GameObject.FindWithTag("canvas");
+	restant= maxBarre;//Débuter 
 
-
-	//:: Chercher LE SCRIPTS JS
-    gestionscAffichage=canvas.GetComponent.<scAffichage>();
 
 }
 
@@ -95,23 +108,10 @@ function Start () {
 //:::::::::::::: UPDATE :::::::::::::://
 function Update () {
 
-	//::Diminuer le Slider
-	if(EnnemiSlider.value != restant) {
+
 
 		EnnemiSlider.value = restant;
-		AlphaCoeur = restant;//:: permet de diminuer la alpha du coeur
-		gestionscAffichage.DiminueAlphaCoeurUI(AlphaCoeur, numCoeur);
-		//:: ATTENTION: function appeler dans scAffichage.js
-	}
 
-	/*
-	//:: Éliminer un coeur/vie
-	if (EnnemiSlider.value == 0 && numCoeur<= 0) {
-		restant=10;//Remettre à 10
-		numCoeur--;//elimine un coeur
-
-	}
-	*/
 
 }
 
