@@ -132,10 +132,26 @@ private var delaiCoupOgre:int = 2;
 */
 private var donnerUnCoup:boolean = false;
 
+/*
+* GameObject canvas contient panneaux d'affichage
+* @access private
+* @var GameObject
+*/
+private var canvas: GameObject;
+
+/*
+* Contient le script scAffichage.js
+* @access private
+* @var scAffichageTP.js
+*/
+private var gestionscAffichage: scAffichage;
+
 function Start () {
     modeAttaque = false;//N'est pas en mode attaque au départ.
     heros = GameObject.FindWithTag("heros");
     angleActuel = this.transform.eulerAngles;//Détermine l'orientation de départ de l'ogre.
+    canvas = GameObject.FindWithTag("canvas");//chercher canvas
+    gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
 }
 
 function Update () {
@@ -211,6 +227,7 @@ function mort() {
     bonus.GetComponent(BoxCollider).isTrigger = true;
     bonus.tag = "bonbon";
     Destroy(ogre);
+    gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher Barre de vie de Ennemi
 }
 
 //Détermine la direction vers laquelle l'ogre doit tourner et le moment ou il doit changer de direction.
