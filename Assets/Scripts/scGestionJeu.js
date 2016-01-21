@@ -11,14 +11,7 @@
 
  //:::::::::::variables :::::::::://
   
-    /*
-    * GameObject canvas contient panneaux d'affichage
-    * @access public
-    * @var GameObject
-    */
-    public var nbVies: int= 3;
-
-
+    
     //::::::::::::::::::::://
     /*
     * GameObject canvas contient panneaux d'affichage
@@ -124,7 +117,8 @@ function Start () {
 
 function Update () {
 
-    //::: Mettre à jour la variable numCoeur dans scBarredeVie.js
+    //:: Permet de mettre à jour L'affichage des coeurs
+    //:: ATTENTION:  numCoeur dans scBarredeVie.js
     numCoeurG = gestionscBarreVies.numCoeur;
 
 }
@@ -145,6 +139,7 @@ function OnTriggerEnter(other: Collider) {
     {
         switch(other.gameObject.tag)
         {
+            //:::::::::::::: Gestion des objets trouvées
             case "bonbon":
                 gestionscBarreVies.AugmenteBarreVies();
                 AlphaCoeurG++;//Augmente le Alpha
@@ -198,17 +193,69 @@ function OnTriggerEnter(other: Collider) {
                 checkPotion2=false;//remettre à false
                 break;
 
+            //:::::::::::::: Gestion Barre de vies Ennemis
             case "ogre":
                 gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
-               // message="Attention c'est un boss";
+                message="Attention c'est un ennemi";
                 //Debug.Log("potionSort");
                 break;
+            /*
+            //:::::::::::::: Gestion Panneaux Tuto
+            case "MessageBonbon":
+                //regleBonbon.informationBonbon(true);
+                messageBonbon.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessagePotionSort":
+                messagePotionSort.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageOgre":
+                messageOgre.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageFeeVolante":
+                messageFeeVolante.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageDiable":
+                messageDiable.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageFantome":
+                messageFantome.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageLutin":
+                messageLutin.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+
+            case "MessageBonbon":
+                //regleBonbon.informationBonbon(true);
+                messageBonbon.SetActive(true);
+                Time.timeScale=0;
+                Destroy(other.gameObject);
+                break;
+            */
 
 
         }
        
        if (other.gameObject.tag == "bonbon" || other.gameObject.tag == "gateau" || other.gameObject.tag == "potionVie" || other.gameObject.tag == "potionReveille" || other.gameObject.tag == "potionSort") {
-          //nbVies++;
           JoueSonVictoire();
         }
        // gestionscAffichage.MettreAJourMessage(message);
@@ -295,23 +342,15 @@ function OnTriggerExit(other:Collider) {
     {
         switch(other.gameObject.tag)
         {
-            case "boss1":
+            case "ogre":
                 gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher ce panneau
                 break;
         }
     }
  }
 
-
-
-
 //:::::::::::::: function jouer une fois l'AudioVictoire :::::::::::::://
 function JoueSonVictoire(){
     GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
 }
 
-//:::::::::::::: function updateDommages :::::::::::::://
-function updateDommages(dommages:int) {
-    nbVies -= dommages;
-    Debug.Log(nbVies);
-}

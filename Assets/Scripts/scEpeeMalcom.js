@@ -3,7 +3,8 @@
 /**
 * Script de gestion de l'épée de  Malcom.
 * @author David Lachambre
-* @date 16-01-2015
+@author Cristian Manrique
+* @date 2016-01-20
 */
 
 
@@ -14,11 +15,13 @@
 */
 private var heros:GameObject;
 
-/**
-* Script de gestion de la massue de l'ogre.
-* @author David Lachambre
-* @date 16-01-2015
+/*
+* Héros (Clara ou Malcom).
+* @access private
+* @var GameObject
 */
+private var canvas:GameObject;
+
 
 /*
 * Quantité de dommage infligée par cette arme.
@@ -32,11 +35,24 @@ private var dommagesInfliges:int = 1;
 * @access private
 * @var scOgre.js
 */
-private var scriptOgre:scOgre;
+private var scriptscOgre:scOgre;
+
+/*
+* Contient le script barre de vies de Ennemi
+* @access private
+* @var scBarreEnnemi.js
+*/
+
+private var gestionscBarreEnnemi:scBarreEnnemi;
+
+
 
 function Start (){
 
 	heros = GameObject.FindWithTag("heros");
+    canvas = GameObject.FindWithTag("canvas");
+
+    gestionscBarreEnnemi= canvas.GetComponent.<scBarreEnnemi>();
 
 }
 
@@ -51,8 +67,10 @@ function OnTriggerEnter(other:Collider) {
         {
             case "ogre":
                 Debug.Log(other.gameObject);
-		        scriptOgre = other.gameObject.GetComponent(scOgre);//Aller chercher le script de l'ogre
-		        scriptOgre.updateDommages(dommagesInfliges);//chercher la function updateDommages 
+		        scriptscOgre = other.gameObject.GetComponent(scOgre);//Aller chercher le script de l'ogre
+		        scriptscOgre.updateDommages(dommagesInfliges);//chercher la function updateDommages
+                gestionscBarreEnnemi.DiminuerBarreViesEnnemi();// diminue la bare de vie
+
                 break;
 
             case "diable":

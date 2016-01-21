@@ -14,17 +14,17 @@
 private var dommagesInfliges:int = 1;
 
 /*
-* Contient le script qui gère le jeu.
+* Contient le script qui gère le heros
 * @access private
-* @var scGestionJeu
+* @var scHeros
 */
-private var scriptGestionJeu:scGestionJeu;
+private var scriptGestionJeu:scHeros;
 
 //Infliges des dommages au héros quand la massue le touche.
 function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
         Debug.Log(autreObjet.gameObject);
-        scriptGestionJeu = autreObjet.gameObject.GetComponent(scGestionJeu);
+        scriptGestionJeu = autreObjet.gameObject.GetComponent(scHeros);
         scriptGestionJeu.updateDommages(dommagesInfliges);
     }
 }
