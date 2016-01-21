@@ -212,7 +212,7 @@ function Update()
 
     if(Vies==0)
     {
-        Debug.Log("GAMEOVER");
+        //Debug.Log("GAMEOVER");
     }
 
 
