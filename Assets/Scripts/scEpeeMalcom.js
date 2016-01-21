@@ -1,10 +1,9 @@
-﻿#pragma strict
+#pragma strict
 
 /**
 * Script de gestion de l'épée de  Malcom.
-* @author David Lachambre
-@author Cristian Manrique
-* @date 2016-01-20
+* @author Cristian Manrique
+* @date 16-01-2016
 */
 
 
@@ -15,13 +14,11 @@
 */
 private var heros:GameObject;
 
-/*
-* Héros (Clara ou Malcom).
-* @access private
-* @var GameObject
+/**
+* Script de gestion de la massue de l'ogre.
+* @author David Lachambre
+* @date 16-01-2015
 */
-private var canvas:GameObject;
-
 
 /*
 * Quantité de dommage infligée par cette arme.
@@ -35,24 +32,18 @@ private var dommagesInfliges:int = 1;
 * @access private
 * @var scOgre.js
 */
-private var scriptscOgre:scOgre;
+private var scriptOgre:scOgre;
 
 /*
-* Contient le script barre de vies de Ennemi
+* Contient le script qui gère le diable
 * @access private
-* @var scBarreEnnemi.js
+* @var scDiable.js
 */
-
-private var gestionscBarreEnnemi:scBarreEnnemi;
-
-
+private var scriptDiable:scDiable;
 
 function Start (){
 
 	heros = GameObject.FindWithTag("heros");
-    canvas = GameObject.FindWithTag("canvas");
-
-    gestionscBarreEnnemi= canvas.GetComponent.<scBarreEnnemi>();
 
 }
 
@@ -67,13 +58,14 @@ function OnTriggerEnter(other:Collider) {
         {
             case "ogre":
                 Debug.Log(other.gameObject);
-		        scriptscOgre = other.gameObject.GetComponent(scOgre);//Aller chercher le script de l'ogre
-		        scriptscOgre.updateDommages(dommagesInfliges);//chercher la function updateDommages
-                gestionscBarreEnnemi.DiminuerBarreViesEnnemi();// diminue la bare de vie
-
+		        scriptOgre = other.gameObject.GetComponent(scOgre);//Aller chercher le script de l'ogre
+		        scriptOgre.updateDommages(dommagesInfliges);//chercher la function updateDommages 
                 break;
 
             case "diable":
+                Debug.Log(other.gameObject);
+		        scriptDiable = other.gameObject.GetComponent(scDiable);//Aller chercher le script du diable
+		        scriptDiable.updateDommages(dommagesInfliges);//chercher la function updateDommages 
             	break;
 
             case "lutin":

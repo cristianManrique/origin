@@ -65,7 +65,7 @@ private var decalageHeros:int = 20;//Détermine l'angle de la caméra
 function Start () {
     heros = GameObject.FindWithTag("heros").transform;
 }
-function Update () {
+function FixedUpdate () {
     
     //CODE SOURCE : http://answers.unity3d.com/questions/544691/2d-orthographic-camera-follow.html
     //Code de caméra suiveuse 2.5D + code de zoom modifié.
