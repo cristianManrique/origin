@@ -52,7 +52,7 @@ import UnityEngine.UI;
      * @access private
      * @var float
      */
-	private var TempsDim:float = 3.0;
+	private var TempsDim:float = 6.0;
 
 	/**
      * Limite la barre de vie
