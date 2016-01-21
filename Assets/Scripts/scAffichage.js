@@ -219,5 +219,50 @@ function AugmenteAlphaCoeurUI(AlphaCoeur, numCoeur) {
 function AfficherPanneauBarreVieEnnemi(state: boolean){
         PanneauBarreVieEnnemi.SetActive(state);
         //active ou pas (true ou false);            
-}  
+} 
+
+ /* function qui permet de fermer le panneau d'information en un clic sur le X*/
+function fermerInformationBonbon()
+{
+	messageBonbon.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationPotionSort()
+{
+	messagePotionSort.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationOgre()
+{
+	messageOgre.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationFeeVolante()
+{
+	messageFeeVolante.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationDiable()
+{
+	messageDiable.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationFantome()
+{
+	messageFantome.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationLutin()
+{
+	messageLutin.SetActive(false);
+	Time.timeScale=1;
+}
+/* FiN function qui permet de fermer le panneau d'information en un clic sur le X*/
+ 
 

@@ -196,10 +196,10 @@ function OnTriggerEnter(other: Collider) {
             //:::::::::::::: Gestion Barre de vies Ennemis
             case "ogre":
                 gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
-                message="Attention c'est un ennemi";
+               // message="Attention c'est un ennemi";
                 //Debug.Log("potionSort");
                 break;
-            /*
+            
             //:::::::::::::: Gestion Panneaux Tuto
             case "MessageBonbon":
                 //regleBonbon.informationBonbon(true);
@@ -250,7 +250,7 @@ function OnTriggerEnter(other: Collider) {
                 Time.timeScale=0;
                 Destroy(other.gameObject);
                 break;
-            */
+            
 
 
         }
@@ -264,76 +264,7 @@ function OnTriggerEnter(other: Collider) {
         // mettre à jour le text affiché, cette fonction est dans scAffichage.js
     }
 
- 
-
-
-
-
-    /*permet d'afficher le message à propos de l'élément appellé selon le tag lorsque le joueur entre dans un trigger*/
-    if(other.gameObject.tag=='MessageBonbon')
-	{
-		//regleBonbon.informationBonbon(true);
-		messageBonbon.SetActive(true);
-		Time.timeScale=0;
-		Destroy(other.gameObject);
-
-
-	}
-	if(other.gameObject.tag=='MessagePotionSort')
-	{
-		
-		messagePotionSort.SetActive(true);
-		Time.timeScale=0;
-		Destroy(other.gameObject);
-
-	}
-
-	if(other.gameObject.tag=='MessageOgre')
-	{
-		
-		messageOgre.SetActive(true);
-		Time.timeScale=0;
-		Destroy(other.gameObject);
-
-	}
-	if(other.gameObject.tag=='MessageFeeVolante')
-	{
-		
-		messageFeeVolante.SetActive(true);
-		Time.timeScale=0;
-		Destroy(other.gameObject);
-
-	}
-
-	if(other.gameObject.tag=='MessageDiable')
-	{
-		
-		messageDiable.SetActive(true);
-		Time.timeScale=0;
-		Destroy(other.gameObject);
-
-	}
-
-	if(other.gameObject.tag=='MessageFantome')
-	{
-		
-		messageFantome.SetActive(true);
-		Time.timeScale=0;
-		Destroy(other.gameObject);
-
-	}
-
-	if(other.gameObject.tag=='MessageLutin')
-	{
-		
-		messageLutin.SetActive(true);
-		Time.timeScale=0;
-		Destroy(other.gameObject);
-
-	}
-	/*fin d'afficher le message à propos de l'élément appellé selon le tag*/
-
- }/*fin trigger enter*/
+}/*fin trigger enter*/
 
 
 
@@ -353,4 +284,8 @@ function OnTriggerExit(other:Collider) {
 function JoueSonVictoire(){
     GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
 }
+
+
+
+
 
