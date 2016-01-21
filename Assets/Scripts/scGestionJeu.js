@@ -5,7 +5,6 @@
  * Gestion de tout le Jeu
  * @author Cristian Manrique
  * @author Jonathan Martel
- * @author Stéphane Leclerc
  * @date 2016-01-16
  * 
  */
@@ -52,6 +51,7 @@
     * @var AudioClip
     */
     public var AudioVictoire: AudioClip;
+
 
 
    
@@ -132,55 +132,17 @@ function Update () {
 //:::::::::::::: OnTriggerEnter :::::::::::::://
 function OnTriggerEnter(other: Collider) {
 
-	//:::::::::::::: Gérer le jeu
-    /*if(other.gameObject.tag)
-    {*/
 
-//        switch(other.gameObject.tag)
-//        {
-//            case "bonbon"://cleA 
-//                nbVies++;
-//                var message="un bonbon";
-//                Debug.Log("bonbon");
-//                Destroy(other.gameObject);
-//
-//                break;
-//
-//            case "gateau"://cleA 
-//                nbVies++;
-//                message="un gateau";
-//                Debug.Log("gateau");
-//                Destroy(other.gameObject);
-//                break;
-//
-//            case "potionVie"://cleA 
-//                nbVies++;
-//                message="une potion Vie";
-//                Debug.Log("potionVie");
-//                Destroy(other.gameObject);
-//                break;
-//
-//            case "potionReveille"://cleA 
-//                nbVies++;
-//                message="une potion Reveille";
-//                Debug.Log("potionReveille");
-//                Destroy(other.gameObject);
-//                break;
-//
-//            case "potionSort"://cleA 
-//                nbVies++;
-//                message="une potion jeter un sort";
-//                Debug.Log("potionSort");
-//                Destroy(other.gameObject);
-//                break;
-//         }
-        if (other.gameObject.tag == "bonbon" || other.gameObject.tag == "gateau" || other.gameObject.tag == "potionVie" || other.gameObject.tag == "potionReveille" || other.gameObject.tag == "potionSort") {
+       /* if (other.gameObject.tag == "bonbon" || other.gameObject.tag == "gateau" || other.gameObject.tag == "potionVie" || other.gameObject.tag == "potionReveille" || other.gameObject.tag == "potionSort") {
             nbVies++;
             var message="un bonbon";
             Debug.Log("bonbon");
             Destroy(other.gameObject);
             JoueSonVictoire();
-
+         }*/
+     
+    if(other.gameObject.tag)
+    {
         switch(other.gameObject.tag)
         {
             case "bonbon":
@@ -194,7 +156,7 @@ function OnTriggerEnter(other: Collider) {
 
             case "gateau":
                 gestionscBarreVies.AugmenteBarreVies();
-                message="un gateau";
+                //message="un gateau";
                 //Debug.Log("gateau");
                 Destroy(other.gameObject);
                 AlphaCoeurG++;//Augmente le Alpha
@@ -205,14 +167,14 @@ function OnTriggerEnter(other: Collider) {
                 objet01++;//potionVie trouvée
                 checkPotion1=true;
                 gestionscAffichage.MettreAJourPotionsUI(checkPotion1, checkPotion2);
-                message="une potion Vie";
+                //message="une potion Vie";
                 //Debug.Log("potionVie");
                 Destroy(other.gameObject);
                 checkPotion1=false;//remettre à false
                 break;
 
             case "potionReveille":
-                message="une potion Reveille";
+               // message="une potion Reveille";
                 Destroy(other.gameObject);
                 break;
 
@@ -220,7 +182,7 @@ function OnTriggerEnter(other: Collider) {
                 objet02++;//potionSort trouvée
                 checkPotion2=true;
                 gestionscAffichage.MettreAJourPotionsUI(checkPotion1, checkPotion2);
-                message="une potion magique";
+                //message="une potion magique";
                 //Debug.Log("potionSort");
                 Destroy(other.gameObject);
                 checkPotion2=false;//remettre à false
@@ -230,7 +192,7 @@ function OnTriggerEnter(other: Collider) {
                 objet02++;//potionSort trouvée
                 checkPotion2=true;
                 gestionscAffichage.MettreAJourPotionsUI(checkPotion1, checkPotion2);
-                message="une potion magique";
+               // message="une potion magique";
                 //Debug.Log("potionSort");
                 Destroy(other.gameObject);
                 checkPotion2=false;//remettre à false
@@ -238,22 +200,24 @@ function OnTriggerEnter(other: Collider) {
 
             case "ogre":
                 gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
-                message="Attention c'est un boss";
+               // message="Attention c'est un boss";
                 //Debug.Log("potionSort");
                 break;
 
 
-
         }
+       
        if (other.gameObject.tag == "bonbon" || other.gameObject.tag == "gateau" || other.gameObject.tag == "potionVie" || other.gameObject.tag == "potionReveille" || other.gameObject.tag == "potionSort") {
           //nbVies++;
           JoueSonVictoire();
         }
-        gestionscAffichage.MettreAJourMessage(message);
+       // gestionscAffichage.MettreAJourMessage(message);
         // mettre à jour le text affiché, cette fonction est dans scAffichageTP.js
         gestionscAffichage.MettreAJourText(objet01, objet02);
         // mettre à jour le text affiché, cette fonction est dans scAffichage.js
     }
+
+ 
 
 
 
@@ -322,7 +286,9 @@ function OnTriggerEnter(other: Collider) {
 	}
 	/*fin d'afficher le message à propos de l'élément appellé selon le tag*/
 
-}
+ }/*fin trigger enter*/
+
+
 
 function OnTriggerExit(other:Collider) {
     if(other.gameObject.tag)
@@ -334,17 +300,7 @@ function OnTriggerExit(other:Collider) {
                 break;
         }
     }
-
-
-
-
-
-}
-
-
-
-
-
+ }
 
 
 
