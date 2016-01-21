@@ -218,7 +218,7 @@ function gererDirection() {
     changementDirection = false;
     angleActuel = this.transform.eulerAngles;
     angleCible = angleActuel + incrementCible;
-    Debug.Log("tourne");
+    //Debug.Log("tourne");
     yield WaitForSeconds(delaiAvantTourner);
     changementDirection = true;
 }
