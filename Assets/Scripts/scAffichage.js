@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 import UnityEngine.UI;
 // permet d'importer les éléments du UI canvas jeu
 
@@ -26,10 +26,25 @@ import UnityEngine.UI;
 	* @access public
 	* @var Text
 	*/
-	public var ObjetTextVie:Text;
 	public var ObjetText1:Text;
 	public var ObjetText2:Text;
 	public var messageText:Text;
+
+
+	/*
+	* GameObject contient les panneaux avec le texte pour l'informations du jeu pour chaque éléments.
+	*@acces public
+	* var GameObject
+	*/
+
+	public var messageBonbon:GameObject;
+	public var messagePotionSort:GameObject;
+	public var messageOgre:GameObject;
+	public var messageFeeVolante:GameObject;
+	public var messageDiable:GameObject;
+	public var messageFantome:GameObject;
+	public var messageLutin:GameObject;
+
 
 	//::::::::::::::::::::://
     /*
@@ -89,7 +104,6 @@ import UnityEngine.UI;
 
 
 
-	
 
 function Start () {
 
@@ -121,7 +135,7 @@ function Update () {
 function MettreAJourVie(objet01:int)
 {
 	//:: convertir en entier
-	ObjetTextVie.text = objet01.ToString();
+	//ObjetTextVie.text = objet01.ToString();
 
 	//écraser le texte UI
 
@@ -203,7 +217,6 @@ function AugmenteAlphaCoeurUI(AlphaCoeur, numCoeur) {
 
 //:::::::::::function AfficherPanneauBarreVieEnnemi :::::::::://
 function AfficherPanneauBarreVieEnnemi(state: boolean){
-
         PanneauBarreVieEnnemi.SetActive(state);
         //active ou pas (true ou false);            
 }  

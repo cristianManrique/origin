@@ -1,9 +1,9 @@
 #pragma strict
 
 /**
-* Script de gestion de la massue de l'ogre.
+* Script de gestion de la fourche du petit diable.
 * @author David Lachambre
-* @date 16-01-2015
+* @date 21-01-2016
 */
 
 /*
@@ -11,20 +11,20 @@
 * @access private
 * @var int
 */
-private var dommagesInfliges:int = 1;
+private var dommagesInfliges:int = 0.5;
 
 /*
-* Contient le script qui gère le heros
+* Contient le script qui gère le jeu.
 * @access private
-* @var scHeros
+* @var scGestionJeu
 */
-private var scriptGestionJeu:scHeros;
+private var scriptGestionJeu:scGestionJeu;
 
-//Infliges des dommages au héros quand la massue le touche.
+//Infliges des dommages au héros quand la fourche le touche.
 function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
         Debug.Log(autreObjet.gameObject);
-        scriptGestionJeu = autreObjet.gameObject.GetComponent(scHeros);
+        scriptGestionJeu = autreObjet.gameObject.GetComponent(scGestionJeu);
         scriptGestionJeu.updateDommages(dommagesInfliges);
     }
 }

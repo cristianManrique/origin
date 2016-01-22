@@ -1,9 +1,9 @@
-﻿#pragma strict
+#pragma strict
 
 /**
 * Script de gestion de l'épée de  Malcom.
-* @author David Lachambre
-* @date 16-01-2015
+* @author Cristian Manrique
+* @date 16-01-2016
 */
 
 
@@ -34,6 +34,13 @@ private var dommagesInfliges:int = 1;
 */
 private var scriptOgre:scOgre;
 
+/*
+* Contient le script qui gère le diable
+* @access private
+* @var scDiable.js
+*/
+private var scriptDiable:scDiable;
+
 function Start (){
 
 	heros = GameObject.FindWithTag("heros");
@@ -56,6 +63,9 @@ function OnTriggerEnter(other:Collider) {
                 break;
 
             case "diable":
+                Debug.Log(other.gameObject);
+		        scriptDiable = other.gameObject.GetComponent(scDiable);//Aller chercher le script du diable
+		        scriptDiable.updateDommages(dommagesInfliges);//chercher la function updateDommages 
             	break;
 
             case "lutin":
