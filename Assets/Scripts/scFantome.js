@@ -12,28 +12,28 @@
 *@var float
 *@access public
 **/
-var distance: float;
+ public var distance: float;
 
 /**
 *distance entre le heros et le fantome
 *@var float
 *@access public
 **/
-var proximite: float;
+ public var proximite: float;
 
 /**
 *le joueuer
 *@var GameObject
 *@access public
 **/
-var heros: GameObject;
+ public var heros: GameObject;
 
 /**
 *GameObject Fantome
 *@var GameObject
 *@access public
 **/
-var fantome: GameObject;
+ public var fantome: GameObject;
 
 function Start () {
 	heros = GameObject.FindWithTag("heros");

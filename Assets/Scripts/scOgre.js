@@ -160,7 +160,6 @@ private var canvas: GameObject;
 private var gestionscAffichage: scAffichage;
 
 function Start () {
-<<<<<<< HEAD
     
     //Initialisation et configuration du navMeshAgent
     navMeshOgre = ogre.GetComponent(NavMeshAgent);
@@ -171,12 +170,7 @@ function Start () {
     cible = GameObject.FindWithTag("heros").transform;
     
     controleurOgre = ogre.GetComponent(CharacterController);
-    
-=======
-    modeAttaque = false;//N'est pas en mode attaque au départ.
-    heros = GameObject.FindWithTag("heros");
-    angleActuel = this.transform.eulerAngles;//Détermine l'orientation de départ de l'ogre.
->>>>>>> upstream/master
+
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
 }
@@ -196,7 +190,7 @@ function Update () {
     else {//Si le héros n'est pas suffisamment près...
         if(destinationPatrouilleActuelle < destinationsPatrouille.length){
             patrouiller();
-            Debug.Log("patrouille");
+            //Debug.Log("patrouille");
         }
         else {    
             destinationPatrouilleActuelle = 0;//Reset de la prochaine destination de patrouille.
@@ -205,7 +199,10 @@ function Update () {
     var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
     position3D.y -= gravite * Time.deltaTime;//Permet d'appliquer la gravite sur l'ogre en diminuant progressivement la hauteur sur l'axe des Y.
     controleurOgre.Move(position3D);//Appliquer la gravité seulement, le déplacement en x et z est régi par le navMesh.
+
+  
     if (pointsVieOgre <= 0) {//L'ogre est mort
+    	Debug.Log('entre fonction moins 0');
         mort();
     }
 }
@@ -274,27 +271,6 @@ function mort() {
     bonus.tag = "bonbon";
     Destroy(ogre);
     gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher Barre de vie de Ennemi
-<<<<<<< HEAD
-=======
-}
-
-//Détermine la direction vers laquelle l'ogre doit tourner et le moment ou il doit changer de direction.
-function gererDirection() {
-    changementDirection = false;
-    angleActuel = this.transform.eulerAngles;
-    angleCible = angleActuel + incrementCible;
-    //Debug.Log("tourne");
-    yield WaitForSeconds(delaiAvantTourner);
-    changementDirection = true;
-}
-
-//Détermine si l'ogre doit donner un coup et la fréquence de ceux-ci.
-function frapper() {
-    donnerUnCoup = false;
-    //Code pour donner un coup par animation
-    yield WaitForSeconds(delaiCoupOgre);
-    donnerUnCoup = true;
->>>>>>> upstream/master
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
