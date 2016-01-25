@@ -97,6 +97,7 @@
     */
     private var AlphaCoeurG:float;
 
+
  
    /*
     * c'est la quantite total des potion
@@ -106,6 +107,30 @@
     private var quantitePotionSort:int=0;
 
 
+     /*
+    * Script pour lancer un sort
+    * @access private
+    * @var Script
+    */
+     private var scriptLancerSort: scLancerSort;
+
+
+
+     /*
+    * Point Origin des sorts, objet parent du scLancerSort
+    * @access private
+    * @var GameObject
+    */
+    private var objOriginSorts: GameObject;
+
+     /*
+    * Script pour changer d'arme
+    * @access private
+    * @var Script
+    */
+     private var scriptChoisirArme: scChoisirArme;
+
+     private var objet02;
 
 function Start () {
 
@@ -122,16 +147,31 @@ function Start () {
     //:: Débuter Affichages des panneaux à FALSE
     gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);
 
+    objOriginSorts = GameObject.FindWithTag("originSort");
+    scriptLancerSort = objOriginSorts.GetComponent(scLancerSort);
+
+    scriptChoisirArme = GetComponent(scChoisirArme);
+
 }
 
 function Update () {
+
+	//Debug.Log("objet02 = "+objet02);
+	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
+	scriptLancerSort.noPotions = objet02;
+	scriptChoisirArme.noPotions = objet02;
 
     //:: Permet de mettre à jour L'affichage des coeurs
     //:: ATTENTION:  numCoeur dans scBarredeVie.js
     numCoeurG = gestionscBarreVies.numCoeur;
 
+
    //permet l'affichage de la quantité total des potion de Sort
      gestionscAffichage.quantitePotionSort(objet01, quantitePotionSort);
+
+   
+
+
 
 
 }
@@ -189,7 +229,11 @@ function OnTriggerEnter(other: Collider) {
             //:::::::::::::: Gestion Barre de vies Ennemis
             case "ogre":
                 gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
+
                // message="Attention c'est un ennemi";
+
+                //message="Attention c'est un ennemi";
+
                 //Debug.Log("potionSort");
                 break;
 

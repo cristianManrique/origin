@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: f21d003f77f7cb84da6eebfadc5035d7
+<<<<<<< HEAD:Assets/Resources/fantome.prefab.meta
 timeCreated: 1453494568
+=======
+timeCreated: 1453496724
+>>>>>>> refs/remotes/ReveSansFin/master:Assets/Prefabs/Model3D/Fantome.prefab.meta
 licenseType: Free
 NativeFormatImporter:
   userData: 

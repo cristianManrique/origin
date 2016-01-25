@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\scBarreVies.js" />
      <Compile Include="Assets\Scripts\scBgVideo.js" />
      <Compile Include="Assets\Scripts\scCamera.js" />
+     <Compile Include="Assets\Scripts\scChoisirArme.js" />
      <Compile Include="Assets\Scripts\scDeplacementFee.js" />
      <Compile Include="Assets\Scripts\scDiable.js" />
      <Compile Include="Assets\Scripts\scEpeeMalcom.js" />
@@ -58,6 +59,7 @@
      <Compile Include="Assets\Scripts\scFourcheDiable.js" />
      <Compile Include="Assets\Scripts\scGestionJeu.js" />
      <Compile Include="Assets\Scripts\scHeros.js" />
+     <Compile Include="Assets\Scripts\scLancerSort.js" />
      <Compile Include="Assets\Scripts\scLutin.js" />
      <Compile Include="Assets\Scripts\scMassueOgre.js" />
      <Compile Include="Assets\Scripts\scMenuIntro.js" />

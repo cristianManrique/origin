@@ -67,7 +67,7 @@ private var navMeshOgre:NavMeshAgent;
 * @access private
 * @var Transform
 */
-private var cible:Transform;
+public var cible:Transform;
 
 /*
 * Destination actuelle de l'ogre en mode patrouille.
@@ -160,6 +160,7 @@ private var canvas: GameObject;
 private var gestionscAffichage: scAffichage;
 
 function Start () {
+
     
     //Initialisation et configuration du navMeshAgent
     navMeshOgre = ogre.GetComponent(NavMeshAgent);
@@ -171,20 +172,26 @@ function Start () {
     
     controleurOgre = ogre.GetComponent(CharacterController);
 
+    /*
+    modeAttaque = false;//N'est pas en mode attaque au départ.
+    heros = GameObject.FindWithTag("heros");
+    angleActuel = this.transform.eulerAngles;//Détermine l'orientation de départ de l'ogre.
+    */
+
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
 }
 
 function Update () {
     
-    distanceHeros = Vector3.Distance (this.transform.position, cible.position);//Calcul de la distance entre l'ogre et le héros.
+    distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre l'ogre et le héros.
     
     if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
         frapper();
         Debug.Log("frappe"); 
     }
     else if (distanceHeros < distancePatrouille) {//Si le héros est assez près pour être poursuivi...
-        Debug.Log("poursuite");
+        //Debug.Log("poursuite");
         poursuivre();
     }
     else {//Si le héros n'est pas suffisamment près...
@@ -229,7 +236,7 @@ function frapper () {
 //Méthode de poursuite de l'ogre.
 function poursuivre () {
     navMeshOgre.speed = vitessePoursuite;
-    navMeshOgre.SetDestination(cible.position);//Poursuite du héros.
+    navMeshOgre.SetDestination(cible.transform.position);//Poursuite du héros.
 }
 
 //Méthode de patrouille de l'ogre.
@@ -271,7 +278,31 @@ function mort() {
     bonus.tag = "bonbon";
     Destroy(ogre);
     gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher Barre de vie de Ennemi
+
 }
+
+
+
+
+//Détermine la direction vers laquelle l'ogre doit tourner et le moment ou il doit changer de direction.
+/*function gererDirection() {
+    changementDirection = false;
+    angleActuel = this.transform.eulerAngles;
+    angleCible = angleActuel + incrementCible;
+    //Debug.Log("tourne");
+    yield WaitForSeconds(delaiAvantTourner);
+    changementDirection = true;
+}*/
+
+//Détermine si l'ogre doit donner un coup et la fréquence de ceux-ci.
+/*function frapper() {
+    donnerUnCoup = false;
+    //Code pour donner un coup par animation
+    yield WaitForSeconds(delaiCoupOgre);
+    donnerUnCoup = true;
+>>>>>>> upstream/master
+}*/
+
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:int) {
