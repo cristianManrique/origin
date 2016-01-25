@@ -41,6 +41,12 @@ private var scriptOgre:scOgre;
 */
 private var scriptDiable:scDiable;
 
+/*
+* Contient le script qui gère le Lutin
+* @access private
+* @var scLutin.js
+*/
+private var scriptLutin:scLutin;
 function Start (){
 
 	heros = GameObject.FindWithTag("heros");
@@ -69,6 +75,9 @@ function OnTriggerEnter(other:Collider) {
             	break;
 
             case "lutin":
+            	//Debug.Log(other.gameObject);
+		        scriptLutin = other.gameObject.GetComponent(scLutin);//Aller chercher le script du Lutin
+		        scriptLutin.updateDommages(dommagesInfliges);//chercher la function updateDommages 
             	break;
 
             case "boss1":

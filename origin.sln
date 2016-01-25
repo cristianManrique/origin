@@ -1,40 +1,3 @@
-<<<<<<< HEAD
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{7C49B153-D4B5-9F8C-0CF8-C3E18DC80CB7}") = "origin", "Assembly-CSharp-firstpass.csproj", "{D11B749F-F2B4-3FC3-A81C-5C3C1AB9A6BC}"
-EndProject
-Project("{7C49B153-D4B5-9F8C-0CF8-C3E18DC80CB7}") = "origin", "Assembly-CSharp.csproj", "{5F16780F-EBAF-F907-76D8-5E4063C9DA8E}"
-EndProject
-Project("{7C49B153-D4B5-9F8C-0CF8-C3E18DC80CB7}") = "origin", "Assembly-CSharp-Editor.csproj", "{8A06831E-A3C3-86AB-DEC9-050DB4A97AD9}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D11B749F-F2B4-3FC3-A81C-5C3C1AB9A6BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D11B749F-F2B4-3FC3-A81C-5C3C1AB9A6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D11B749F-F2B4-3FC3-A81C-5C3C1AB9A6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D11B749F-F2B4-3FC3-A81C-5C3C1AB9A6BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F16780F-EBAF-F907-76D8-5E4063C9DA8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F16780F-EBAF-F907-76D8-5E4063C9DA8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F16780F-EBAF-F907-76D8-5E4063C9DA8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F16780F-EBAF-F907-76D8-5E4063C9DA8E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A06831E-A3C3-86AB-DEC9-050DB4A97AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A06831E-A3C3-86AB-DEC9-050DB4A97AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A06831E-A3C3-86AB-DEC9-050DB4A97AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A06831E-A3C3-86AB-DEC9-050DB4A97AD9}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
-	EndGlobalSection
-EndGlobal
-=======
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
@@ -74,6 +37,5 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
-	EndGlobalSection
+	EndGlobalSection	GlobalSection(MonoDevelopProperties) = preSolution
 EndGlobal
->>>>>>> upstream/master
