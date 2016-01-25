@@ -25,6 +25,6 @@ function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
         Debug.Log(autreObjet.gameObject);
         scriptGestionJeu = autreObjet.gameObject.GetComponent(scGestionJeu);
-        scriptGestionJeu.updateDommages(dommagesInfliges);
+       // scriptGestionJeu.updateDommages(dommagesInfliges);
     }
 }
