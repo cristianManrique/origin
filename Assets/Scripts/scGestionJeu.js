@@ -81,7 +81,7 @@
     * @var int
     */
     private var objet01:int;
-    private var nbPotionSort:int=1;
+    private var nbPotionSort:int=0;
     /*
     * Verifie quel coeur il faut augmente ou diminue le ALPHA
     * @access private
@@ -104,7 +104,7 @@
     * @access private
     * @var int
     */
-    private var quantitePotionSort:int=0;
+//    private var quantitePotionSort:int=0;
 
 
      /*
@@ -136,8 +136,7 @@ function Start () {
 
     //:: Débuter les objets textes à 0
     objet01 = 0;
-    nbPotionSort = 1;
-
+    
     canvas = GameObject.FindWithTag("canvas");
 
     //:: Chercher LES SCRIPTS JS
@@ -158,16 +157,15 @@ function Update () {
 
 	//Debug.Log("objet02 = "+objet02);
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
-	scriptLancerSort.noPotions = objet02;
-	scriptChoisirArme.noPotions = objet02;
+    scriptLancerSort.noPotions = nbPotionSort;
+//	scriptChoisirArme.noPotions = nbPotionSort;
 
     //:: Permet de mettre à jour L'affichage des coeurs
     //:: ATTENTION:  numCoeur dans scBarredeVie.js
     numCoeurG = gestionscBarreVies.numCoeur;
 
 
-   //permet l'affichage de la quantité total des potion de Sort
-     gestionscAffichage.quantitePotionSort(objet01, quantitePotionSort);
+
 
    
 
@@ -220,8 +218,11 @@ function OnTriggerEnter(other: Collider) {
 
            case "potionSort":
          //addition de chaque potion rammassée.
-         		quantitePotionSort+=nbPotionSort;
+                checkPotion2=true;
+                gestionscAffichage.MettreAJourPotionsUI(checkPotion1, checkPotion2);
+         		nbPotionSort++;
             	Destroy(other.gameObject);
+                checkPotion2=false;//remettre à false
                	break;
 
     
@@ -295,6 +296,8 @@ function OnTriggerEnter(other: Collider) {
                 Destroy(other.gameObject);
                 break;
         }
+        //permet l'affichage de la quantité total des potion de Sort
+        gestionscAffichage.quantitePotionSort(objet01, nbPotionSort);
     }
 
 }/*fin trigger enter*/
@@ -320,5 +323,6 @@ function OnTriggerEnter(other: Collider) {
 
 		function reductionPotionSort()
 		{
-		    quantitePotionSort-=quantitePotionSort;
+		    nbPotionSort--;
+            Debug.Log(nbPotionSort);
 		}

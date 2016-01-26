@@ -172,18 +172,12 @@ function Start () {
     
     controleurOgre = ogre.GetComponent(CharacterController);
 
-    /*
-    modeAttaque = false;//N'est pas en mode attaque au départ.
-    heros = GameObject.FindWithTag("heros");
-    angleActuel = this.transform.eulerAngles;//Détermine l'orientation de départ de l'ogre.
-    */
-
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
 }
 
 function Update () {
-    
+
     distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre l'ogre et le héros.
     
     if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
@@ -203,9 +197,9 @@ function Update () {
             destinationPatrouilleActuelle = 0;//Reset de la prochaine destination de patrouille.
         }
     }
-    var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
-    position3D.y -= gravite * Time.deltaTime;//Permet d'appliquer la gravite sur l'ogre en diminuant progressivement la hauteur sur l'axe des Y.
-    controleurOgre.Move(position3D);//Appliquer la gravité seulement, le déplacement en x et z est régi par le navMesh.
+//    var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
+//    position3D.y -= gravite * Time.deltaTime;//Permet d'appliquer la gravite sur l'ogre en diminuant progressivement la hauteur sur l'axe des Y.
+//    controleurOgre.Move(position3D);//Appliquer la gravité seulement, le déplacement en x et z est régi par le navMesh.
 
   
     if (pointsVieOgre <= 0) {//L'ogre est mort
@@ -240,7 +234,8 @@ function poursuivre () {
 }
 
 //Méthode de patrouille de l'ogre.
-function patrouiller () {
+function patrouiller () { 
+    
     navMeshOgre.speed = vitessePatrouille;
     
     //CODE SOURCE : http://answers.unity3d.com/questions/429623/enemy-movement-from-waypoint-to-waypoint.html
@@ -248,11 +243,10 @@ function patrouiller () {
 
     var ciblePatrouille: Transform = destinationsPatrouille[destinationPatrouilleActuelle];
     navMeshOgre.SetDestination(ciblePatrouille.position);
-    ciblePatrouille.position.y = transform.position.y; // Garde la destination à la hauteur du personnage
-    var distanceDestination = Vector3.Distance (this.transform.position, ciblePatrouille.position);//Calcul de la distance entre l'ogre et sa destination de patrouille.
+    ciblePatrouille.position.y = this.transform.position.y; // Garde la destination à la hauteur du personnage
     
-    if(distanceDestination <= 0) {//Si rendu à destination...
-        
+    var distanceDestination = Vector3.Distance (this.transform.position, ciblePatrouille.position);//Calcul de la distance entre l'ogre et sa destination de patrouille.
+    if(distanceDestination <= 1) {//Si rendu à destination...
         //Arrêt de l'ogre.
         navMeshOgre.speed = vitesseArret;
         navMeshOgre.SetDestination(this.transform.position);//Brake

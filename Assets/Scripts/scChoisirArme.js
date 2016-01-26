@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 /**
 *Script pour choisir etre deux armes
 *@author Cristina Mahneke
@@ -34,7 +34,7 @@ function Update () {
 
 	//en appuyant la cle M du clavier la fonction changerArmes() parcourira
 	if(Input.GetKeyDown(KeyCode.M)){
-
+		Debug.Log("changer arme");
 		changerArmes();
 	
 	}
