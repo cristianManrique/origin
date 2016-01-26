@@ -53,7 +53,11 @@ private var vitesseNormale:float = 1;
 * @access private
 * @var float
 */
+<<<<<<< HEAD
 private var vitesse:float;
+=======
+public var cible:Transform;
+>>>>>>> upstream/master
 
 /*
 * Distance restante entre le héros et l'ogre.
@@ -147,14 +151,30 @@ private var canvas: GameObject;
 private var gestionscAffichage: scAffichage;
 
 function Start () {
+<<<<<<< HEAD
     modeAttaque = false;//N'est pas en mode attaque au départ.
     heros = GameObject.FindWithTag("heros");
     angleActuel = this.transform.eulerAngles;//Détermine l'orientation de départ de l'ogre.
+=======
+
+    
+    //Initialisation et configuration du navMeshAgent
+    navMeshOgre = ogre.GetComponent(NavMeshAgent);
+    navMeshOgre = GetComponentInChildren(NavMeshAgent);
+    navMeshOgre.updateRotation = true;
+    navMeshOgre.updatePosition = true;
+    
+    cible = GameObject.FindWithTag("heros").transform;
+    
+    controleurOgre = ogre.GetComponent(CharacterController);
+
+>>>>>>> upstream/master
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
 }
 
 function Update () {
+<<<<<<< HEAD
     
     vitesse = vitesseNormale;
     
@@ -169,6 +189,23 @@ function Update () {
             if (donnerUnCoup) {//Si doit donner un coup de massue...
                 frapper();
             }
+=======
+
+    distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre l'ogre et le héros.
+    
+    if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
+        frapper();
+        Debug.Log("frappe"); 
+    }
+    else if (distanceHeros < distancePatrouille) {//Si le héros est assez près pour être poursuivi...
+        //Debug.Log("poursuite");
+        poursuivre();
+    }
+    else {//Si le héros n'est pas suffisamment près...
+        if(destinationPatrouilleActuelle < destinationsPatrouille.length){
+            patrouiller();
+            //Debug.Log("patrouille");
+>>>>>>> upstream/master
         }
         //Code qui permet de faire une rotation progressive en direction du héros lorsqu'en mode attaque.
         var positionHeros : Vector3 = heros.transform.position - this.transform.position;
@@ -191,11 +228,22 @@ function Update () {
         this.transform.eulerAngles = angleActuel;
         //-------------------------------------------------
     }
+<<<<<<< HEAD
 
     var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
     position3D.y -= gravite * Time.deltaTime;//Permet d'appliquer la gravite sur l'ogre en diminuant progressivement la hauteur sur l'axe des Y.
     if (distanceHeros > distanceHerosAttaque) {
         position3D.z += vitesse * Time.deltaTime;//Permet de faire avancer l'ogre vers l'avant.
+=======
+//    var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
+//    position3D.y -= gravite * Time.deltaTime;//Permet d'appliquer la gravite sur l'ogre en diminuant progressivement la hauteur sur l'axe des Y.
+//    controleurOgre.Move(position3D);//Appliquer la gravité seulement, le déplacement en x et z est régi par le navMesh.
+
+  
+    if (pointsVieOgre <= 0) {//L'ogre est mort
+    	Debug.Log('entre fonction moins 0');
+        mort();
+>>>>>>> upstream/master
     }
     this.transform.rotation.x = 0;//Pour que l'ogre tourne seulement sur un axe (Y).
     this.transform.rotation.z = 0;//Pour que l'ogre tourne seulement sur un axe (Y).
@@ -211,11 +259,46 @@ function OnTriggerEnter(autreObjet:Collider) {
     }
 }
 
+<<<<<<< HEAD
 //Si le héros n'est plus détecté à proximité, l'ogre se remet en mode passif.
 function OnTriggerExit(autreObjet:Collider) {
     if (autreObjet.name == "malcom") {
         Debug.Log("Malcom n'est plus près de l'ogre");
         modeAttaque = false;
+=======
+//Méthode de poursuite de l'ogre.
+function poursuivre () {
+    navMeshOgre.speed = vitessePoursuite;
+    navMeshOgre.SetDestination(cible.transform.position);//Poursuite du héros.
+}
+
+//Méthode de patrouille de l'ogre.
+function patrouiller () { 
+    
+    navMeshOgre.speed = vitessePatrouille;
+    
+    //CODE SOURCE : http://answers.unity3d.com/questions/429623/enemy-movement-from-waypoint-to-waypoint.html
+    //-----------------------------------------------
+
+    var ciblePatrouille: Transform = destinationsPatrouille[destinationPatrouilleActuelle];
+    navMeshOgre.SetDestination(ciblePatrouille.position);
+    ciblePatrouille.position.y = this.transform.position.y; // Garde la destination à la hauteur du personnage
+    
+    var distanceDestination = Vector3.Distance (this.transform.position, ciblePatrouille.position);//Calcul de la distance entre l'ogre et sa destination de patrouille.
+    if(distanceDestination <= 1) {//Si rendu à destination...
+        //Arrêt de l'ogre.
+        navMeshOgre.speed = vitesseArret;
+        navMeshOgre.SetDestination(this.transform.position);//Brake
+        
+        if (tempsActuel == 0) {
+            tempsActuel = Time.time; // Pause sur chaque destination
+        }
+        if ((Time.time - tempsActuel) >= tempsPausePatrouille){//Si le temps de pause est écoulé...
+            destinationPatrouilleActuelle++;//Prochaine destination.
+            navMeshOgre.SetDestination(ciblePatrouille.position);
+            tempsActuel = 0;//Reset du temps.
+        }
+>>>>>>> upstream/master
     }
 }
 
@@ -228,25 +311,38 @@ function mort() {
     bonus.tag = "bonbon";
     Destroy(ogre);
     gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher Barre de vie de Ennemi
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 }
 
+
+
+
 //Détermine la direction vers laquelle l'ogre doit tourner et le moment ou il doit changer de direction.
-function gererDirection() {
+/*function gererDirection() {
     changementDirection = false;
     angleActuel = this.transform.eulerAngles;
     angleCible = angleActuel + incrementCible;
     //Debug.Log("tourne");
     yield WaitForSeconds(delaiAvantTourner);
     changementDirection = true;
-}
+}*/
 
 //Détermine si l'ogre doit donner un coup et la fréquence de ceux-ci.
-function frapper() {
+/*function frapper() {
     donnerUnCoup = false;
     //Code pour donner un coup par animation
     yield WaitForSeconds(delaiCoupOgre);
     donnerUnCoup = true;
+<<<<<<< HEAD
 }
+=======
+>>>>>>> upstream/master
+}*/
+
+>>>>>>> upstream/master
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:int) {

@@ -12,15 +12,15 @@
 * Composant GUITexture qui contient le clip vidéo
 * @access private
 * @var GUITexture
-*/  
-private var textureVideo:GUITexture;  
+*/
+private var textureVideo:GUITexture;
 
 /**
 * Vidéo à jouer en background
 * @access private
 * @var MovieTexture
 */
-private var video:MovieTexture;  
+private var video:MovieTexture;
 
 /**
 * Le nom du fichier vidéo à charger
@@ -38,6 +38,6 @@ function Awake() {
 }
 
 function Start () {
-    video.loop = true;
-    video.Play();
+//    video.loop = true;
+//    video.Play();
 }

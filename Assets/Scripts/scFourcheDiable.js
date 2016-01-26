@@ -24,7 +24,16 @@ private var scriptGestionJeu:scHeros;
 function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
         Debug.Log(autreObjet.gameObject);
+<<<<<<< HEAD
         scriptGestionJeu = autreObjet.gameObject.GetComponent(scHeros);
+=======
+
+        scriptGestionJeu = GameObject.FindWithTag("heros").GetComponent(scHeros);
+>>>>>>> upstream/master
         scriptGestionJeu.updateDommages(dommagesInfliges);
+
+        //scriptGestionJeu = autreObjet.gameObject.GetComponent(scGestionJeu);
+       // scriptGestionJeu.updateDommages(dommagesInfliges);
+
     }
 }
