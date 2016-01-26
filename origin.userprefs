@@ -1,13 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scAffichage.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scGestionJeu.js">
     <Files>
-      <File FileName="Assets\Scripts\scLutin.js" Line="117" Column="3" />
-      <File FileName="Assets\Scripts\scOgre.js" Line="193" Column="15" />
-      <File FileName="Assets\Scripts\scAffichage.js" Line="39" Column="37" />
-      <File FileName="Assets\Scripts\scGestionJeu.js" Line="31" Column="46" />
-      <File FileName="Assets\Scripts\scHeros.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\scMenuIntro.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scAffichage.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scLutin.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scOgre.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scGestionJeu.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scHeros.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scFourcheDiable.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

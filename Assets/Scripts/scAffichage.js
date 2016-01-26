@@ -53,13 +53,14 @@ import UnityEngine.UI;
     * @access private
     * @var integer
     */
-    private var objet01:int;//potionVie
-   // public var nbPotionSort:int=4;//potionSort
+    private var objet01:Text;//potionVie
+
+    public var nbPotionSort:int=4;//potionSort
 
 
     //::::::::::::::::::::://
     /*
-    * Contient les images UI des potions 
+    * Contient les images UI des potions
     * @access public
     * @var GameObject
     */
@@ -157,7 +158,7 @@ function MettreAJourMessage(message:String){
 
 
 //affiche le nombre de potion Sort sur la canvas.
-function quantitePotionSort(objet01:int, nbPotionSort:int)
+function quantitePotionSort(objet01, nbPotionSort)
 {
 	//:: convertir en entier
 	ObjetText1.text = objet01.ToString();
@@ -222,8 +223,8 @@ function AugmenteAlphaCoeurUI(AlphaCoeur, numCoeur) {
 //:::::::::::function AfficherPanneauBarreVieEnnemi :::::::::://
 function AfficherPanneauBarreVieEnnemi(state: boolean){
         PanneauBarreVieEnnemi.SetActive(state);
-        //active ou pas (true ou false);            
-} 
+        //active ou pas (true ou false);
+}
 
  /* function qui permet de fermer le panneau d'information en un clic sur le X*/
 

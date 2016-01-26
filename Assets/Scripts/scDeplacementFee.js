@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 
 /**
 *Script que gere les desplacements de la fee dans l'aire
@@ -54,12 +54,12 @@ function Start () {
 	velY = 1.1;
 	velZ = .05;
 
-	limitXmax = 8;
-	limitYmax = 4;
-	limitZmax = 13;
-	limitXmin = 1;
-	limitYmin = 1;
-	limitZmin = 7;
+	limitXmax = -305.4;
+	limitYmax = -155;
+	limitZmax = -4.6;
+	limitXmin = -305.8;
+	limitYmin = -157.1;
+	limitZmin = -4.2;
 
 	incrementY = .5;
 

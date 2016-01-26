@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 //@script RequireComponent(Animator)
 /**
 *Script pour instancier des emmeteurs de particules a maniere des sorts
@@ -35,6 +35,8 @@ public var cadenceTir: float = 1;
 **/
 public var noPotions: int;
 
+private var bouleBleue:GameObject;
+
 /**
 *les GameObjects emmeteurs de particules
 *@var GameObject
@@ -42,7 +44,6 @@ public var noPotions: int;
 **/
 public var emmeteur1: GameObject;
 public var emmeteur2: GameObject;
-
 
 //public var animateur:Animator;
 
@@ -60,17 +61,17 @@ function Update () {
     
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
    	if(Input.GetButton("Fire2") && peuTirer == true && noPotions>0){
-
-		
+		Debug.Log("fire !");
 		Feu();
 		peuTirer = false;
-		
-		
 	}
 	//Jeter un sort
 		//JeterSort();
+	if (bouleBleue) {
+		bouleBleue.transform.Translate(Vector3.forward * 10 * Time.deltaTime);
+	}
 	
-}// FIN UPDATE	
+}// FIN UPDATE
 
 //***********fonction a integrer un fois on est pret avec les animations***********//
 /*function JeterSort(){
@@ -104,7 +105,7 @@ function Feu(){
 
 
 	//est-ce qu'il y a un autre GameObject a 10 unites de distance ou moins devant le heros?
-	if(Physics.Raycast(ray, objetToucher,10)){
+//	if(Physics.Raycast(ray, objetToucher,10)){
 	
 		Debug.Log("Touche");
 
@@ -115,12 +116,13 @@ function Feu(){
 		var rotNormal:Quaternion = Quaternion.FromToRotation(Vector3.up, objetToucher.normal);
 		var rotForward:Quaternion = Quaternion.FromToRotation(Vector3.up, transform.forward);
 
-
-		Debug.Log(objetToucher.collider.name);	
+//		Debug.Log(objetToucher.collider.name);
 
 		//un emmeteur sera instancie a notre point d'origin, et le deuxieme sur l'objet touche
-		Instantiate(emmeteur1, transform.position, rotForward);
-		Instantiate(emmeteur2, objetToucher.point , rotNormal);
+		var etoiles:GameObject = Instantiate(emmeteur1, transform.position, rotForward);//etoiles
+//		Instantiate(emmeteur2, objetToucher.point , rotNormal);//boule bleue
+		bouleBleue = Instantiate(emmeteur2, transform.position , rotNormal);//boule bleue
+		
 				
 		//si on touche un rigidbody on veut plus de la force
 		/*if(objetToucher.rigidbody){
@@ -129,7 +131,7 @@ function Feu(){
 		objetToucher.collider.SendMessageUpwards("touché", forceArme,SendMessageOptions.DontRequireReceiver);
 		*/
 		
-	}
+//	}
 	
 	yield WaitForSeconds(cadenceTir);
 

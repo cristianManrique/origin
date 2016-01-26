@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 
 /**
 * Script de gestion des comportements du lutin.
@@ -124,6 +124,7 @@ function Start () {
 	nouvelleRotation=Random.Range(0,90);
 //il va chercher le CharacterController qui est mis dans la variable controleurLutin
 	controleurLutin=GetComponent('CharacterController');
+	gestionJeu = GameObject.FindWithTag("heros").GetComponent(scGestionJeu);
 
 	 //gestionscAffichage=canvas.GetComponent.<scAffichage>();
 
@@ -147,7 +148,7 @@ function Update () {
 
 
 //permet de voir le rayon
-Debug.DrawRay(transform.Find('detection').position,transform.forward,Color.red,5);
+//Debug.DrawRay(transform.Find('detection').position,transform.forward,Color.red,5);
 
 
 //soustraction de la gravité selon le temps.
@@ -178,15 +179,15 @@ function OnControllerColliderHit(rayonToucher:ControllerColliderHit)
 
 
 	//Si le héros est détecté à proximité, l'ogre se met en mode attaque.
-function OnTriggerEnter(autreObjet:Collider) 
+function OnTriggerEnter(autreObjet:Collider)
 {
     if(autreObjet.gameObject.tag=='heros')
 	{
 	//Il y a contact avec le heros.
 		contactHeros=true;
 		Debug.Log('contact avec heros');
-		//gestionJeu.reductionPotionSort();
-		Debug.Log(quantitePotionSort);
+		gestionJeu.reductionPotionSort();
+//		Debug.Log(quantitePotionSort);
 
 	}
 }
