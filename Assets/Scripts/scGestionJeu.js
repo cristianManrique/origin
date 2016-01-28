@@ -230,15 +230,11 @@ function OnTriggerEnter(other: Collider) {
             //:::::::::::::: Gestion Barre de vies Ennemis
             case "ogre":
                 gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
-<<<<<<< HEAD
-                //message="Attention c'est un ennemi";
-=======
 
                // message="Attention c'est un ennemi";
 
                 //message="Attention c'est un ennemi";
 
->>>>>>> upstream/master
                 //Debug.Log("potionSort");
                 break;
 

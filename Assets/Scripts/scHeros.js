@@ -324,11 +324,7 @@ function Update()
         //Debug.Log('il vole');
     }
 
-<<<<<<< HEAD
-    if(Input.GetKey(KeyCode.X) && voler==true)
-=======
     if(Input.GetKeyDown(KeyCode.X) && voler==true)
->>>>>>> upstream/master
     {
 
         dirMouvement.y -= gravite* 200 *Time.deltaTime;
