@@ -321,14 +321,15 @@ function Update()
 
         dirMouvement.y += 200 * Time.deltaTime;
         //il peut voler!!!
-        Debug.Log('il vole');
+        //Debug.Log('il vole');
     }
 
-    if(Input.GetKeyDown(KeyCode.Z) && voler==true)
+    if(Input.GetKeyDown(KeyCode.X) && voler==true)
     {
 
         dirMouvement.y -= gravite* 200 *Time.deltaTime;
-        Debug.Log('il descend');
+        //Debug.Log('il descend');
+
     }
 	
 	//:: Application de la gravité au mouvement
@@ -383,17 +384,18 @@ function OnTriggerEnter(other: Collider) {
 
 //:::::::::::::: OnTriggerStay :::::::::::::://
 //Permet de verifier à chq frame s'il vole et si on voit le jetpack
-function OnTriggerStay(other: Collider){
+/*function OnTriggerStay(other: Collider){
 
     //:::::::::::::: ACTIVER Jetpack   
     if (other.gameObject.tag == 'feeVolante') 
     {
         voler=true;// mettre a true
+         Debug.Log('stayfee');
 
     }
 
 }//FIN OnTriggerStay
-
+*/
 
 //:::::::::::::: OnTriggerExit :::::::::::::://
 function OnTriggerExit(other: Collider) {
@@ -401,7 +403,9 @@ function OnTriggerExit(other: Collider) {
 	//:::::::::::::: ACTIVER Jetpack   
     if (other.gameObject.tag == 'feeVolante') 
     {
-        voler = false;// mettre a true
+        voler = true;// mettre a true
+        Destroy(other.gameObject);
+       
     }
 }//FIN OnTriggerExit
 
@@ -411,24 +415,18 @@ function OnTriggerExit(other: Collider) {
 //:::::::::::::: function DiminueVies :::::::::::::://
 function DiminueVies(nbVies:int) {
     Vies -= nbVies;
-    Debug.Log("Vies du héros"+Vies);
+   // Debug.Log("Vies du héros"+Vies);
 }
 
 
 //:::::::::::::: function AugmenteVies :::::::::::::://
 function AugmenteVies(nbVies:int) {
     Vies += nbVies;
-    Debug.Log("Vies du héros"+Vies);
+   // Debug.Log("Vies du héros"+Vies);
 }
-
-
-
-
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommagesInfliges:int) {
     Sante -= dommagesInfliges;
-    Debug.Log("Santée du héros" +Sante);
+    //Debug.Log("Santée du héros" +Sante);
 }
-
-

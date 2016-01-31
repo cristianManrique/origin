@@ -27,7 +27,7 @@ import UnityEngine.UI;
 	* @var Text
 	*/
 	public var ObjetText1:Text;
-	public var ObjetText2:Text;
+	public var potionSortText:Text;
 	public var messageText:Text;
 
 
@@ -36,7 +36,7 @@ import UnityEngine.UI;
 	*@acces public
 	* var GameObject
 	*/
-
+	public var messageHeros:GameObject;
 	public var messageBonbon:GameObject;
 	public var messagePotionSort:GameObject;
 	public var messageOgre:GameObject;
@@ -44,6 +44,7 @@ import UnityEngine.UI;
 	public var messageDiable:GameObject;
 	public var messageFantome:GameObject;
 	public var messageLutin:GameObject;
+	public var messagePotionReveille:GameObject;
 
 
 	//::::::::::::::::::::://
@@ -52,13 +53,14 @@ import UnityEngine.UI;
     * @access private
     * @var integer
     */
-    private var objet01:int;//potionVie
-    private var objet02:int;//potionSort
+    private var objet01:Text;//potionVie
+
+    public var nbPotionSort:int=4;//potionSort
 
 
     //::::::::::::::::::::://
     /*
-    * Contient les images UI des potions 
+    * Contient les images UI des potions
     * @access public
     * @var GameObject
     */
@@ -126,6 +128,7 @@ function Start () {
 }
 
 function Update () {
+
 	
 }
 
@@ -153,11 +156,13 @@ function MettreAJourMessage(message:String){
 //::: MettreAJourText afficher sur UI:::::::::://
 //ATTENTION: cette function est appelé dans scGestionJeu.js 
 
-function MettreAJourText(objet01:int, objet02:int)
+
+//affiche le nombre de potion Sort sur la canvas.
+function quantitePotionSort(objet01, nbPotionSort)
 {
 	//:: convertir en entier
 	ObjetText1.text = objet01.ToString();
-	ObjetText2.text = objet02.ToString();
+	potionSortText.text = nbPotionSort.ToString();
 	//ObjetText3.text = objet03.ToString();
 	//écraser le texte UI
 
@@ -218,6 +223,63 @@ function AugmenteAlphaCoeurUI(AlphaCoeur, numCoeur) {
 //:::::::::::function AfficherPanneauBarreVieEnnemi :::::::::://
 function AfficherPanneauBarreVieEnnemi(state: boolean){
         PanneauBarreVieEnnemi.SetActive(state);
-        //active ou pas (true ou false);            
-}  
+        //active ou pas (true ou false);
+}
+
+ /* function qui permet de fermer le panneau d'information en un clic sur le X*/
+
+ function fermerInformationHeros()
+{
+	messageHeros.SetActive(false);
+	Time.timeScale=1;
+}
+function fermerInformationBonbon()
+{
+	messageBonbon.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationPotionSort()
+{
+	messagePotionSort.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationOgre()
+{
+	messageOgre.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationFeeVolante()
+{
+	messageFeeVolante.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationDiable()
+{
+	messageDiable.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationFantome()
+{
+	messageFantome.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationLutin()
+{
+	messageLutin.SetActive(false);
+	Time.timeScale=1;
+}
+
+function fermerInformationPotionReveille()
+{
+	messagePotionReveille.SetActive(false);
+	Time.timeScale=1;
+}
+/* FiN function qui permet de fermer le panneau d'information en un clic sur le X*/
+ 
 
