@@ -213,7 +213,19 @@ function OnTriggerEnter(other: Collider) {
             case "potionReveille":
                // message="une potion Reveille";
               	Destroy(other.gameObject);
-               	Application.LoadLevel("menu");
+                SceneManager.LoadScene("menu");
+                break;
+     //permet de passé au niveau deux après avoir tuer le boss niveau1           
+            case "reveilleNiveau1":
+                // message="une potion Reveille";
+                Destroy(other.gameObject);
+                SceneManager.LoadScene("niveau2");
+                break;
+      //permet de finir le jeu après avoir tuer le bos niveau 2          
+            case "reveilleNiveau2":
+                // message="une potion Reveille";
+                Destroy(other.gameObject);
+                SceneManager.LoadScene("gagnant");
                 break;
 
            case "potionSort":
@@ -324,5 +336,8 @@ function OnTriggerEnter(other: Collider) {
 		function reductionPotionSort()
 		{
 		    nbPotionSort--;
-            Debug.Log(nbPotionSort);
+           // Debug.Log(nbPotionSort);
 		}
+
+
+
