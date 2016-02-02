@@ -1,17 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scLancerSort.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scOscillation2.js">
     <Files>
-      <File FileName="Assets\Scripts\scLancerSort.js" Line="92" Column="52" />
-      <File FileName="Assets\Scripts\scChoisirArme.js" Line="50" Column="73" />
-      <File FileName="C:\Users\Cristina.GrstLightning\Documents\UnityProjects\Unity_lesEuxMortelles\Assets\Scripts\scTir.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\scGestionJeu.js" Line="147" Column="15" />
-      <File FileName="Assets\Scripts\scOgre.js" Line="192" Column="11" />
-      <File FileName="Assets\Scripts\scAffichage.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\scEpeeMalcom.js" Line="1" Column="1" />
-      <File FileName="C:\Users\Cristina.GrstLightning\Documents\UnityProjects\Unity_lesEuxMortelles\Assets\Scripts\LancerFeu.js" Line="1" Column="1" />
-      <File FileName="C:\Users\Cristina.GrstLightning\Documents\UnityProjects\Unity_lesEuxMortelles\Assets\Scripts\JeterSort.js" Line="64" Column="37" />
-      <File FileName="Assets\Scripts\scDeplacementFee.js" Line="27" Column="1" />
+      <File FileName="Assets\Scripts\scOscillation1.js" Line="13" Column="2" />
+      <File FileName="Assets\Scripts\scOscillation2.js" Line="13" Column="1" />
+      <File FileName="Assets\Scripts\scLancerSort.js" Line="10" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\scChoisirArme.js" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\scGestionJeu.js" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\scOgre.js" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\scAffichage.js" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\scEpeeMalcom.js" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\scDeplacementFee.js" Line="1" Column="1" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
