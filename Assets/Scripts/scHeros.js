@@ -7,6 +7,7 @@
  * Gestion du Héros
  *  gérer l'attaque, les vies, le nombre de potions et le health et les déplacements
  * @author Cristian Manrique
+ * @author Stephane Leclerc
  * @author Jonathan Martel
  * @date 2016-01-20
 
@@ -212,7 +213,8 @@ function Update()
 
     if(Vies==0)
     {
-        //Debug.Log("GAMEOVER");
+     SceneManager.LoadScene("gameOver");
+     Debug.Log("GAMEOVER");
     }
 
 
@@ -414,8 +416,8 @@ function OnTriggerExit(other: Collider) {
 
 //:::::::::::::: function DiminueVies :::::::::::::://
 function DiminueVies(nbVies:int) {
-    Vies -= nbVies;
-   // Debug.Log("Vies du héros"+Vies);
+    Vies --;
+   //Debug.Log("Vies du héros"+Vies);
 }
 
 
