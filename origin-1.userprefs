@@ -2,16 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scLancerSort.js">
     <Files>
-      <File FileName="Assets\Scripts\scLancerSort.js" Line="92" Column="52" />
-      <File FileName="Assets\Scripts\scChoisirArme.js" Line="50" Column="73" />
-      <File FileName="C:\Users\Cristina.GrstLightning\Documents\UnityProjects\Unity_lesEuxMortelles\Assets\Scripts\scTir.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\scGestionJeu.js" Line="147" Column="15" />
-      <File FileName="Assets\Scripts\scOgre.js" Line="192" Column="11" />
+      <File FileName="Assets\Scripts\scLancerSort.js" Line="111" Column="59" />
+      <File FileName="Assets\Scripts\scChoisirArme.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scGestionJeu.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scOgre.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\scAffichage.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\scEpeeMalcom.js" Line="1" Column="1" />
-      <File FileName="C:\Users\Cristina.GrstLightning\Documents\UnityProjects\Unity_lesEuxMortelles\Assets\Scripts\LancerFeu.js" Line="1" Column="1" />
-      <File FileName="C:\Users\Cristina.GrstLightning\Documents\UnityProjects\Unity_lesEuxMortelles\Assets\Scripts\JeterSort.js" Line="64" Column="37" />
-      <File FileName="Assets\Scripts\scDeplacementFee.js" Line="27" Column="1" />
+      <File FileName="Assets\Scripts\scDeplacementFee.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
