@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Unity 5.3.1/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Unity 5.3.1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +64,9 @@
      <Compile Include="Assets\Scripts\scMassueOgre.js" />
      <Compile Include="Assets\Scripts\scMenuIntro.js" />
      <Compile Include="Assets\Scripts\scOgre.js" />
+     <Compile Include="Assets\Scripts\scOscillation1.js" />
+     <Compile Include="Assets\Scripts\scOscillation2.js" />
+     <Compile Include="Assets\Scripts\scRejouerPartie.js" />
      <Compile Include="Assets\Scripts\scSoleil.js" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
@@ -78,10 +81,10 @@
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Unity 5.3.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Unity 5.3.1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
