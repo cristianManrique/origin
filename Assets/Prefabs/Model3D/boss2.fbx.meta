@@ -1,0 +1,625 @@
+fileFormatVersion: 2
+guid: 78ccf0d147ec7784287eda2b79dc8bf8
+timeCreated: 1454538439
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: boss1
+    100002: //RootNode
+    100004: squelette_boss_Head
+    100006: squelette_boss_Hips
+    100008: squelette_boss_LeftArm
+    100010: squelette_boss_LeftFoot
+    100012: squelette_boss_LeftForeArm
+    100014: squelette_boss_LeftHand
+    100016: squelette_boss_LeftHandMiddle1
+    100018: squelette_boss_LeftHandMiddle2
+    100020: squelette_boss_LeftHandMiddle3
+    100022: squelette_boss_LeftHandMiddle4
+    100024: squelette_boss_LeftHandThumb1
+    100026: squelette_boss_LeftHandThumb2
+    100028: squelette_boss_LeftHandThumb3
+    100030: squelette_boss_LeftHandThumb4
+    100032: squelette_boss_LeftLeg
+    100034: squelette_boss_LeftShoulder
+    100036: squelette_boss_LeftToeBase
+    100038: squelette_boss_LeftUpLeg
+    100040: squelette_boss_Neck
+    100042: squelette_boss_Reference
+    100044: squelette_boss_RightArm
+    100046: squelette_boss_RightFoot
+    100048: squelette_boss_RightForeArm
+    100050: squelette_boss_RightHand
+    100052: squelette_boss_RightHandMiddle1
+    100054: squelette_boss_RightHandMiddle2
+    100056: squelette_boss_RightHandMiddle3
+    100058: squelette_boss_RightHandMiddle4
+    100060: squelette_boss_RightHandThumb1
+    100062: squelette_boss_RightHandThumb2
+    100064: squelette_boss_RightHandThumb3
+    100066: squelette_boss_RightHandThumb4
+    100068: squelette_boss_RightLeg
+    100070: squelette_boss_RightShoulder
+    100072: squelette_boss_RightToeBase
+    100074: squelette_boss_RightUpLeg
+    100076: squelette_boss_Spine
+    100078: squelette_boss_Spine1
+    100080: squelette_boss_Spine2
+    400000: boss1
+    400002: //RootNode
+    400004: squelette_boss_Head
+    400006: squelette_boss_Hips
+    400008: squelette_boss_LeftArm
+    400010: squelette_boss_LeftFoot
+    400012: squelette_boss_LeftForeArm
+    400014: squelette_boss_LeftHand
+    400016: squelette_boss_LeftHandMiddle1
+    400018: squelette_boss_LeftHandMiddle2
+    400020: squelette_boss_LeftHandMiddle3
+    400022: squelette_boss_LeftHandMiddle4
+    400024: squelette_boss_LeftHandThumb1
+    400026: squelette_boss_LeftHandThumb2
+    400028: squelette_boss_LeftHandThumb3
+    400030: squelette_boss_LeftHandThumb4
+    400032: squelette_boss_LeftLeg
+    400034: squelette_boss_LeftShoulder
+    400036: squelette_boss_LeftToeBase
+    400038: squelette_boss_LeftUpLeg
+    400040: squelette_boss_Neck
+    400042: squelette_boss_Reference
+    400044: squelette_boss_RightArm
+    400046: squelette_boss_RightFoot
+    400048: squelette_boss_RightForeArm
+    400050: squelette_boss_RightHand
+    400052: squelette_boss_RightHandMiddle1
+    400054: squelette_boss_RightHandMiddle2
+    400056: squelette_boss_RightHandMiddle3
+    400058: squelette_boss_RightHandMiddle4
+    400060: squelette_boss_RightHandThumb1
+    400062: squelette_boss_RightHandThumb2
+    400064: squelette_boss_RightHandThumb3
+    400066: squelette_boss_RightHandThumb4
+    400068: squelette_boss_RightLeg
+    400070: squelette_boss_RightShoulder
+    400072: squelette_boss_RightToeBase
+    400074: squelette_boss_RightUpLeg
+    400076: squelette_boss_Spine
+    400078: squelette_boss_Spine1
+    400080: squelette_boss_Spine2
+    4300000: boss1
+    9500000: //RootNode
+    13700000: boss1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: squelette_boss_Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftHandThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftHandThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftHandThumb3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftHandMiddle1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftHandMiddle2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_LeftHandMiddle3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightHandThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightHandThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightHandThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightHandMiddle1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightHandMiddle2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: squelette_boss_RightHandMiddle3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: boss2(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: boss1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_Reference
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_Hips
+      position: {x: -0.005082338, y: 0.70186996, z: -0.0114088915}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftUpLeg
+      position: {x: -0.07931086, y: -0.06044957, z: -0.0041486877}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftLeg
+      position: {x: -0.021768222, y: -0.30571938, z: 0.01555758}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftFoot
+      position: {x: -3.5527136e-17, y: -0.2321887, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftToeBase
+      position: {x: -0.000000061288965, y: -0.089751944, z: 0.1159474}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightUpLeg
+      position: {x: 0.07931086, y: -0.06044957, z: -0.0041486877}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightLeg
+      position: {x: 0.021768222, y: -0.30571938, z: 0.01555758}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightFoot
+      position: {x: 3.5527136e-17, y: -0.2321887, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightToeBase
+      position: {x: 0.000000061288965, y: -0.089751944, z: 0.1159474}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_Spine
+      position: {x: -0.000359717, y: 0.09292815, z: 0.008297375}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_Spine1
+      position: {x: -0, y: 0.10038909, z: 0.003111516}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_Spine2
+      position: {x: -0, y: 0.10038909, z: -5.551115e-19}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftShoulder
+      position: {x: -0.10641947, y: 0.07055173, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftArm
+      position: {x: -0.11216622, y: 0.0000009993004, z: -0.007903578}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftForeArm
+      position: {x: -0.26673117, y: -0.00444584, z: -0.0055701146}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHand
+      position: {x: -0.18475403, y: -5.684342e-16, z: -0.0014498447}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHandThumb1
+      position: {x: -0.06356978, y: 0.005153676, z: 0.038862523}
+      rotation: {x: -0.029977009, y: 0.027017208, z: -0.042051915, w: 0.99830014}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHandThumb2
+      position: {x: -0.037423536, y: -0.0052863937, z: 0.023281364}
+      rotation: {x: 0.0025049278, y: 0.0119415475, z: 0.0067380313, w: 0.99990284}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHandThumb3
+      position: {x: -0.03619352, y: -0.0025703216, z: 0.018010654}
+      rotation: {x: 0.005862873, y: 0.20840554, z: 0.041523337, w: 0.97714305}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHandThumb4
+      position: {x: -0.071336746, y: 0.0022891997, z: -0.0014170647}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHandMiddle1
+      position: {x: -0.10408015, y: 0.017945198, z: -0.0112508405}
+      rotation: {x: 0.00028460613, y: -0.0025127644, z: -0.006640734, w: 0.9999748}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHandMiddle2
+      position: {x: -0.056943573, y: 0.00009859468, z: -0.002477768}
+      rotation: {x: 0.0034543648, y: 0.00067482766, z: -0.07936064, w: 0.99683976}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHandMiddle3
+      position: {x: -0.04920975, y: -0.01167986, z: -0.0022412932}
+      rotation: {x: 0.044230964, y: -0.14135735, z: -0.23449336, w: 0.96076775}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_LeftHandMiddle4
+      position: {x: -0.07576965, y: -0.07311424, z: 0.029782783}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightShoulder
+      position: {x: 0.1071389, y: 0.07055173, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightArm
+      position: {x: 0.12079729, y: 0.0000009993004, z: -0.007903578}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightForeArm
+      position: {x: 0.26673117, y: -0.00444584, z: -0.0055701146}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHand
+      position: {x: 0.18475403, y: -5.684342e-16, z: -0.0014498447}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHandThumb1
+      position: {x: 0.06356978, y: 0.005153676, z: 0.038862523}
+      rotation: {x: -0.029977048, y: -0.027017208, z: 0.042051967, w: 0.99830014}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHandThumb2
+      position: {x: 0.037423536, y: -0.0052863937, z: 0.023281364}
+      rotation: {x: 0.0025052412, y: -0.0119421035, z: -0.006738665, w: 0.9999029}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHandThumb3
+      position: {x: 0.03619352, y: -0.0025703216, z: 0.018010654}
+      rotation: {x: 0.0058630663, y: -0.20840526, z: -0.041524522, w: 0.97714305}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHandThumb4
+      position: {x: 0.071336746, y: 0.0022891997, z: -0.0014170647}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHandMiddle1
+      position: {x: 0.10408015, y: 0.017945198, z: -0.0112508405}
+      rotation: {x: 0.00028461273, y: 0.002512824, z: 0.0066408883, w: 0.9999748}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHandMiddle2
+      position: {x: 0.056943573, y: 0.00009859468, z: -0.002477768}
+      rotation: {x: 0.0034547832, y: -0.0006801815, z: 0.079360634, w: 0.99683976}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHandMiddle3
+      position: {x: 0.04920973, y: -0.01167986, z: -0.0022418164}
+      rotation: {x: 0.044204842, y: 0.14147481, z: 0.23449832, w: 0.9607504}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_RightHandMiddle4
+      position: {x: 0.07576264, y: -0.073114276, z: 0.029800508}
+      rotation: {x: 0, y: -0.00093574764, z: -0, w: 0.9999996}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_Neck
+      position: {x: -0, y: 0.10038909, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: squelette_boss_Head
+      position: {x: 0.0043536443, y: 0.39332333, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
