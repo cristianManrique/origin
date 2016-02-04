@@ -1,51 +1,79 @@
 #pragma strict
 //@script RequireComponent(Animator)
 /**
-*Script pour instancier des emmeteurs de particules a maniere des sorts
-*@author Cristina Mahneke
-*@source TPfinal Session 4, materiel du cours de Assemblage de Jeu 1 avec Jonathan Martel
-*@date 25/01/2016
+* Script pour instancier des emmeteurs de particules a maniere des sorts
+* @author Cristina Mahneke
+* @author Cristian Manrique
+* @source TPfinal Session 4, materiel du cours de Assemblage de Jeu 1 avec Jonathan Martel
+* @date 25/01/2016
 **/
 
-/**
-*la distance/longueur maximum du RayCast
-*@var int
-*@access public
-**/
-public var maxHitPoint:int = 10;
+	/**
+	*la distance/longueur maximum du RayCast
+	*@var int
+	*@access public
+	**/
+	public var maxHitPoint:int = 10;
 
-/**
-*variable pour gerer quand le joueuer pourrait instancier une particule
-*@var boolean
-*@access private
-**/
-private var peuTirer: boolean = true;
+	/**
+	*variable pour gerer quand le joueuer pourrait instancier une particule
+	*@var boolean
+	*@access private
+	**/
+	//private var peuTirer: boolean = true;
+	private var peuTirer: boolean = false;
 
-/**
-*le temps en seconds que le joueuer doit attendre avant de pouvoir lancer une autre sort
-*@var int
-*@access public
-**/
-public var cadenceTir: float = 1;
+	/**
+	*le temps en seconds que le joueuer doit attendre avant de pouvoir lancer une autre sort
+	*@var int
+	*@access public
+	**/
+	public var cadenceTir: float = 1;
 
-/**
-*le nombre des potions que le heros possede
-*@var int
-*@access public
-**/
-public var noPotions: int;
+	/**
+	*le nombre des potions que le heros possede
+	*@var int
+	*@access public
+	**/
+	public var noPotions: int;
 
-private var bouleBleue:GameObject;
+	private var bouleBleue:GameObject;
 
-/**
-*les GameObjects emmeteurs de particules
-*@var GameObject
-*@access public
-**/
-public var emmeteur1: GameObject;
-public var emmeteur2: GameObject;
+	/**
+	*les GameObjects emmeteurs de particules
+	*@var GameObject
+	*@access public
+	**/
+	public var emmeteur1: GameObject;
+	public var emmeteur2: GameObject;
 
-//public var animateur:Animator;
+//::::::::::::::::::::://
+    /**
+     * Contient le controleur d'animation
+     * @access public
+     * @var Animator
+     */
+    private var animateur: Animator;
+    /**
+     * Contient le héro (clara ou Mlacom)
+     * @access private
+     * @var GameObject
+     */
+    private var heros: GameObject;
+
+
+
+//:::::::::::Awake :::::::::://
+function Awake()
+{
+
+    heros = GameObject.FindWithTag("heros");
+    //:: chercher le héros
+
+    animateur = heros.gameObject.GetComponent.<Animator>();
+    //:: trouver le composant Animator
+	
+}
 
 
 
@@ -56,25 +84,40 @@ function Start () {
 }
 
 function Update () {
-//Debug.Log("noPotions = "+noPotions);
-	
+	//Debug.Log("noPotions = "+noPotions);
+
+	//Debug.Log(peuTirer);
     
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
-   	if(Input.GetButton("Fire2") && peuTirer == true && noPotions>0){
+   	if(Input.GetButton("Fire2") && peuTirer == false && noPotions>0){
 		Debug.Log("fire !");
 		Feu();
-		peuTirer = false;
+		peuTirer = true;
 	}
 	//Jeter un sort
 		//JeterSort();
 	if (bouleBleue) {
 		bouleBleue.transform.Translate(Vector3.forward * 10 * Time.deltaTime);
 	}
+
+
+	//:::::::::::::: GERER animation jeterSort ::::::::::// 
+	if(peuTirer)
+	{
+		peuTirer=false;//:: remettre à FALSE
+		animateur.SetBool('jeteSort', true);
+        //:: dire à l'animator d'utiliser cette variable du code	
+	}
+	else {
+		animateur.SetBool('jeteSort', false);
+        //:: dire à l'animator d'utiliser cette variable du code
+	}
 	
 }// FIN UPDATE
 
 //***********fonction a integrer un fois on est pret avec les animations***********//
-/*function JeterSort(){
+/*
+function JeterSort(){
 	
 	if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false){
 	
@@ -88,7 +131,8 @@ function Update () {
 		animateur.SetBool('jeteSort', false);
 		}
 	
-}*/
+}
+*/
 
 //Methode que instanciera les prefabs des emmeteurs
 function Feu(){
@@ -138,4 +182,4 @@ function Feu(){
 	//une fois fini de lance un sort, on pourrait lancer un autre
 	peuTirer = true;
 	
-}
+}//fin feu();
