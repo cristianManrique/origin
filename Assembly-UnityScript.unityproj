@@ -66,6 +66,8 @@
      <Compile Include="Assets\Scripts\scOgre.js" />
      <Compile Include="Assets\Scripts\scOscillation1.js" />
      <Compile Include="Assets\Scripts\scOscillation2.js" />
+     <Compile Include="Assets\Scripts\scPendulum1.js" />
+     <Compile Include="Assets\Scripts\scPendulum2.js" />
      <Compile Include="Assets\Scripts\scRejouerPartie.js" />
      <Compile Include="Assets\Scripts\scSoleil.js" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
