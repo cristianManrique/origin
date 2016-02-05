@@ -15,6 +15,6 @@ function Start () {
 
 function Update () {
 	
-		transform.position.x = -Mathf.PingPong(Time.time*.2, .07) - .07;
+		transform.position.x = -Mathf.PingPong(Time.time*.2, 1) - 1;
 
 }
