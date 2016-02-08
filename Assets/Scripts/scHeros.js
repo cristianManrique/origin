@@ -385,7 +385,7 @@ function OnTriggerEnter(other: Collider) {
 
 
 //:::::::::::::: OnTriggerStay :::::::::::::://
-//Permet de verifier à chq frame s'il vole 
+//Permet de verifier à chq frame s'il vole et si on voit le jetpack
 /*function OnTriggerStay(other: Collider){
 
     //:::::::::::::: ACTIVER Jetpack   

@@ -123,7 +123,7 @@ function Start () {
 //permet de donner une valeur aléatoire entre 0 et 360 degres
 	nouvelleRotation=Random.Range(0,90);
 //il va chercher le CharacterController qui est mis dans la variable controleurLutin
-	controleurLutin=this.GetComponent('CharacterController');
+	controleurLutin=GetComponent('CharacterController');
 	gestionJeu = GameObject.FindWithTag("heros").GetComponent(scGestionJeu);
 
 	 //gestionscAffichage=canvas.GetComponent.<scAffichage>();
