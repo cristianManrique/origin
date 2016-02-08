@@ -177,6 +177,7 @@ function Update () {
 //:::::::::::::: OnTriggerEnter :::::::::::::://
 function OnTriggerEnter(other: Collider) {
      
+    Debug.Log(other);
     if(other.gameObject.tag)
     {
         switch(other.gameObject.tag)
