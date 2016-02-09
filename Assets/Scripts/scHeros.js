@@ -187,7 +187,7 @@ function Awake()
 
     animateur = this.gameObject.GetComponent.<Animator>();
     controller =this.gameObject.GetComponent.<CharacterController>();
-	
+    
 }
 
 //:::::::::::Start :::::::::://
@@ -196,7 +196,7 @@ function Start ()
 
     //::chercher le composant de type AudioSource
     TypeAudioSource = GetComponent.<AudioSource>();
-	
+    
 }
 
 
@@ -220,40 +220,40 @@ function Update()
 
 //:::::::::::::: GERER DEPLACEMENT :::::::::://
     //:: Lecture des variables d'axe
-	var inputX = Input.GetAxis('Horizontal');	
-	var inputY = Input.GetAxis('Vertical');
+    var inputX = Input.GetAxis('Horizontal');   
+    var inputY = Input.GetAxis('Vertical');
 
-	
-	if(Input.GetKeyDown('space'))//:: Si space est enfoncé
-	{
-		saut = true;
+    
+    if(Input.GetKeyDown('space'))//:: Si space est enfoncé
+    {
+        saut = true;
         animateur.SetBool('saut', true);
         //:: dire à l'animator d'utiliser cette variable du code
-	}
+    }
     if(Input.GetKeyUp('space'))//:: Si space est enfoncé
     {
         saut = false;
         animateur.SetBool('saut', false);
         //:: dire à l'animator d'utiliser cette variable du code
     }
-	
+    
 
-	//:: Application de la rotation directement sur le transform
-	transform.Rotate(0, inputX * vitesseRot, 0);
-
-
-	animateur.SetFloat('vitesseRot', inputX);
-	//:: dire à l'animator d'utiliser cette variable du code
+    //:: Application de la rotation directement sur le transform
+    transform.Rotate(0, inputX * vitesseRot, 0);
 
 
-	
-	if(controller.isGrounded || voler==true)//s'il est sol OU si voler est true 
-   	{ 
-		dirMouvement = Vector3(0, 0, inputY);	// Calcul du mouvement
-		// ajouter l'animateur pour les animation
-		animateur.SetFloat('vitesseDeplace', inputY * course);
-		//:: dire à l'animator d'utiliser cette variable du code	
-		dirMouvement = transform.TransformDirection(dirMouvement);
+    animateur.SetFloat('vitesseRot', inputX);
+    //:: dire à l'animator d'utiliser cette variable du code
+
+
+    
+    if(controller.isGrounded || voler==true)//s'il est sol OU si voler est true 
+    { 
+        dirMouvement = Vector3(0, 0, inputY);   // Calcul du mouvement
+        // ajouter l'animateur pour les animation
+        animateur.SetFloat('vitesseDeplace', inputY * course);
+        //:: dire à l'animator d'utiliser cette variable du code    
+        dirMouvement = transform.TransformDirection(dirMouvement);
 
 
 //:::::::::::::: GERER ATTAQUE :::::::::://
@@ -272,53 +272,53 @@ function Update()
 
 
 //:::::::::::::: GERER COURSE :::::::::://
-		if(Input.GetKey('left shift'))
-	    {
-	    	dirMouvement *= vitesse * course;
-	      	animateur.SetFloat('vitesseDeplace', inputY * course);
-	    	animeCourse= true;
-	    }
-		else
-		{
-	    	dirMouvement *= vitesse * marche;
-	    }
-	    
-	        
+        if(Input.GetKey('left shift'))
+        {
+            dirMouvement *= vitesse * course;
+            animateur.SetFloat('vitesseDeplace', inputY * course);
+            animeCourse= true;
+        }
+        else
+        {
+            dirMouvement *= vitesse * marche;
+        }
+        
+            
 //:::::::::::::: GERER SAUT :::::::::://  
-	    if(saut)
-		{
-			dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
+        if(saut)
+        {
+            dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
             saut=false;//:: remettre à FALSE
-			animateur.SetBool('saut', true);
-            //:: dire à l'animator d'utiliser cette variable du code	
-		}
-		else {
-			animateur.SetBool('saut', false);
+            animateur.SetBool('saut', true);
+            //:: dire à l'animator d'utiliser cette variable du code    
+        }
+        else {
+            animateur.SetBool('saut', false);
             //:: dire à l'animator d'utiliser cette variable du code
-		}
+        }
 
 
 //:::::::::::::: GERER animeCourse ::::::::::// 
-		if(animeCourse)
-		{
-			animeCourse=false;//:: remettre à FALSE
-			animateur.SetBool('animeCourse', true);
-            //:: dire à l'animator d'utiliser cette variable du code	
-		}
-		else {
-			animateur.SetBool('animeCourse', false);
+        if(animeCourse)
+        {
+            animeCourse=false;//:: remettre à FALSE
+            animateur.SetBool('animeCourse', true);
+            //:: dire à l'animator d'utiliser cette variable du code    
+        }
+        else {
+            animateur.SetBool('animeCourse', false);
             //:: dire à l'animator d'utiliser cette variable du code
-		}
-	
-	
-		
-	}//FIN controller
+        }
+    
+    
+        
+    }//FIN controller
 
 
 
 
 //:::::::::::::: GÉRER VOLE :::::::::://
-	if(Input.GetKey(KeyCode.Z) && voler==true)
+    if(Input.GetKey(KeyCode.Z) && voler==true)
     {
 
         dirMouvement.y += 200 * Time.deltaTime;
@@ -333,8 +333,8 @@ function Update()
         //Debug.Log('il descend');
 
     }
-	
-	//:: Application de la gravité au mouvement
+    
+    //:: Application de la gravité au mouvement
     dirMouvement.y -= gravite*Time.deltaTime;
     //:: Affectation du mouvement au Character controller
     controller.Move(dirMouvement * Time.deltaTime);
@@ -364,8 +364,8 @@ function Update()
      {      
          TypeAudioSource.pitch=1;
      }
-	
-	
+    
+    
 }//FIN UPDATE
 
 
@@ -375,7 +375,7 @@ function Update()
 function OnTriggerEnter(other: Collider) {
     if (other.gameObject.name == 'trigger') 
     {
-    	//Debug.Log("trigger");
+        //Debug.Log("trigger");
         
     }
 
@@ -385,7 +385,7 @@ function OnTriggerEnter(other: Collider) {
 
 
 //:::::::::::::: OnTriggerStay :::::::::::::://
-//Permet de verifier à chq frame s'il vole et si on voit le jetpack
+//Permet de verifier à chq frame s'il vole 
 /*function OnTriggerStay(other: Collider){
 
     //:::::::::::::: ACTIVER Jetpack   
@@ -402,7 +402,7 @@ function OnTriggerEnter(other: Collider) {
 //:::::::::::::: OnTriggerExit :::::::::::::://
 function OnTriggerExit(other: Collider) {
 
-	//:::::::::::::: ACTIVER Jetpack   
+    //:::::::::::::: ACTIVER Jetpack   
     if (other.gameObject.tag == 'feeVolante') 
     {
         voler = true;// mettre a true

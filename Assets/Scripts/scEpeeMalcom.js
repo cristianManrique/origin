@@ -63,19 +63,19 @@ function OnTriggerEnter(other:Collider) {
         switch(other.gameObject.tag)
         {
             case "ogre":
-                Debug.Log(other.gameObject);
+                Debug.Log(other.gameObject.tag);
 		        scriptOgre = other.gameObject.GetComponent(scOgre);//Aller chercher le script de l'ogre
 		        scriptOgre.updateDommages(dommagesInfliges);//chercher la function updateDommages 
                 break;
 
             case "diable":
-                Debug.Log(other.gameObject);
+                Debug.Log(other.gameObject.tag);
 		        scriptDiable = other.gameObject.GetComponent(scDiable);//Aller chercher le script du diable
 		        scriptDiable.updateDommages(dommagesInfliges);//chercher la function updateDommages 
             	break;
 
             case "lutin":
-            	//Debug.Log(other.gameObject);
+            	Debug.Log(other.gameObject.tag);
 		        scriptLutin = other.gameObject.GetComponent(scLutin);//Aller chercher le script du Lutin
 		        scriptLutin.updateDommages(dommagesInfliges);//chercher la function updateDommages 
             	break;
