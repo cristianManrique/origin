@@ -65,7 +65,7 @@ private var decalageHeros:int = 20;//Détermine l'angle de la caméra
 function Start () {
     heros = GameObject.FindWithTag("heros").transform;
 }
-function FixedUpdate () {
+function Update () {
     
     //CODE SOURCE : http://answers.unity3d.com/questions/544691/2d-orthographic-camera-follow.html
     //Code de caméra suiveuse 2.5D + code de zoom modifié.
@@ -77,8 +77,8 @@ function FixedUpdate () {
     position.x = heros.position.x + decalageHeros;
 
     //Code de suivi en fonction des déplacements du héros.
-    this.transform.LookAt(heros);
     this.transform.position = Vector3.Lerp(this.transform.position, position, vitesseDeplacement * Time.deltaTime);
+    this.transform.LookAt(heros);
     
     //Permet le zoom de la caméra avec la roulette de la souris.
     if (Input.GetAxis("Mouse ScrollWheel") > 0) {

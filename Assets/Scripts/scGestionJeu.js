@@ -132,6 +132,13 @@
 
      private var objet02;
 
+    /*
+    * détermine le nombre de potions de réveil ammassées par le joueur
+    * @access private
+    * @var Script
+    */
+     private var nbPotionsReveille = 0;
+
 function Start () {
 
     //:: Débuter les objets textes à 0
@@ -210,27 +217,20 @@ function OnTriggerEnter(other: Collider) {
                 //Debug.Log("potionVie");
                 Destroy(other.gameObject);
                 checkPotion1=false;//remettre à false
-                break;
-
+                break;        
             case "potionReveille":
                 JoueSonVictoire();
-               // message="une potion Reveille";
-              	Destroy(other.gameObject);
-                SceneManager.LoadScene("menu");
-                break;
-    //:: permet de passé au niveau deux après avoir tuer le boss niveau1           
-            case "reveilleNiveau1":
+                nbPotionsReveille++;
                 // message="une potion Reveille";
-                Destroy(other.gameObject);
-                SceneManager.LoadScene("niveau2");
+                if (nbPotionsReveille == 1) {
+                    //permet de passé au niveau deux après avoir tuer le boss niveau1
+                    SceneManager.LoadScene("niveau2");
+                }
+                else if (nbPotionsReveille == 2) {
+                    //permet de finir le jeu après avoir tuer le bos niveau 2
+                    SceneManager.LoadScene("gagnant");
+                }
                 break;
-    //:: permet de finir le jeu après avoir tuer le boss niveau 2          
-            case "reveilleNiveau2":
-                // message="une potion Reveille";
-                Destroy(other.gameObject);
-                SceneManager.LoadScene("gagnant");
-                break;
-
            case "potionSort":
     //::addition de chaque potion rammassée.
                 checkPotion2=true;
