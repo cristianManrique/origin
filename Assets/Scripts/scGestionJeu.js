@@ -192,7 +192,7 @@ function OnTriggerEnter(other: Collider) {
                 JoueSonVictoire();
                 gestionscBarreVies.AugmenteBarreVies();
                 AlphaCoeurG++;//Augmente le Alpha
-                gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
+                //gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
                 //var message="un bonbon";
                 //Debug.Log("bonbon");
                 Destroy(other.gameObject);
@@ -205,7 +205,7 @@ function OnTriggerEnter(other: Collider) {
                 //Debug.Log("gateau");
                 Destroy(other.gameObject);
                 AlphaCoeurG++;//Augmente le Alpha
-                gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
+                //gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
                 break;
 
             case "potionVie":

@@ -141,7 +141,7 @@ function Update () {
 
 		vieSlider.value = restant;
 		AlphaCoeur = restant;//:: permet de diminuer la alpha du coeur
-		gestionscAffichage.DiminueAlphaCoeurUI(AlphaCoeur, numCoeur);
+		//gestionscAffichage.DiminueAlphaCoeurUI(AlphaCoeur, numCoeur);
 		//:: ATTENTION: function appeler dans scAffichage.js
 	}
 
