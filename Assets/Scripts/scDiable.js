@@ -25,7 +25,7 @@ public var controleurDiable:CharacterController;
 * @access private
 * @var float
 */
-public var vitessePoursuite:float = 5.0;
+public var vitessePoursuite:float = 4.0;
 
 /*
 * Vitesse lors d'un arrêt.
@@ -43,10 +43,10 @@ private var navMeshDiable:NavMeshAgent;
 
 /*
 * Cible de du diable (héros).
-* @access private
+* @access public
 * @var Transform
 */
-private var cible:Transform;
+public var cible:Transform;
 
 /*
 * Distance restante entre le héros et le diable.
@@ -103,10 +103,7 @@ function Start () {
     navMeshDiable = diable.GetComponent(NavMeshAgent);
     navMeshDiable = GetComponentInChildren(NavMeshAgent);
     navMeshDiable.updateRotation = false;
-    navMeshDiable.updatePosition = true;
-    
-    cible = GameObject.FindWithTag("heros").transform;
-    
+    navMeshDiable.updatePosition = true;    
     controleurDiable = diable.GetComponent(CharacterController);
 }
 
