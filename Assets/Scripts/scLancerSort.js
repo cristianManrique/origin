@@ -60,7 +60,7 @@ function Update () {
 	
     
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
-   	if(Input.GetButton("Fire2") && peuTirer == true && noPotions>0){
+   	if(Input.GetButton("Fire2") && peuTirer == true && noPotions>0) {
 		Debug.Log("fire !");
 		Feu();
 		peuTirer = false;
