@@ -182,7 +182,7 @@ function Update () {
     
     if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
         frapper();
-//        Debug.Log("frappe"); 
+        Debug.Log("frappe"); 
     }
     else if (distanceHeros < distancePatrouille) {//Si le héros est assez près pour être poursuivi...
         //Debug.Log("poursuite");
@@ -265,8 +265,11 @@ function patrouiller () {
 
 //Méthode qui détermine ce qui arrive quand l'ogre est tué, soit sa destruction et l'apparition d'une récompense.
 function mort() {
-    var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/gateau")) as GameObject;
+    var bonus:GameObject = Instantiate (Resources.Load ("gateau")) as GameObject;
     bonus.transform.position = ogre.transform.position;
+    bonus.AddComponent.<BoxCollider>();
+    bonus.GetComponent(BoxCollider).isTrigger = true;
+    bonus.tag = "bonbon";
     Destroy(ogre);
     gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher Barre de vie de Ennemi
 

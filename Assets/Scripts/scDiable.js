@@ -161,8 +161,11 @@ function seReposer () {
 
 //Méthode qui détermine ce qui arrive quand le diable est tué, soit sa destruction et l'apparition d'une récompense.
 function mort() {
-    var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/cupcake")) as GameObject;
+    var bonus:GameObject = Instantiate (Resources.Load ("cupcake")) as GameObject;
     bonus.transform.position = diable.transform.position;
+    bonus.AddComponent.<BoxCollider>();
+    bonus.GetComponent(BoxCollider).isTrigger = true;
+    bonus.tag = "bonbon";
     Destroy(diable);
 }
 

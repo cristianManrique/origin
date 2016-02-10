@@ -99,15 +99,15 @@
 
 
  
-   /*
+    /*
     * c'est la quantite total des potion
     * @access private
     * @var int
     */
-//    private var quantitePotionSort:int=0;
+    //private var quantitePotionSort:int=0;
 
 
-     /*
+    /*
     * Script pour lancer un sort
     * @access private
     * @var Script
@@ -116,14 +116,14 @@
 
 
 
-     /*
+    /*
     * Point Origin des sorts, objet parent du scLancerSort
     * @access private
     * @var GameObject
     */
     private var objOriginSorts: GameObject;
 
-     /*
+    /*
     * Script pour changer d'arme
     * @access private
     * @var Script
@@ -154,7 +154,7 @@ function Start () {
     gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);
 
     objOriginSorts = GameObject.FindWithTag("originSort");
-    scriptLancerSort = objOriginSorts.GetComponent(scLancerSort);
+    scriptLancerSort = objOriginSorts.GetComponent.<scLancerSort>();
 
     scriptChoisirArme = GetComponent(scChoisirArme);
 
@@ -162,10 +162,9 @@ function Start () {
 
 function Update () {
 
-	//Debug.Log("objet02 = "+objet02);
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
     scriptLancerSort.noPotions = nbPotionSort;
-//	scriptChoisirArme.noPotions = nbPotionSort;
+    //scriptChoisirArme.noPotions = nbPotionSort;
 
     //:: Permet de mettre à jour L'affichage des coeurs
     //:: ATTENTION:  numCoeur dans scBarredeVie.js
@@ -179,18 +178,18 @@ function Update () {
 
 
 
-}
+}//FIn update
 
 //:::::::::::::: OnTriggerEnter :::::::::::::://
 function OnTriggerEnter(other: Collider) {
      
-    Debug.Log(other);
     if(other.gameObject.tag)
     {
         switch(other.gameObject.tag)
         {
             //:::::::::::::: Gestion des objets trouvées
             case "bonbon":
+                JoueSonVictoire();
                 gestionscBarreVies.AugmenteBarreVies();
                 AlphaCoeurG++;//Augmente le Alpha
                 gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
@@ -200,6 +199,7 @@ function OnTriggerEnter(other: Collider) {
                 break;
 
             case "gateau":
+                JoueSonVictoire();
                 gestionscBarreVies.AugmenteBarreVies();
                 //message="un gateau";
                 //Debug.Log("gateau");
@@ -209,6 +209,7 @@ function OnTriggerEnter(other: Collider) {
                 break;
 
             case "potionVie":
+                JoueSonVictoire();
                 objet01++;//potionVie trouvée
                 checkPotion1=true;
                 gestionscAffichage.MettreAJourPotionsUI(checkPotion1, checkPotion2);
@@ -216,8 +217,9 @@ function OnTriggerEnter(other: Collider) {
                 //Debug.Log("potionVie");
                 Destroy(other.gameObject);
                 checkPotion1=false;//remettre à false
-                break;
+                break;        
             case "potionReveille":
+                JoueSonVictoire();
                 nbPotionsReveille++;
                 // message="une potion Reveille";
                 if (nbPotionsReveille == 1) {
@@ -230,7 +232,7 @@ function OnTriggerEnter(other: Collider) {
                 }
                 break;
            case "potionSort":
-         //addition de chaque potion rammassée.
+    //::addition de chaque potion rammassée.
                 checkPotion2=true;
                 gestionscAffichage.MettreAJourPotionsUI(checkPotion1, checkPotion2);
          		nbPotionSort++;
@@ -309,36 +311,40 @@ function OnTriggerEnter(other: Collider) {
                 Destroy(other.gameObject);
                 break;
         }
-        //permet l'affichage de la quantité total des potion de Sort
+        //:: Mise à jour de l'affichage de la quantité total des potion de Sort
         gestionscAffichage.quantitePotionSort(objet01, nbPotionSort);
     }
 
-}/*fin trigger enter*/
-
-	function OnTriggerExit(other:Collider) {
-	    if(other.gameObject.tag)
-	    {
-	       switch(other.gameObject.tag)
-	        {
-	          case "ogre":
-	                gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher ce panneau
-	               break;
-	       }
-	   }
-	}//fin OnTriggerEXit
+}//fin trigger enter
 
 
+//:::::::::::::: OnTriggerExit :::::::::::::://
+function OnTriggerExit(other:Collider) {
+    if(other.gameObject.tag)
+    {
+       switch(other.gameObject.tag)
+        {
+          case "ogre":
+                gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);
+                //ne pas afficher ce panneau
+               break;
+       }
+   }
+}//fin OnTrigger EXit
 
-	//:::::::::::::: function jouer une fois l'AudioVictoire :::::::::::::://
-	function JoueSonVictoire(){
-	    GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
-	}
 
-		function reductionPotionSort()
-		{
-		    nbPotionSort--;
-           // Debug.Log(nbPotionSort);
-		}
+
+//:::::::::::::: function jouer une fois l'AudioVictoire :::::::::::::://
+function JoueSonVictoire(){
+    GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
+}
+
+//:::::::::::::: function qui reduire le nb de potion sort :::::::::::::://
+function reductionPotionSort()
+{
+    nbPotionSort--;
+   // Debug.Log(nbPotionSort);
+}
 
 
 
