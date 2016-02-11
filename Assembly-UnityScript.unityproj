@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Unity 5.3.1/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Unity 5.3.1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -55,8 +55,8 @@
      <Compile Include="Assets\Scripts\scCamera.js" />
      <Compile Include="Assets\Scripts\scChoisirArme.js" />
      <Compile Include="Assets\Scripts\scDeplacementFee.js" />
+     <Compile Include="Assets\Scripts\scDetectionETInfligeDommage.js" />
      <Compile Include="Assets\Scripts\scDiable.js" />
-     <Compile Include="Assets\Scripts\scEpeeMalcom.js" />
      <Compile Include="Assets\Scripts\scFantome.js" />
      <Compile Include="Assets\Scripts\scFourcheDiable.js" />
      <Compile Include="Assets\Scripts\scGestionJeu.js" />
@@ -83,10 +83,10 @@
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Unity 5.3.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Unity 5.3.1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
