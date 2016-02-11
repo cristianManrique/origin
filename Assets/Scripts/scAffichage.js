@@ -26,9 +26,9 @@ import UnityEngine.UI;
 	* @access public
 	* @var Text
 	*/
-	public var ObjetText1:Text;
+	//public var ObjetText1:Text;
 	public var potionSortText:Text;
-	public var messageText:Text;
+	//public var messageText:Text;
 
 
 	/*
@@ -53,7 +53,7 @@ import UnityEngine.UI;
     * @access private
     * @var integer
     */
-    private var objet01:Text;//potionVie
+    private var nbPotionVie:Text;//potionVie
 
     public var nbPotionSort:int=4;//potionSort
 
@@ -64,8 +64,8 @@ import UnityEngine.UI;
     * @access public
     * @var GameObject
     */
-    public var potion01: GameObject;//potionVie
-    public var potion02: GameObject;//potionSort
+    public var potionSortImage: GameObject;//potionVie
+    //public var potion02: GameObject;//potionSort
 
     /*
     * Contient les images UI des coeurs
@@ -110,19 +110,19 @@ import UnityEngine.UI;
 function Start () {
 
 	//:: Chercher le composant Image dans les sprites UI 
-    RenderPotion1 = potion01.GetComponent.<Image>();
-    RenderPotion2 = potion02.GetComponent.<Image>();
+    RenderPotion1 = potionSortImage.GetComponent.<Image>();
+    //RenderPotion2 = potion02.GetComponent.<Image>();
     RenderCoeur1  = coeur01.GetComponent.<Image>();
     RenderCoeur2  = coeur02.GetComponent.<Image>();
     RenderCoeur3  = coeur03.GetComponent.<Image>();
 
     //:: Débuter le ALPHA des SPRITES UI
     RenderPotion1.color.a = 0.3 ;
-    RenderPotion2.color.a = 0.3 ;
+    //RenderPotion2.color.a = 0.3 ;
     RenderCoeur1.color.a = 1 ;
     RenderCoeur2.color.a = 1 ;
     RenderCoeur3.color.a = 1 ;
-
+    //:: Aller chercher le canvas
     canvas = GameObject.FindWithTag("canvas");
 
 }
@@ -135,10 +135,10 @@ function Update () {
 
 
 //::: MettreAJourVie afficher sur UI:::::::::://
-function MettreAJourVie(objet01:int)
+function MettreAJourVie(nbPotionVie:int)
 {
 	//:: convertir en entier
-	//ObjetTextVie.text = objet01.ToString();
+	//ObjetTextVie.text = nbPotionVie.ToString();
 
 	//écraser le texte UI
 
@@ -148,7 +148,7 @@ function MettreAJourVie(objet01:int)
 
 //:: MettreAJourMessage sur UI :::::::::://
 function MettreAJourMessage(message:String){
-	messageText.text = message;
+	//messageText.text = message;
 
 }
 
@@ -158,10 +158,10 @@ function MettreAJourMessage(message:String){
 
 
 //affiche le nombre de potion Sort sur la canvas.
-function quantitePotionSort(objet01, nbPotionSort)
+function quantitePotionSort(nbPotionVie, nbPotionSort)
 {
 	//:: convertir en entier
-	ObjetText1.text = objet01.ToString();
+	//ObjetText1.text = nbPotionVie.ToString();
 	potionSortText.text = nbPotionSort.ToString();
 	//ObjetText3.text = objet03.ToString();
 	//écraser le texte UI
@@ -170,16 +170,54 @@ function quantitePotionSort(objet01, nbPotionSort)
 
 
 //:::::::::::::: function MettreAJourCoeur :::::::::::::://
-function MettreAJourPotionsUI(checkPotion1:boolean, checkPotion2:boolean){
+function MettreAJourPotionsUI(checkPotion:boolean){
 
-	if(checkPotion1==true) {
+	if(checkPotion==true) {
         RenderPotion1.color.a += 0.3; 
     }
 
-    if(checkPotion2==true) {
-        RenderPotion2.color.a += 0.3; 
+    else {
+        RenderPotion1.color.a -= 0.3; 
     }
 } 
+
+//:::::::::::::: function Elimine Un coeur au UI:::::::::::::://
+function ElimineUncoeur(numCoeur) {
+
+    switch(numCoeur)
+        {
+            case 3:
+                RenderCoeur3.color.a = 0; 
+                break;
+
+            case 2:
+                RenderCoeur2.color.a = 0; 
+                break;
+
+            case 1:
+                RenderCoeur1.color.a = 0; 
+                break;
+        }
+}
+
+//:::::::::::::: function Augmente Un coeur au UI:::::::::::::://
+function AugmenteUncoeur(numCoeur) {
+
+    switch(numCoeur)
+        {
+            case 3:
+                RenderCoeur3.color.a = 1; 
+                break;
+
+            case 2:
+                RenderCoeur2.color.a = 1; 
+                break;
+
+            case 1:
+                RenderCoeur1.color.a = 1; 
+                break;
+        }
+}
 
 
 //:::::::::::::: function DiminueAlphaCoeurUI :::::::::::::://

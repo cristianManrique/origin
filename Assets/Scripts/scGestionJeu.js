@@ -67,12 +67,11 @@
 
     //::::::::::::::::::::://
     /*
-    * Verifie quel potion il faut augmente ou diminue le ALPHA
+    * Verifie si on augmente ou on diminue le ALPHA de la potion sort
     * @access private
     * @var boolean
     */
-    private var checkPotion1:boolean = false;
-    private var checkPotion2:boolean = false;
+    private var checkPotion:boolean = false;
 
     //::::::::::::::::::::://
     /*
@@ -163,19 +162,13 @@ function Start () {
 function Update () {
 
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
-    scriptLancerSort.noPotions = nbPotionSort;
+    //scriptLancerSort.noPotions = nbPotionSort;
+    nbPotionSort = scriptLancerSort.noPotions;
     //scriptChoisirArme.noPotions = nbPotionSort;
 
     //:: Permet de mettre à jour L'affichage des coeurs
     //:: ATTENTION:  numCoeur dans scBarredeVie.js
     numCoeurG = gestionscBarreVies.numCoeur;
-
-
-
-
-   
-
-
 
 
 }//FIn update
@@ -192,7 +185,7 @@ function OnTriggerEnter(other: Collider) {
                 JoueSonVictoire();
                 gestionscBarreVies.AugmenteBarreVies();
                 AlphaCoeurG++;//Augmente le Alpha
-                gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
+                //gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
                 //var message="un bonbon";
                 //Debug.Log("bonbon");
                 Destroy(other.gameObject);
@@ -205,18 +198,17 @@ function OnTriggerEnter(other: Collider) {
                 //Debug.Log("gateau");
                 Destroy(other.gameObject);
                 AlphaCoeurG++;//Augmente le Alpha
-                gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
+                //gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
                 break;
 
             case "potionVie":
                 JoueSonVictoire();
                 objet01++;//potionVie trouvée
-                checkPotion1=true;
-                gestionscAffichage.MettreAJourPotionsUI(checkPotion1, checkPotion2);
+                //checkPotion=true;
+                //gestionscAffichage.MettreAJourPotionsUI(checkPotion, checkPotion2);
                 //message="une potion Vie";
                 //Debug.Log("potionVie");
                 Destroy(other.gameObject);
-                checkPotion1=false;//remettre à false
                 break;        
             case "potionReveille":
                 JoueSonVictoire();
@@ -233,11 +225,11 @@ function OnTriggerEnter(other: Collider) {
                 break;
            case "potionSort":
     //::addition de chaque potion rammassée.
-                checkPotion2=true;
-                gestionscAffichage.MettreAJourPotionsUI(checkPotion1, checkPotion2);
+                JoueSonVictoire();
+                checkPotion=true;
+                gestionscAffichage.MettreAJourPotionsUI(checkPotion);
          		nbPotionSort++;
             	Destroy(other.gameObject);
-                checkPotion2=false;//remettre à false
                	break;
 
     

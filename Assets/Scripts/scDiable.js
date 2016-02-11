@@ -96,8 +96,17 @@ private var delaiCoupDiable:int = 1;
 * @var boolean
 */
 private var donnerUnCoup:boolean = false;
+/*
+* Contient le GameObject héros
+* @access private
+* @var GameObject
+*/
+private var heros:GameObject;
+
 
 function Start () {
+	heros =	GameObject.FindWithTag('heros');
+	cible = heros.transform;
     
     //Initialisation et configuration du navMeshAgent
     navMeshDiable = diable.GetComponent(NavMeshAgent);
@@ -161,10 +170,10 @@ function seReposer () {
 
 //Méthode qui détermine ce qui arrive quand le diable est tué, soit sa destruction et l'apparition d'une récompense.
 function mort() {
-    var bonus:GameObject = Instantiate (Resources.Load ("cupcake")) as GameObject;
+    var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/cupcake")) as GameObject;
     bonus.transform.position = diable.transform.position;
-    bonus.AddComponent.<BoxCollider>();
-    bonus.GetComponent(BoxCollider).isTrigger = true;
+    //bonus.AddComponent.<BoxCollider>();
+    //bonus.GetComponent(BoxCollider).isTrigger = true;
     bonus.tag = "bonbon";
     Destroy(diable);
 }
