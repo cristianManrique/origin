@@ -163,6 +163,7 @@ function Update () {
 
 	}
 
+	/*
 	//:: Augmente un coeur/vie
 	if (vieSlider.value == 10) {
 		//restant=maxBarre;//Remettre idem à maxBarre
@@ -174,11 +175,11 @@ function Update () {
 		gestionscHeros.AugmenteVies(nbVies);
 		//augmente un coeur dans scAffichage
 		gestionscAffichage.AugmenteUncoeur(numCoeur);
-
-
+		
 		//if (numCoeur<= 0){numCoeur=0;}
 
 	}
+	*/
 
 }
 
