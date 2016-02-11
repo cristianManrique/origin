@@ -90,10 +90,10 @@ function Update () {
     
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
 
-   	if(Input.GetButton("Fire2") && peuTirer == true && noPotions>0) {
+   	if(Input.GetButton("Fire2") && peuTirer == false && noPotions>0) {
 		Debug.Log("fire !");
 		Feu();
-		peuTirer = true;
+		//peuTirer = true;
 	}
 	//Jeter un sort
 		//JeterSort();
@@ -105,7 +105,7 @@ function Update () {
 	//:::::::::::::: GERER animation jeterSort ::::::::::// 
 	if(peuTirer)
 	{
-		peuTirer=false;//:: remettre à FALSE
+		//peuTirer=false;//:: remettre à FALSE
 		animateur.SetBool('jeteSort', true);
         //:: dire à l'animator d'utiliser cette variable du code	
 	}

@@ -170,14 +170,6 @@ function Update () {
     //:: ATTENTION:  numCoeur dans scBarredeVie.js
     numCoeurG = gestionscBarreVies.numCoeur;
 
-
-
-
-   
-
-
-
-
 }//FIn update
 
 //:::::::::::::: OnTriggerEnter :::::::::::::://

@@ -266,11 +266,11 @@ function deplacementLutin()
 
 function mortLutin()
 	{
-		var bonus:GameObject = Instantiate (Resources.Load ("potionSort")) as GameObject;
+		var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/potionSort")) as GameObject;
     	bonus.transform.position = lutin.transform.position;
-    	bonus.AddComponent.<BoxCollider>();
-    	bonus.GetComponent(BoxCollider).isTrigger = true;
-    	bonus.tag = "bonbon";
+    	//bonus.AddComponent.<BoxCollider>();
+    	//bonus.GetComponent(BoxCollider).isTrigger = true;
+    	bonus.tag = "potionSort";
 		Destroy(lutin);
 		//Debug.Log('mortLutin');
 	}

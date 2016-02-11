@@ -1,7 +1,7 @@
 #pragma strict
 
 /**
-* Script de gestion de l'épée de  Malcom.
+* Script de gestion de l'épée de  Malcom. et les boules de feu de Clara
 * @author Cristian Manrique
 * @date 16-01-2016
 */

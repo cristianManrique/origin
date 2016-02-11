@@ -96,10 +96,11 @@ import UnityEngine.UI;
 
 	/*
 	* Indique le coeur à diminuer le alpha
+	* Débuter à 4 car on elimine un coeur
 	* @access private
 	* @var int
 	*/
-	public var numCoeur:int = 3;
+	public var numCoeur:int = 4;
 
 
 //:::::::::::Awake :::::::::://
@@ -154,8 +155,28 @@ function Update () {
 
 		// diminue une vie à l'héros
 		gestionscHeros.DiminueVies(nbVies);
+		//elimine un coeur dans scAffichage
+		gestionscAffichage.ElimineUncoeur(numCoeur);
+
 
 		if (numCoeur<= 0){numCoeur=0;}
+
+	}
+
+	//:: Augmente un coeur/vie
+	if (vieSlider.value == 10) {
+		//restant=maxBarre;//Remettre idem à maxBarre
+		numCoeur++;//augmente un coeur
+
+		nbVies = numCoeur;// idem
+
+		// augmente une vie à l'héros
+		gestionscHeros.AugmenteVies(nbVies);
+		//augmente un coeur dans scAffichage
+		gestionscAffichage.AugmenteUncoeur(numCoeur);
+
+
+		//if (numCoeur<= 0){numCoeur=0;}
 
 	}
 
