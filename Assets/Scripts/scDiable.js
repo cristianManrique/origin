@@ -7,13 +7,6 @@
 */
 
 /*
-* Diable
-* @access public
-* @var GameObject
-*/
-public var diable:GameObject;
-
-/*
 * controleur du diable.
 * @access public
 * @var CharacterController
@@ -109,11 +102,11 @@ function Start () {
 	cible = heros.transform;
     
     //Initialisation et configuration du navMeshAgent
-    navMeshDiable = diable.GetComponent(NavMeshAgent);
+    navMeshDiable = this.gameObject.GetComponent(NavMeshAgent);
     navMeshDiable = GetComponentInChildren(NavMeshAgent);
     navMeshDiable.updateRotation = false;
     navMeshDiable.updatePosition = true;    
-    controleurDiable = diable.GetComponent(CharacterController);
+    controleurDiable = this.gameObject.GetComponent(CharacterController);
 }
 
 function FixedUpdate () {
@@ -170,12 +163,14 @@ function seReposer () {
 
 //Méthode qui détermine ce qui arrive quand le diable est tué, soit sa destruction et l'apparition d'une récompense.
 function mort() {
+    var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesRecompense")) as GameObject;
+    etoiles.transform.position = this.gameObject.transform.position;
     var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/cupcake")) as GameObject;
-    bonus.transform.position = diable.transform.position;
+    bonus.transform.position = this.gameObject.transform.position;
     //bonus.AddComponent.<BoxCollider>();
     //bonus.GetComponent(BoxCollider).isTrigger = true;
     bonus.tag = "bonbon";
-    Destroy(diable);
+    Destroy(this.gameObject);
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://

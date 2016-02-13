@@ -7,13 +7,6 @@
 */
 
 /*
-* Ogre
-* @access public
-* @var GameObject
-*/
-public var ogre:GameObject;
-
-/*
 * controleur de l'ogre.
 * @access public
 * @var CharacterController
@@ -163,14 +156,14 @@ function Start () {
 
     
     //Initialisation et configuration du navMeshAgent
-    navMeshOgre = ogre.GetComponent(NavMeshAgent);
+    navMeshOgre = this.gameObject.GetComponent(NavMeshAgent);
     navMeshOgre = GetComponentInChildren(NavMeshAgent);
     navMeshOgre.updateRotation = true;
     navMeshOgre.updatePosition = true;
     
     cible = GameObject.FindWithTag("heros").transform;
     
-    controleurOgre = ogre.GetComponent(CharacterController);
+    controleurOgre = this.gameObject.GetComponent(CharacterController);
 
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
@@ -197,9 +190,6 @@ function Update () {
             destinationPatrouilleActuelle = 0;//Reset de la prochaine destination de patrouille.
         }
     }
-//    var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
-//    position3D.y -= gravite * Time.deltaTime;//Permet d'appliquer la gravite sur l'ogre en diminuant progressivement la hauteur sur l'axe des Y.
-//    controleurOgre.Move(position3D);//Appliquer la gravité seulement, le déplacement en x et z est régi par le navMesh.
 
   
     if (pointsVieOgre <= 0) {//L'ogre est mort
@@ -265,38 +255,14 @@ function patrouiller () {
 
 //Méthode qui détermine ce qui arrive quand l'ogre est tué, soit sa destruction et l'apparition d'une récompense.
 function mort() {
+    var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesRecompense")) as GameObject;
+    etoiles.transform.position = this.gameObject.transform.position;
     var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/gateau")) as GameObject;
-    bonus.transform.position = ogre.transform.position;
-    //bonus.AddComponent.<BoxCollider>();
-    //bonus.GetComponent(BoxCollider).isTrigger = true;
-    bonus.tag = "bonbon";
-    Destroy(ogre);
+    bonus.transform.position = this.gameObject.transform.position;
+    Destroy(this.gameObject);
     gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher Barre de vie de Ennemi
 
 }
-
-
-
-
-//Détermine la direction vers laquelle l'ogre doit tourner et le moment ou il doit changer de direction.
-/*function gererDirection() {
-    changementDirection = false;
-    angleActuel = this.transform.eulerAngles;
-    angleCible = angleActuel + incrementCible;
-    //Debug.Log("tourne");
-    yield WaitForSeconds(delaiAvantTourner);
-    changementDirection = true;
-}*/
-
-//Détermine si l'ogre doit donner un coup et la fréquence de ceux-ci.
-/*function frapper() {
-    donnerUnCoup = false;
-    //Code pour donner un coup par animation
-    yield WaitForSeconds(delaiCoupOgre);
-    donnerUnCoup = true;
->>>>>>> upstream/master
-}*/
-
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:int) {
