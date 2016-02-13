@@ -48,26 +48,26 @@ C'est un peu le "controler" du MVC
     //::::::::::::::::::::://
     /**
      * Vitesse de déplacement de base
-     * @access private
+     * @access public
      * @var float
      */
     private var vitesse:float = 1.0;
 
     /**
      * Vitesse de saut
-     * @access private
+     * @access public
      * @var float
      */
-    private var vitesseSaut:float = 5.0;
+    private var vitesseSaut:float = 6.0;
     /**
      * Multiplicateur de course
-     * @access private
+     * @access public
      * @var float
      */
     private var course:float = 6.0;
     /**
      * Multiplicateur de marche
-     * @access private
+     * @access public
      * @var float
      */
     private var marche:float = 2.0;
@@ -79,10 +79,10 @@ C'est un peu le "controler" du MVC
     private var dirMouvement : Vector3 = Vector3.zero;
     /**
      * Contient la vitesse de rotation
-     * @access private
+     * @access public
      * @var float
      */
-    private var vitesseRot:float =2.0;
+    private var vitesseRot:float =3.0;
     /**
      * Contient la vitesse de la gravité
      * @access private
@@ -343,27 +343,30 @@ function Update()
 
 
 //::::::::::::::Jouer le son AudioWalk avec CLAVIER :::::::::://
-    if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) 
-     {
-        TypeAudioSource.clip =AudioWalk;
-        TypeAudioSource.pitch=1;
-        TypeAudioSource.Play();
-
-     }
-     if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) 
-     {        
-          TypeAudioSource.Stop();
-     }
-//:::::::::::::: Gérer le pitch AudioWalk avec CLAVIER :::::::::://
-    if (Input.GetKeyDown (KeyCode.LeftShift))
-     {         
-         TypeAudioSource.pitch=2.5;
-     }
-     //:: SI la touche left shift est relaché
-    if (Input.GetKeyUp (KeyCode.LeftShift))
-     {      
-         TypeAudioSource.pitch=1;
-     }
+    
+//    CE CODE EST BUGGÉ ET ENTRE EN CONFLIT AVEC LES SONS DE PICKUP D'OBJETS. - David
+    
+//    if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) 
+//     {
+//        TypeAudioSource.clip =AudioWalk;
+//        TypeAudioSource.pitch=1;
+//        TypeAudioSource.Play();
+//
+//     }
+//     if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) 
+//     {        
+//          TypeAudioSource.Stop();
+//     }
+////:::::::::::::: Gérer le pitch AudioWalk avec CLAVIER :::::::::://
+//    if (Input.GetKeyDown (KeyCode.LeftShift))
+//     {         
+//         TypeAudioSource.pitch=2.5;
+//     }
+//     //:: SI la touche left shift est relaché
+//    if (Input.GetKeyUp (KeyCode.LeftShift))
+//     {      
+//         TypeAudioSource.pitch=1;
+//     }
     
     
 }//FIN UPDATE

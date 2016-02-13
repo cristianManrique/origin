@@ -79,7 +79,7 @@
     * @access private
     * @var int
     */
-    private var objet01:int;
+    private var nbPotionVie:int = 0;
     private var nbPotionSort:int=0;
     /*
     * Verifie quel coeur il faut augmente ou diminue le ALPHA
@@ -129,8 +129,6 @@
     */
      private var scriptChoisirArme: scChoisirArme;
 
-     private var objet02;
-
     /*
     * détermine le nombre de potions de réveil ammassées par le joueur
     * @access private
@@ -139,9 +137,6 @@
      private var nbPotionsReveille = 0;
 
 function Start () {
-
-    //:: Débuter les objets textes à 0
-    objet01 = 0;
     
     canvas = GameObject.FindWithTag("canvas");
 
@@ -175,7 +170,7 @@ function Update () {
 
 //:::::::::::::: OnTriggerEnter :::::::::::::://
 function OnTriggerEnter(other: Collider) {
-     
+//    Debug.Log(other.gameObject.tag);
     if(other.gameObject.tag)
     {
         switch(other.gameObject.tag)
@@ -203,7 +198,7 @@ function OnTriggerEnter(other: Collider) {
 
             case "potionVie":
                 JoueSonVictoire();
-                objet01++;//potionVie trouvée
+                nbPotionVie++;//potionVie trouvée
                 //checkPotion=true;
                 //gestionscAffichage.MettreAJourPotionsUI(checkPotion, checkPotion2);
                 //message="une potion Vie";
@@ -231,19 +226,6 @@ function OnTriggerEnter(other: Collider) {
          		nbPotionSort++;
             	Destroy(other.gameObject);
                	break;
-
-    
-
-            //:::::::::::::: Gestion Barre de vies Ennemis
-            case "ogre":
-                gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
-
-               // message="Attention c'est un ennemi";
-
-                //message="Attention c'est un ennemi";
-
-                //Debug.Log("potionSort");
-                break;
 
             //:::::::::::::: Gestion Panneaux Tuto
             case "MessageBonbon":
@@ -304,7 +286,7 @@ function OnTriggerEnter(other: Collider) {
                 break;
         }
         //:: Mise à jour de l'affichage de la quantité total des potion de Sort
-        gestionscAffichage.quantitePotionSort(objet01, nbPotionSort);
+        gestionscAffichage.quantitePotionSort(nbPotionVie, nbPotionSort);
     }
 
 }//fin trigger enter
