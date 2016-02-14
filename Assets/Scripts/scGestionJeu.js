@@ -79,7 +79,7 @@
     * @access private
     * @var int
     */
-    private var objet01:int;
+    private var nbPotionVie:int = 0;
     private var nbPotionSort:int=0;
     /*
     * Verifie quel coeur il faut augmente ou diminue le ALPHA
@@ -129,19 +129,22 @@
     */
      private var scriptChoisirArme: scChoisirArme;
 
-     private var objet02;
-
     /*
     * détermine le nombre de potions de réveil ammassées par le joueur
+     * Permet de loader la prochaine scenes
     * @access private
     * @var Script
     */
      private var nbPotionsReveille = 0;
+    /**
+    *variable pour gerer quand le joueur pourrait instancier une particule
+    *@var boolean
+    *@access private
+    **/
+    //private var peuTirer: boolean = true;
+    private var peuTirer: boolean = false;
 
 function Start () {
-
-    //:: Débuter les objets textes à 0
-    objet01 = 0;
     
     canvas = GameObject.FindWithTag("canvas");
 
@@ -162,20 +165,19 @@ function Start () {
 function Update () {
 
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
-    //scriptLancerSort.noPotions = nbPotionSort;
-    nbPotionSort = scriptLancerSort.noPotions;
+    scriptLancerSort.noPotions = nbPotionSort;
+    //nbPotionSort = scriptLancerSort.noPotions;
     //scriptChoisirArme.noPotions = nbPotionSort;
 
     //:: Permet de mettre à jour L'affichage des coeurs
     //:: ATTENTION:  numCoeur dans scBarredeVie.js
     numCoeurG = gestionscBarreVies.numCoeur;
 
-
 }//FIn update
 
 //:::::::::::::: OnTriggerEnter :::::::::::::://
 function OnTriggerEnter(other: Collider) {
-     
+//    Debug.Log(other.gameObject.tag);
     if(other.gameObject.tag)
     {
         switch(other.gameObject.tag)
@@ -203,7 +205,7 @@ function OnTriggerEnter(other: Collider) {
 
             case "potionVie":
                 JoueSonVictoire();
-                objet01++;//potionVie trouvée
+                nbPotionVie++;//potionVie trouvée
                 //checkPotion=true;
                 //gestionscAffichage.MettreAJourPotionsUI(checkPotion, checkPotion2);
                 //message="une potion Vie";
@@ -215,11 +217,23 @@ function OnTriggerEnter(other: Collider) {
                 nbPotionsReveille++;
                 // message="une potion Reveille";
                 if (nbPotionsReveille == 1) {
+                    //permet de passé au boss1
+                    SceneManager.LoadScene("niveau1");
+                }
+                else if (nbPotionsReveille == 2) {
+                    //permet de passé au niveau deux après avoir tuer le boss niveau1
+                    SceneManager.LoadScene("boss1");
+                }
+                else if (nbPotionsReveille == 3) {
                     //permet de passé au niveau deux après avoir tuer le boss niveau1
                     SceneManager.LoadScene("niveau2");
                 }
-                else if (nbPotionsReveille == 2) {
-                    //permet de finir le jeu après avoir tuer le bos niveau 2
+                else if (nbPotionsReveille == 4) {
+                    //permet de passé au boss1
+                    SceneManager.LoadScene("boss2");
+                }
+                else if (nbPotionsReveille == 5) {
+                    //permet de finir le jeu après avoir tuer le boss niveau 2
                     SceneManager.LoadScene("gagnant");
                 }
                 break;
@@ -231,19 +245,6 @@ function OnTriggerEnter(other: Collider) {
          		nbPotionSort++;
             	Destroy(other.gameObject);
                	break;
-
-    
-
-            //:::::::::::::: Gestion Barre de vies Ennemis
-            case "ogre":
-                gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
-
-               // message="Attention c'est un ennemi";
-
-                //message="Attention c'est un ennemi";
-
-                //Debug.Log("potionSort");
-                break;
 
             //:::::::::::::: Gestion Panneaux Tuto
             case "MessageBonbon":
@@ -304,7 +305,7 @@ function OnTriggerEnter(other: Collider) {
                 break;
         }
         //:: Mise à jour de l'affichage de la quantité total des potion de Sort
-        gestionscAffichage.quantitePotionSort(objet01, nbPotionSort);
+        gestionscAffichage.quantitePotionSort(nbPotionSort);
     }
 
 }//fin trigger enter
@@ -335,7 +336,7 @@ function JoueSonVictoire(){
 function reductionPotionSort()
 {
     nbPotionSort--;
-   // Debug.Log(nbPotionSort);
+    gestionscAffichage.quantitePotionSort(nbPotionSort);//affichage UI
 }
 
 

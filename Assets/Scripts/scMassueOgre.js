@@ -18,13 +18,13 @@ private var dommagesInfliges:int = 1;
 * @access private
 * @var scHeros
 */
-private var scriptGestionJeu:scHeros;
+private var scriptHeros:scHeros;
 
 //Infliges des dommages au héros quand la massue le touche.
 function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
         Debug.Log(autreObjet.gameObject);
-        scriptGestionJeu = autreObjet.gameObject.GetComponent(scHeros);
-        scriptGestionJeu.updateDommages(dommagesInfliges);
+        scriptHeros = autreObjet.gameObject.GetComponent(scHeros);
+        scriptHeros.updateDommages(dommagesInfliges);
     }
 }

@@ -16,7 +16,7 @@
 	public var maxHitPoint:int = 10;
 
 	/**
-	*variable pour gerer quand le joueuer pourrait instancier une particule
+	*variable pour gerer quand le joueur pourrait instancier une particule
 	*@var boolean
 	*@access private
 	**/
@@ -24,7 +24,7 @@
 	private var peuTirer: boolean = false;
 
 	/**
-	*le temps en seconds que le joueuer doit attendre avant de pouvoir lancer une autre sort
+	*le temps en seconds que le joueur doit attendre avant de pouvoir lancer une autre sort
 	*@var int
 	*@access public
 	**/
@@ -61,6 +61,13 @@
      */
     private var heros: GameObject;
 
+	/*
+	* Contient le script qui gère le jeu.
+	* @access private
+	* @var scGestionJeu
+	*/
+	private var scriptGestionJeu:scGestionJeu;
+
 
 
 //:::::::::::Awake :::::::::://
@@ -79,6 +86,8 @@ function Awake()
 
 function Start () {
 
+	scriptGestionJeu = heros.GetComponent.<scGestionJeu>();
+
 
 
 }
@@ -93,7 +102,9 @@ function Update () {
    	if(Input.GetButton("Fire2") && peuTirer == false && noPotions>0) {
 		Debug.Log("fire !");
 		Feu();
-		//peuTirer = true;
+		peuTirer = true;
+		scriptGestionJeu.reductionPotionSort();//diminue une potion et mise à jour dans UI
+		
 	}
 	//Jeter un sort
 		//JeterSort();
@@ -105,7 +116,7 @@ function Update () {
 	//:::::::::::::: GERER animation jeterSort ::::::::::// 
 	if(peuTirer)
 	{
-		//peuTirer=false;//:: remettre à FALSE
+		peuTirer=false;//:: remettre à FALSE pour arrêter l'animation
 		animateur.SetBool('jeteSort', true);
         //:: dire à l'animator d'utiliser cette variable du code	
 	}

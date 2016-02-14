@@ -6,6 +6,7 @@
  * Instancier une boule de feux
  * @source: http://answers.unity3d.com/questions/16583/recalculate-color-from-0255-to-01.html
  * @source: http://docs.unity3d.com/ScriptReference/Resources.Load.html
+ * @source: http://answers.unity3d.com/questions/314503/destroy-all-objects-with-tag-enemy.html
  * @author Cristian Manrique
  * @author Jonathan Martel
  * @date 2016-02-03
@@ -49,6 +50,9 @@
 	private var monProjectile:GameObject;
 
 
+	private var GroupesProjectiles:GameObject[];
+
+
 
 
 
@@ -83,7 +87,9 @@ function lancer() {
 			position.z+=100;
 		
 	//:: Instancier un clone
-	monProjectile= Instantiate(boule, transform.position, transform.rotation);		
+	monProjectile= Instantiate(boule, transform.position, transform.rotation);	
+
+	monProjectile.tag = "monProjectile";	
 	//:: Ajout force
 	monProjectile.GetComponent.<Rigidbody>().AddForce(this.transform.forward * force);
 
@@ -96,14 +102,21 @@ function lancer() {
 		}
 
 	yield WaitForSeconds(3);
-
 	autoDetruire();
+
+	
 
 	
 }
 
 function autoDetruire(){
-	Destroy(monProjectile);
+
+	GroupesProjectiles =  GameObject.FindGameObjectsWithTag ("monProjectile");
+ 
+     for(var i = 0 ; i < GroupesProjectiles.length ; i ++)
+         Destroy(GroupesProjectiles[i]);
+
+	
 }
 
 
@@ -111,6 +124,8 @@ function autoDetruire(){
 function convertirCouleurs (r : int, g : int, b : int) : Color {
     return Color(r/255.0, g/255.0, b/255.0);
 }
+
+
 
 
 		
