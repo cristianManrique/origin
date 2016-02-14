@@ -38,7 +38,7 @@ C'est un peu le "controler" du MVC
     private var Vies: int= 3;
 
     /*
-    * Sante
+    * Sante c'est la resistance avant de perdre une vie
     * @access private
     * @var GameObject
     */
@@ -179,6 +179,31 @@ C'est un peu le "controler" du MVC
     */
     private var cam:Camera;
 
+    /*
+    * GameObject canvas contient UI
+    * @access public
+    * @var GameObject
+    */
+    private var canvas: GameObject;
+    //::::::::::::::::::::://
+    /*
+    * Contient le script scBarreVies.js
+    * @access private
+    * @var scBarreVies.js
+    */
+
+    private var gestionscBarreVies: scBarreVies;
+     /*
+    * Correspond à la var restante dans scBArreVies
+    * elle permet de diminuer la var
+    * @access private
+    * @var scBarreVies.js
+    */
+
+    private var restanteSante:int;
+
+
+
 
 
 //:::::::::::Awake :::::::::://
@@ -196,7 +221,9 @@ function Start ()
 
     //::chercher le composant de type AudioSource
     TypeAudioSource = GetComponent.<AudioSource>();
-    
+    canvas = GameObject.FindWithTag("canvas");
+    gestionscBarreVies = canvas.GetComponent.<scBarreVies>();
+  
 }
 
 
@@ -208,6 +235,8 @@ function Update()
     if(Sante ==0)
     {
       Vies--;
+      Sante=10;//remettre à 10
+
 
     }
 
@@ -418,20 +447,23 @@ function OnTriggerExit(other: Collider) {
 
 
 //:::::::::::::: function DiminueVies :::::::::::::://
-function DiminueVies(nbVies:int) {
-    Vies --;
+function DiminueVies() {
+    Vies--;
    //Debug.Log("Vies du héros"+Vies);
 }
 
 
 //:::::::::::::: function AugmenteVies :::::::::::::://
-function AugmenteVies(nbVies:int) {
-    Vies += nbVies;
+function AugmenteVies() {
+    //Vies += nbVies;
+    Vies++;
    // Debug.Log("Vies du héros"+Vies);
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommagesInfliges:int) {
     Sante -= dommagesInfliges;
+    gestionscBarreVies.DiminuerBarreVies();
     //Debug.Log("Santée du héros" +Sante);
+
 }

@@ -131,10 +131,18 @@
 
     /*
     * détermine le nombre de potions de réveil ammassées par le joueur
+     * Permet de loader la prochaine scenes
     * @access private
     * @var Script
     */
      private var nbPotionsReveille = 0;
+    /**
+    *variable pour gerer quand le joueur pourrait instancier une particule
+    *@var boolean
+    *@access private
+    **/
+    //private var peuTirer: boolean = true;
+    private var peuTirer: boolean = false;
 
 function Start () {
     
@@ -157,14 +165,13 @@ function Start () {
 function Update () {
 
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
-    //scriptLancerSort.noPotions = nbPotionSort;
-    nbPotionSort = scriptLancerSort.noPotions;
+    scriptLancerSort.noPotions = nbPotionSort;
+    //nbPotionSort = scriptLancerSort.noPotions;
     //scriptChoisirArme.noPotions = nbPotionSort;
 
     //:: Permet de mettre à jour L'affichage des coeurs
     //:: ATTENTION:  numCoeur dans scBarredeVie.js
     numCoeurG = gestionscBarreVies.numCoeur;
-
 
 }//FIn update
 
@@ -210,11 +217,23 @@ function OnTriggerEnter(other: Collider) {
                 nbPotionsReveille++;
                 // message="une potion Reveille";
                 if (nbPotionsReveille == 1) {
+                    //permet de passé au boss1
+                    SceneManager.LoadScene("niveau1");
+                }
+                else if (nbPotionsReveille == 2) {
+                    //permet de passé au niveau deux après avoir tuer le boss niveau1
+                    SceneManager.LoadScene("boss1");
+                }
+                else if (nbPotionsReveille == 3) {
                     //permet de passé au niveau deux après avoir tuer le boss niveau1
                     SceneManager.LoadScene("niveau2");
                 }
-                else if (nbPotionsReveille == 2) {
-                    //permet de finir le jeu après avoir tuer le bos niveau 2
+                else if (nbPotionsReveille == 4) {
+                    //permet de passé au boss1
+                    SceneManager.LoadScene("boss2");
+                }
+                else if (nbPotionsReveille == 5) {
+                    //permet de finir le jeu après avoir tuer le boss niveau 2
                     SceneManager.LoadScene("gagnant");
                 }
                 break;
@@ -286,7 +305,7 @@ function OnTriggerEnter(other: Collider) {
                 break;
         }
         //:: Mise à jour de l'affichage de la quantité total des potion de Sort
-        gestionscAffichage.quantitePotionSort(nbPotionVie, nbPotionSort);
+        gestionscAffichage.quantitePotionSort(nbPotionSort);
     }
 
 }//fin trigger enter
@@ -317,7 +336,7 @@ function JoueSonVictoire(){
 function reductionPotionSort()
 {
     nbPotionSort--;
-   // Debug.Log(nbPotionSort);
+    gestionscAffichage.quantitePotionSort(nbPotionSort);//affichage UI
 }
 
 

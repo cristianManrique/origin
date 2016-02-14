@@ -17,11 +17,12 @@ function Update () {
 
 
 
-/*
+
 //::::::::::: OnTriggerEnter :::::::::://
 function OnTriggerEnter(other:Collider)
 {
 
+ 	/*
  	Debug.Log(other.GetComponent.<Collider>().name);
 
  	var direction= transform.TransformDirection(Vector3.forward);
@@ -32,9 +33,6 @@ function OnTriggerEnter(other:Collider)
  		other.GetComponent.<Rigidbody>().AddForce(1000*direction);
 
  	}
- 	
+ 	*/
 
  }
- */
-
-
