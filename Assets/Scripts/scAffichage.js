@@ -158,7 +158,7 @@ function MettreAJourMessage(message:String){
 
 
 //affiche le nombre de potion Sort sur la canvas.
-function quantitePotionSort(nbPotionVie, nbPotionSort)
+function quantitePotionSort(nbPotionSort)
 {
 	//:: convertir en entier
 	//ObjetText1.text = nbPotionVie.ToString();

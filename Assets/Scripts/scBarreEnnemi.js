@@ -38,7 +38,7 @@ import UnityEngine.UI;
      * @access private
      * @var float
      */
-	private var TempsDim:float = 3.0;
+	private var TempsDim:float = 6.0;
 
 	/**
      * Limite la barre de vie
@@ -85,7 +85,7 @@ import UnityEngine.UI;
 	* @access private
 	* @var int
 	*/
-	public var numCoeur:int = 3;
+	public var numCoeur:int = 4;
 
 
 //:::::::::::Awake :::::::::://
@@ -100,7 +100,7 @@ function Awake()
 function Start () {
 
 	restant= maxBarre;//Débuter 
-
+	EnnemiSlider.value = maxBarre;
 
 }
 
@@ -109,9 +109,7 @@ function Start () {
 function Update () {
 
 
-
-		EnnemiSlider.value = restant;
-
+	//Debug.Log(EnnemiSlider.value);
 
 }
 

@@ -141,7 +141,7 @@ function Update () {
 	if(vieSlider.value != restant) {
 
 		vieSlider.value = restant;
-		AlphaCoeur = restant;//:: permet de diminuer la alpha du coeur
+		//AlphaCoeur = restant;//:: permet de diminuer la alpha du coeur
 		//gestionscAffichage.DiminueAlphaCoeurUI(AlphaCoeur, numCoeur);
 		//:: ATTENTION: function appeler dans scAffichage.js
 	}
@@ -150,11 +150,12 @@ function Update () {
 	if (vieSlider.value == 0) {
 		restant=maxBarre;//Remettre idem à maxBarre
 		numCoeur--;//elimine un coeur
+		Debug.Log('numCoeur dans scBarreVies.js' + numCoeur);
 
-		var nbVies = numCoeur;// idem
+		//var nbVies = numCoeur;// idem
 
 		// diminue une vie à l'héros
-		gestionscHeros.DiminueVies(nbVies);
+		gestionscHeros.DiminueVies();
 		//elimine un coeur dans scAffichage
 		gestionscAffichage.ElimineUncoeur(numCoeur);
 
