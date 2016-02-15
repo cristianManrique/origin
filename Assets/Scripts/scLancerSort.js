@@ -53,7 +53,7 @@
      * @access public
      * @var Animator
      */
-    private var animateur: Animator;
+    //private var animateur: Animator;
     /**
      * Contient le héro (clara ou Mlacom)
      * @access private
@@ -77,7 +77,7 @@ function Awake()
     heros = GameObject.FindWithTag("heros");
     //:: chercher le héros
 
-    animateur = heros.gameObject.GetComponent.<Animator>();
+    //animateur = heros.gameObject.GetComponent.<Animator>();
     //:: trouver le composant Animator
 	
 }
@@ -93,10 +93,10 @@ function Start () {
 }
 
 function Update () {
-	//Debug.Log("noPotions = "+noPotions);
+	// Debug.Log("noPotions = "+noPotions);
 
 	//Debug.Log(peuTirer);
-    
+    //noPotions = scriptGestionJeu.getNbPotionsSort();
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
 
    	if(Input.GetButtonDown("Fire2") && peuTirer == false && noPotions>0) {
@@ -114,7 +114,7 @@ function Update () {
 
 
 	//:::::::::::::: GERER animation jeterSort ::::::::::// 
-	if(peuTirer)
+	/*if(peuTirer)
 	{
 		peuTirer=false;//:: remettre à FALSE pour arrêter l'animation
 		animateur.SetBool('jeteSort', true);
@@ -123,7 +123,7 @@ function Update () {
 	else {
 		animateur.SetBool('jeteSort', false);
         //:: dire à l'animator d'utiliser cette variable du code
-	}
+	}*/
 	
 }// FIN UPDATE
 

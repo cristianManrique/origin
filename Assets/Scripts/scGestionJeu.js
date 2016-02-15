@@ -116,6 +116,7 @@ function Start () {
 function Update () {
 
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
+
     scriptLancerSort.noPotions = nbPotionSort;
 
 }//FIn update
@@ -254,5 +255,9 @@ function reductionPotionSort()
     gestionscAffichage.quantitePotionSort(nbPotionSort);//affichage UI
 }
 
+function getNbPotionsSort()
+{
+    return nbPotionSort;//affichage UI
+}
 
 
