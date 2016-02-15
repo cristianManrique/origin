@@ -142,8 +142,8 @@ function Start () {
     gestionscAffichage=canvas.GetComponent.<scAffichage>();
     gestionscBarreVies=canvas.GetComponent.<scBarreVies>();
 
-    objOriginSorts = GameObject.FindWithTag("originSort");
-    scriptLancerSort = objOriginSorts.GetComponent.<scLancerSort>();
+    // objOriginSorts = GameObject.FindWithTag("originSort");
+    // scriptLancerSort = objOriginSorts.GetComponent.<scLancerSort>();
 
     scriptChoisirArme = GetComponent(scChoisirArme);
 
@@ -152,7 +152,7 @@ function Start () {
 function Update () {
 
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
-    scriptLancerSort.noPotions = nbPotionSort;
+    // scriptLancerSort.noPotions = nbPotionSort;
     //nbPotionSort = scriptLancerSort.noPotions;
     //scriptChoisirArme.noPotions = nbPotionSort;
 
@@ -321,5 +321,9 @@ function reductionPotionSort()
     gestionscAffichage.quantitePotionSort(nbPotionSort);//affichage UI
 }
 
+function getNbPotionsSort()
+{
+    return nbPotionSort;//affichage UI
+}
 
 
