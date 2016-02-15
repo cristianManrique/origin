@@ -45,17 +45,18 @@ function Start () {
 function Update () {
 
 	//calculer la proximite
-	proximite = Vector3.Distance (this.transform.position, heros.transform.position);
+    if (heros) {//Si le heros existe...
+        proximite = Vector3.Distance (this.transform.position, heros.transform.position);
 
-	//si le heros s'approche au fantome, le fantome apparaitra
-	if (proximite <= distance){
+        //si le heros s'approche au fantome, le fantome apparaitra
+        if (proximite <= distance){
 
-		fantome.SetActive(true);
+            fantome.SetActive(true);
 
-		destruirFantome();
-	
-	}
+            destruirFantome();
 
+        }
+    }
 }
 function destruirFantome(){
 		//le heros aura juste quelques secondes pour voir le fantome, apres il disparraitra pour toujours

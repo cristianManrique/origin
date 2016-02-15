@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 import UnityEngine.UI;
 
 /**
@@ -100,7 +100,7 @@ import UnityEngine.UI;
 	* @access private
 	* @var int
 	*/
-	public var numCoeur:int = 4;
+//	public var numCoeur;
 
 
 //:::::::::::Awake :::::::::://
@@ -123,6 +123,8 @@ function Start () {
 	//:: Chercher LE SCRIPTS JS
     gestionscAffichage=canvas.GetComponent.<scAffichage>();
     gestionscHeros=heros.GetComponent.<scHeros>();
+    
+    Limite += TempsDim;
 
 }
 
@@ -137,31 +139,30 @@ function Update () {
 		restant--;
 	}
 
-	//::Diminuer le Slider
-	if(vieSlider.value != restant) {
-
-		vieSlider.value = restant;
-		//AlphaCoeur = restant;//:: permet de diminuer la alpha du coeur
-		//gestionscAffichage.DiminueAlphaCoeurUI(AlphaCoeur, numCoeur);
-		//:: ATTENTION: function appeler dans scAffichage.js
-	}
-
 	//:: Éliminer un coeur/vie
 	if (vieSlider.value == 0) {
+//        Debug.Log("reset");
 		restant=maxBarre;//Remettre idem à maxBarre
-		numCoeur--;//elimine un coeur
-		Debug.Log('numCoeur dans scBarreVies.js' + numCoeur);
+//		Debug.Log('numCoeur dans scBarreVies.js' + numCoeur);
 
 		//var nbVies = numCoeur;// idem
 
 		// diminue une vie à l'héros
 		gestionscHeros.DiminueVies();
 		//elimine un coeur dans scAffichage
-		gestionscAffichage.ElimineUncoeur(numCoeur);
 
+		gestionscAffichage.ElimineUncoeur(gestionscHeros.getNbVies());
+//        numCoeur--;//elimine un coeur
 
-		if (numCoeur<= 0){numCoeur=0;}
+	}
+    
+    //::Diminuer le Slider
+	if(vieSlider.value != restant) {
 
+		vieSlider.value = restant;
+		//AlphaCoeur = restant;//:: permet de diminuer la alpha du coeur
+		//gestionscAffichage.DiminueAlphaCoeurUI(AlphaCoeur, numCoeur);
+		//:: ATTENTION: function appeler dans scAffichage.js
 	}
 
 	/*
@@ -186,8 +187,8 @@ function Update () {
 
 
 //:::::::::::::: function diminuerBarreVies :::::::::::::://
-function DiminuerBarreVies () {
-	restant--;
+function DiminuerBarreVies (dommagesInfliges:int) {
+	restant -= dommagesInfliges;
 	vieSlider.value = restant;
 }
 
@@ -196,4 +197,9 @@ function DiminuerBarreVies () {
 function AugmenteBarreVies () {
 	restant++;
 	vieSlider.value = restant;
+}
+
+//:::::::::::::: function ZeroBarreVies :::::::::::::://
+function ZeroBarreVies () {
+	vieSlider.value = 0;
 }

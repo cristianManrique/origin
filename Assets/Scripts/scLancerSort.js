@@ -53,7 +53,7 @@
      * @access public
      * @var Animator
      */
-    private var animateur: Animator;
+    //private var animateur: Animator;
     /**
      * Contient le héro (clara ou Mlacom)
      * @access private
@@ -77,7 +77,7 @@ function Awake()
     heros = GameObject.FindWithTag("heros");
     //:: chercher le héros
 
-    animateur = heros.gameObject.GetComponent.<Animator>();
+    //animateur = heros.gameObject.GetComponent.<Animator>();
     //:: trouver le composant Animator
 	
 }
@@ -93,14 +93,14 @@ function Start () {
 }
 
 function Update () {
-	//Debug.Log("noPotions = "+noPotions);
+	Debug.Log("noPotions = "+noPotions);
 
 	//Debug.Log(peuTirer);
     
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
 
-   	if(Input.GetButton("Fire2") && peuTirer == false && noPotions>0) {
-		Debug.Log("fire !");
+   	if(Input.GetButtonDown("Fire2") && peuTirer == false && noPotions>0) {
+		Debug.Log("feu sort");
 		Feu();
 		peuTirer = true;
 		scriptGestionJeu.reductionPotionSort();//diminue une potion et mise à jour dans UI
@@ -114,7 +114,7 @@ function Update () {
 
 
 	//:::::::::::::: GERER animation jeterSort ::::::::::// 
-	if(peuTirer)
+	/*if(peuTirer)
 	{
 		peuTirer=false;//:: remettre à FALSE pour arrêter l'animation
 		animateur.SetBool('jeteSort', true);
@@ -123,7 +123,7 @@ function Update () {
 	else {
 		animateur.SetBool('jeteSort', false);
         //:: dire à l'animator d'utiliser cette variable du code
-	}
+	}*/
 	
 }// FIN UPDATE
 
@@ -163,7 +163,7 @@ function Feu(){
 	//est-ce qu'il y a un autre GameObject a 10 unites de distance ou moins devant le heros?
 //	if(Physics.Raycast(ray, objetToucher,10)){
 	
-		Debug.Log("Touche");
+//		Debug.Log("Touche");
 
 		Debug.DrawLine(transform.position,  objetToucher.point);
 
