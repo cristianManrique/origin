@@ -60,7 +60,7 @@ private var scriptBoss1:scBoss1;
 * @access private
 * @var scBoss2
 */
-//private var scriptBoss2:scBoss2;
+private var scriptBoss2:scBoss2;
 
 /*
 * GameObject contient la canvas
@@ -120,9 +120,9 @@ function OnTriggerEnter(other:Collider) {
 
             case "boss2":
 //                Debug.Log(other.gameObject.tag);
-//		        scriptBoss2 = other.gameObject.GetComponent(scBoss2);//Aller chercher le script du Boss 2
-//		        scriptBoss2.updateDommages(dommagesInfliges);//chercher la function updateDommages 
-                // scriptscBarreEnnemi.DiminuerBarreViesEnnemi(); 
+		        scriptBoss2 = other.gameObject.GetComponent(scBoss2);//Aller chercher le script du Boss 2
+		        scriptBoss2.updateDommages(dommagesInfliges);//chercher la function updateDommages 
+                scriptscBarreEnnemi.DiminuerBarreViesEnnemi();// diminuer la barre de vie du Boss 2
             	break;
         }
     }

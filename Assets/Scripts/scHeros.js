@@ -70,7 +70,7 @@ C'est un peu le "controler" du MVC
      * @access public
      * @var float
      */
-    private var marche:float = 2.0;
+    private var marche:float = 4.0;
     /**
      * Contient le vecteur de déplacement
      * @access private
@@ -448,8 +448,10 @@ function OnTriggerExit(other: Collider) {
 
 //:::::::::::::: function DiminueVies :::::::::::::://
 function DiminueVies() {
-    Vies--;
-   //Debug.Log("Vies du héros"+Vies);
+    if (Vies > 0) {
+        Vies--;
+    }
+//   Debug.Log("Vies du héros"+Vies);
 }
 
 
@@ -463,7 +465,12 @@ function AugmenteVies() {
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommagesInfliges:int) {
     Sante -= dommagesInfliges;
-    gestionscBarreVies.DiminuerBarreVies();
+    gestionscBarreVies.DiminuerBarreVies(dommagesInfliges);
     //Debug.Log("Santée du héros" +Sante);
 
+}
+
+//:::::::::::::: function updateDommages :::::::::::::://
+function getNbVies() {
+    return Vies;
 }
