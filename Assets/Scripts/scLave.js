@@ -11,7 +11,7 @@
 * @access public
 * @var Canvas
 */
-public var gui:Canvas;
+private var gui:GameObject;
 
 /*
 * Quantité de dommage infligée par cette arme.
@@ -25,15 +25,18 @@ private var dommagesInfliges:int = 1;
 * @access private
 * @var int
 */
-private var gestionsBarreVies:scBarreVies;
+private var gestionAffichage:scAffichage;
 
+function Start () {
+    gui = GameObject.FindWithTag("canvas");
+}
 
 //Infliges des dommages au héros quand la massue le touche.
 function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
 //        Debug.Log(autreObjet.gameObject);
         autreObjet.gameObject.transform.position = new Vector3(1,2.5,-108);
-        gestionsBarreVies = gui.GetComponent(scBarreVies);
-        gestionsBarreVies.ZeroBarreVies();
+        gestionAffichage = gui.GetComponent(scAffichage);
+        gestionAffichage.ZeroBarreVies();
     }
 }

@@ -127,24 +127,6 @@ function Update () {
 	
 }// FIN UPDATE
 
-//***********fonction a integrer un fois on est pret avec les animations***********//
-/*
-function JeterSort(){
-	
-	if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false){
-	
-		animateur.SetLayerWeight(1,1f);
-		
-		animateur.SetBool('jeteSort', true);
-		
-	}else{
-		
-		animateur.SetLayerWeight(0,1f);
-		animateur.SetBool('jeteSort', false);
-		}
-	
-}
-*/
 
 //Methode que instanciera les prefabs des emmeteurs
 function Feu(){
@@ -159,9 +141,6 @@ function Feu(){
 	
 	//Debug.Log("Feu");
 
-
-	//est-ce qu'il y a un autre GameObject a 10 unites de distance ou moins devant le heros?
-//	if(Physics.Raycast(ray, objetToucher,10)){
 	
 //		Debug.Log("Touche");
 

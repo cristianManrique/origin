@@ -1,4 +1,9 @@
 #pragma strict
+/**
+* Script de gros projectile-rocher du boss 1.
+* @author David Lachambre
+* @update 12-02-2016
+*/
 
 private var dommages: int = 2;//Le dommage inflige au heros
 private var scriptHeros: scHeros;

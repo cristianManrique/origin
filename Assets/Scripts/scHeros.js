@@ -3,204 +3,177 @@
 @script RequireComponent(Animator)
 
 /**
- * TP Developpement de JEU
- * Gestion du Héros
- *  gérer l'attaque, les vies, le nombre de potions et le health et les déplacements
- * @author Cristian Manrique
- * @author Stephane Leclerc
- * @author Jonathan Martel
- * @date 2016-01-20
+* TP Developpement de JEU
+* Gestion du Héros
+*  gérer l'attaque, les vies, le nombre de potions et le health et les déplacements
+* @author Cristian Manrique
+* @author Stephane Leclerc
+* @author Jonathan Martel
+* @date 2016-01-20
+*/
 
-oui l'affichage c'est de la gestion du jeu. 
-Pense au script du héros comme son blueprint. 
-Il peut faire quoi (se déplacer, attaquer). 
-Il est caractérisé par quoi (des vies, un health). 
-Il a x nb de vies, il perd x nombre de points, etc. 
-C'est son propre update qui gère tout ça.
+/*
+* Nombre de Vie du héros
+* @access private
+* @var GameObject
+*/
+private var Vies: int = 3;
 
+/*
+* Sante c'est la resistance avant de perdre une vie
+* @access private
+* @var GameObject
+*/
+private var Sante: int = 10;
 
-Le script gestionJeu va créer des ennemis, 
-dire au script d'affichage d'afficher les trucs 
-en fonctions de ce qui se passe dans 
-le jeu, faire le chargement des niveaux, etc. 
-C'est un peu le "controler" du MVC
+/**
+* Vitesse de déplacement de base
+* @access public
+* @var float
+*/
+private var vitesse:float = 1.0;
 
- * 
- */
+/**
+* Vitesse de saut
+* @access public
+* @var float
+*/
+private var vitesseSaut:float = 10.0;
+/**
+* Multiplicateur de course
+* @access public
+* @var float
+*/
+private var course:float = 6.0;
+/**
+* Multiplicateur de marche
+* @access public
+* @var float
+*/
+private var marche:float = 4.0;
+/**
+* Contient le vecteur de déplacement
+* @access private
+* @var Vector3
+*/
+private var dirMouvement : Vector3 = Vector3.zero;
+/**
+* Contient la vitesse de rotation
+* @access public
+* @var float
+*/
+private var vitesseRot:float =3.0;
+/**
+* Contient la vitesse de la gravité
+* @access private
+* @var float
+*/
+private var gravite: float = 15;
 
-//:::::::::::variables :::::::::://
+/**
+* Gerer si peut sauter
+* @access private
+* @var boolean
+*/
+private var saut: boolean = false;
 
-    /*
-    * Nombre de Vie du héros
-    * @access private
-    * @var GameObject
-    */
-    private var Vies: int= 3;
+/**
+* Gerer si peut voler
+* @access private
+* @var boolean
+*/
+private var voler: boolean = false;
 
-    /*
-    * Sante c'est la resistance avant de perdre une vie
-    * @access private
-    * @var GameObject
-    */
-    private var Sante: int= 10;
+/**
+* Gerer si anime Course
+* @access private
+* @var boolean
+*/
+private var animeCourse: boolean = false;
 
+/*  
+* Verifier si c'est le dernier objet a trouver
+* @access private
+* @var checkSiFin
+*/
+private var checkSiFin:boolean = false;
 
-    //::::::::::::::::::::://
-    /**
-     * Vitesse de déplacement de base
-     * @access public
-     * @var float
-     */
-    private var vitesse:float = 1.0;
+/**
+* Gerer si peut attack
+* @access private
+* @var boolean
+*/
+private var attack: boolean = false;
 
-    /**
-     * Vitesse de saut
-     * @access public
-     * @var float
-     */
-    private var vitesseSaut:float = 6.0;
-    /**
-     * Multiplicateur de course
-     * @access public
-     * @var float
-     */
-    private var course:float = 6.0;
-    /**
-     * Multiplicateur de marche
-     * @access public
-     * @var float
-     */
-    private var marche:float = 4.0;
-    /**
-     * Contient le vecteur de déplacement
-     * @access private
-     * @var Vector3
-     */
-    private var dirMouvement : Vector3 = Vector3.zero;
-    /**
-     * Contient la vitesse de rotation
-     * @access public
-     * @var float
-     */
-    private var vitesseRot:float =3.0;
-    /**
-     * Contient la vitesse de la gravité
-     * @access private
-     * @var float
-     */
-    private var gravite: float = 10;
+/**
+* Gerer si anime attack
+* @access private
+* @var boolean
+*/
+private var animeAtack: boolean = false;
 
+/*  
+* Verifier si le panneau pause est disponible
+* @access private
+* @var integer
+*/
+private var checkPanneauPause: int = 0;
 
-    //::::::::::::::::::::://
-    /**
-     * Gerer si peut sauter
-     * @access private
-     * @var boolean
-     */
-    private var saut: boolean = false;
-    /**
-     * Gerer si peut voler
-     * @access private
-     * @var boolean
-     */
-    private var voler: boolean = false;
-    /**
-     * Gerer si anime Course
-     * @access private
-     * @var boolean
-     */
-    private var animeCourse: boolean = false;
-    /*  
-    * Verifier si c'est le dernier objet a trouver
-    * @access private
-    * @var checkSiFin
-    */
-    private var checkSiFin:boolean = false;
-    /**
-     * Gerer si peut attack
-     * @access private
-     * @var boolean
-     */
-    private var attack: boolean = false;
-    /**
-     * Gerer si anime attack
-     * @access private
-     * @var boolean
-     */
-    private var animeAtack: boolean = false;
+/**
+* Contient le controleur d'animation
+* @access public
+* @var Animator
+*/
+private var animateur: Animator;
 
+/*
+* Contient le controller (accès par l'inspecteur)
+* @access private
+* @var CharacterController
+*/
+private var controller:CharacterController;
 
-    //::::::::::::::::::::://
-    /*  
-    * Verifier si le panneau pause est disponible
-    * @access private
-    * @var integer
-    */
-    private var checkPanneauPause: int = 0;
+/*
+* Contient le AudioClip Marche
+* @access public
+* @var AudioClip
+*/
+public var AudioWalk: AudioClip;
+/*
+* le Type AudioSource
+* @access private
+* @var AudioSource
+*/
+private var TypeAudioSource:AudioSource;
 
+/*
+* Contient la camera
+* @access private
+* @var Camera
+*/
+private var cam:Camera;
 
-    //::::::::::::::::::::://
-    /**
-     * Contient le controleur d'animation
-     * @access public
-     * @var Animator
-     */
-    private var animateur: Animator;
+/*
+* GameObject canvas contient UI
+* @access public
+* @var GameObject
+*/
+private var canvas: GameObject;
 
-     /*
-     * Contient le controller (accès par l'inspecteur)
-     * @access private
-     * @var CharacterController
-     */
-    private var controller:CharacterController;
+/*
+* Contient le script scAffichages
+* @access private
+* @var scAffichage
+*/
+private var gestionAffichage: scAffichage;
 
-
-    //::::::::::::::::::::://
-
-    /*
-    * Contient le AudioClip Marche
-    * @access public
-    * @var AudioClip
-    */
-    public var AudioWalk: AudioClip;
-    /*
-    * le Type AudioSource
-    * @access private
-    * @var AudioSource
-    */
-    private var TypeAudioSource:AudioSource;
-
-
-    //::::::::::::::::::::://
-    /*
-    * Contient la camera
-    * @access private
-    * @var Camera
-    */
-    private var cam:Camera;
-
-    /*
-    * GameObject canvas contient UI
-    * @access public
-    * @var GameObject
-    */
-    private var canvas: GameObject;
-    //::::::::::::::::::::://
-    /*
-    * Contient le script scBarreVies.js
-    * @access private
-    * @var scBarreVies.js
-    */
-
-    private var gestionscBarreVies: scBarreVies;
-     /*
-    * Correspond à la var restante dans scBArreVies
-    * elle permet de diminuer la var
-    * @access private
-    * @var scBarreVies.js
-    */
-
-    private var restanteSante:int;
+/*
+* Correspond à la var restante dans scAffichage
+* elle permet de diminuer la var
+* @access private
+* @var int
+*/
+private var restanteSante:int;
 
 
 
@@ -222,7 +195,7 @@ function Start ()
     //::chercher le composant de type AudioSource
     TypeAudioSource = GetComponent.<AudioSource>();
     canvas = GameObject.FindWithTag("canvas");
-    gestionscBarreVies = canvas.GetComponent.<scBarreVies>();
+    gestionAffichage = canvas.GetComponent.<scAffichage>();
   
 }
 
@@ -337,13 +310,8 @@ function Update()
         else {
             animateur.SetBool('animeCourse', false);
             //:: dire à l'animator d'utiliser cette variable du code
-        }
-    
-    
-        
+        }        
     }//FIN controller
-
-
 
 
 //:::::::::::::: GÉRER VOLE :::::::::://
@@ -368,82 +336,7 @@ function Update()
     //:: Affectation du mouvement au Character controller
     controller.Move(dirMouvement * Time.deltaTime);
 
-
-
-
-//::::::::::::::Jouer le son AudioWalk avec CLAVIER :::::::::://
-    
-//    CE CODE EST BUGGÉ ET ENTRE EN CONFLIT AVEC LES SONS DE PICKUP D'OBJETS. - David
-    
-//    if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) 
-//     {
-//        TypeAudioSource.clip =AudioWalk;
-//        TypeAudioSource.pitch=1;
-//        TypeAudioSource.Play();
-//
-//     }
-//     if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) 
-//     {        
-//          TypeAudioSource.Stop();
-//     }
-////:::::::::::::: Gérer le pitch AudioWalk avec CLAVIER :::::::::://
-//    if (Input.GetKeyDown (KeyCode.LeftShift))
-//     {         
-//         TypeAudioSource.pitch=2.5;
-//     }
-//     //:: SI la touche left shift est relaché
-//    if (Input.GetKeyUp (KeyCode.LeftShift))
-//     {      
-//         TypeAudioSource.pitch=1;
-//     }
-    
-    
 }//FIN UPDATE
-
-
-
-
-//:::::::::::::: OnTriggerEnter :::::::::::::://
-function OnTriggerEnter(other: Collider) {
-    if (other.gameObject.name == 'trigger') 
-    {
-        //Debug.Log("trigger");
-        
-    }
-
-}// FIN OnTriggerEnter
-
-
-
-
-//:::::::::::::: OnTriggerStay :::::::::::::://
-//Permet de verifier à chq frame s'il vole 
-/*function OnTriggerStay(other: Collider){
-
-    //:::::::::::::: ACTIVER Jetpack   
-    if (other.gameObject.tag == 'feeVolante') 
-    {
-        voler=true;// mettre a true
-         Debug.Log('stayfee');
-
-    }
-
-}//FIN OnTriggerStay
-*/
-
-//:::::::::::::: OnTriggerExit :::::::::::::://
-function OnTriggerExit(other: Collider) {
-
-    //:::::::::::::: ACTIVER Jetpack   
-    if (other.gameObject.tag == 'feeVolante') 
-    {
-        voler = true;// mettre a true
-        Destroy(other.gameObject);
-       
-    }
-}//FIN OnTriggerExit
-
-
 
 
 //:::::::::::::: function DiminueVies :::::::::::::://
@@ -465,7 +358,7 @@ function AugmenteVies() {
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommagesInfliges:int) {
     Sante -= dommagesInfliges;
-    gestionscBarreVies.DiminuerBarreVies(dommagesInfliges);
+    gestionAffichage.DiminuerBarreVies(dommagesInfliges);
     //Debug.Log("Santée du héros" +Sante);
 
 }
