@@ -165,6 +165,7 @@ function quantitePotionSort(nbPotionSort)
 	potionSortText.text = nbPotionSort.ToString();
 	//ObjetText3.text = objet03.ToString();
 	//écraser le texte UI
+    //Debug.Log(potionSortText.text);
 
 }
 

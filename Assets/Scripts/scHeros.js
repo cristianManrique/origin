@@ -193,7 +193,7 @@ C'est un peu le "controler" du MVC
     */
 
     private var gestionscBarreVies: scBarreVies;
-     /*
+    /*
     * Correspond à la var restante dans scBArreVies
     * elle permet de diminuer la var
     * @access private
@@ -201,6 +201,9 @@ C'est un peu le "controler" du MVC
     */
 
     private var restanteSante:int;
+
+
+
 
 
 
@@ -243,7 +246,7 @@ function Update()
     if(Vies==0)
     {
      SceneManager.LoadScene("gameOver");
-     Debug.Log("GAMEOVER");
+     
     }
 
 
@@ -253,18 +256,7 @@ function Update()
     var inputY = Input.GetAxis('Vertical');
 
     
-    if(Input.GetKeyDown('space'))//:: Si space est enfoncé
-    {
-        saut = true;
-        animateur.SetBool('saut', true);
-        //:: dire à l'animator d'utiliser cette variable du code
-    }
-    if(Input.GetKeyUp('space'))//:: Si space est enfoncé
-    {
-        saut = false;
-        animateur.SetBool('saut', false);
-        //:: dire à l'animator d'utiliser cette variable du code
-    }
+    
     
 
     //:: Application de la rotation directement sur le transform
@@ -311,20 +303,6 @@ function Update()
         {
             dirMouvement *= vitesse * marche;
         }
-        
-            
-//:::::::::::::: GERER SAUT :::::::::://  
-        if(saut)
-        {
-            dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
-            saut=false;//:: remettre à FALSE
-            animateur.SetBool('saut', true);
-            //:: dire à l'animator d'utiliser cette variable du code    
-        }
-        else {
-            animateur.SetBool('saut', false);
-            //:: dire à l'animator d'utiliser cette variable du code
-        }
 
 
 //:::::::::::::: GERER animeCourse ::::::::::// 
@@ -339,97 +317,37 @@ function Update()
             //:: dire à l'animator d'utiliser cette variable du code
         }
     
-    
-        
+                if(Input.GetKeyDown('space'))//:: Si space est enfoncé
+                {
+                    dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
+                    saut=false;//:: remettre à FALSE
+                    animateur.SetBool('saut', true);
+                   
+                    //:: dire à l'animator d'utiliser cette variable du code
+                }
+                if(Input.GetKeyUp('space'))//:: Si space est enfoncé
+                {
+                    saut = false;
+                    animateur.SetBool('saut', false);
+                    //:: dire à l'animator d'utiliser cette variable du code
+                }
+        peutVolerAir();
     }//FIN controller
 
 
-
-
-//:::::::::::::: GÉRER VOLE :::::::::://
-    if(Input.GetKey(KeyCode.Z) && voler==true)
-    {
-
-        dirMouvement.y += 200 * Time.deltaTime;
-        //il peut voler!!!
-        //Debug.Log('il vole');
-    }
-
-    if(Input.GetKeyDown(KeyCode.X) && voler==true)
-    {
-
-        dirMouvement.y -= gravite* 200 *Time.deltaTime;
-        //Debug.Log('il descend');
-
-    }
+//appelle de la function voler dans les airs.
     
+
     //:: Application de la gravité au mouvement
     dirMouvement.y -= gravite*Time.deltaTime;
     //:: Affectation du mouvement au Character controller
     controller.Move(dirMouvement * Time.deltaTime);
 
 
-
-
-//::::::::::::::Jouer le son AudioWalk avec CLAVIER :::::::::://
-    
-//    CE CODE EST BUGGÉ ET ENTRE EN CONFLIT AVEC LES SONS DE PICKUP D'OBJETS. - David
-    
-//    if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) 
-//     {
-//        TypeAudioSource.clip =AudioWalk;
-//        TypeAudioSource.pitch=1;
-//        TypeAudioSource.Play();
-//
-//     }
-//     if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) 
-//     {        
-//          TypeAudioSource.Stop();
-//     }
-////:::::::::::::: Gérer le pitch AudioWalk avec CLAVIER :::::::::://
-//    if (Input.GetKeyDown (KeyCode.LeftShift))
-//     {         
-//         TypeAudioSource.pitch=2.5;
-//     }
-//     //:: SI la touche left shift est relaché
-//    if (Input.GetKeyUp (KeyCode.LeftShift))
-//     {      
-//         TypeAudioSource.pitch=1;
-//     }
-    
     
 }//FIN UPDATE
 
 
-
-
-//:::::::::::::: OnTriggerEnter :::::::::::::://
-function OnTriggerEnter(other: Collider) {
-    if (other.gameObject.name == 'trigger') 
-    {
-        //Debug.Log("trigger");
-        
-    }
-
-}// FIN OnTriggerEnter
-
-
-
-
-//:::::::::::::: OnTriggerStay :::::::::::::://
-//Permet de verifier à chq frame s'il vole 
-/*function OnTriggerStay(other: Collider){
-
-    //:::::::::::::: ACTIVER Jetpack   
-    if (other.gameObject.tag == 'feeVolante') 
-    {
-        voler=true;// mettre a true
-         Debug.Log('stayfee');
-
-    }
-
-}//FIN OnTriggerStay
-*/
 
 //:::::::::::::: OnTriggerExit :::::::::::::://
 function OnTriggerExit(other: Collider) {
@@ -473,4 +391,28 @@ function updateDommages(dommagesInfliges:int) {
 //:::::::::::::: function updateDommages :::::::::::::://
 function getNbVies() {
     return Vies;
+}
+//:::::::::::::: function qui permet de voler:::::::::://
+function peutVolerAir()
+{
+    
+        if(Input.GetKey(KeyCode.Z) && voler==true)
+        {
+          
+            dirMouvement.y += 200 * Time.deltaTime;
+           
+            //il peut voler!!!
+            //Debug.Log('il vole');
+        }
+    
+            if(Input.GetKey(KeyCode.X) && voler==true)
+            {
+                
+                dirMouvement.y -= 600*Time.deltaTime;
+                //Debug.Log('il descend');
+
+            }
+    yield WaitForSeconds (5);
+    voler=false;
+    
 }

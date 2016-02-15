@@ -93,7 +93,7 @@ function Start () {
 }
 
 function Update () {
-	Debug.Log("noPotions = "+noPotions);
+	//Debug.Log("noPotions = "+noPotions);
 
 	//Debug.Log(peuTirer);
     
