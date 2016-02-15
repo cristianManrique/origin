@@ -93,10 +93,10 @@ function Start () {
 }
 
 function Update () {
-	Debug.Log("noPotions = "+noPotions);
+	// Debug.Log("noPotions = "+noPotions);
 
 	//Debug.Log(peuTirer);
-    
+    //noPotions = scriptGestionJeu.getNbPotionsSort();
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
 
    	if(Input.GetButtonDown("Fire2") && peuTirer == false && noPotions>0) {
