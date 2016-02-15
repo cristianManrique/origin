@@ -187,15 +187,15 @@ function ElimineUncoeur(numCoeur) {
     switch(numCoeur)
         {
             case 3:
-                RenderCoeur3.color.a = 0; 
+                RenderCoeur1.color.a = 0; 
                 break;
 
             case 2:
-                RenderCoeur2.color.a = 0; 
+                RenderCoeur3.color.a = 0; 
                 break;
 
             case 1:
-                RenderCoeur1.color.a = 0; 
+                RenderCoeur2.color.a = 0; 
                 break;
         }
 }

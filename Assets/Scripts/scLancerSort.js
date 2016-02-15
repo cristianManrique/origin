@@ -99,8 +99,8 @@ function Update () {
     
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
 
-   	if(Input.GetButton("Fire2") && peuTirer == false && noPotions>0) {
-		Debug.Log("fire !");
+   	if(Input.GetButtonDown("Fire2") && peuTirer == false && noPotions>0) {
+		Debug.Log("feu sort");
 		Feu();
 		peuTirer = true;
 		scriptGestionJeu.reductionPotionSort();//diminue une potion et mise à jour dans UI
@@ -163,7 +163,7 @@ function Feu(){
 	//est-ce qu'il y a un autre GameObject a 10 unites de distance ou moins devant le heros?
 //	if(Physics.Raycast(ray, objetToucher,10)){
 	
-		Debug.Log("Touche");
+//		Debug.Log("Touche");
 
 		Debug.DrawLine(transform.position,  objetToucher.point);
 
