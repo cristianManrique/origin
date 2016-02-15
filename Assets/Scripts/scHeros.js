@@ -335,7 +335,11 @@ function Update()
     }//FIN controller
 
 
+
 //appelle de la function voler dans les airs.
+
+
+
     
 
     //:: Application de la gravité au mouvement
