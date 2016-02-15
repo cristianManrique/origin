@@ -54,12 +54,18 @@ function Start () {
 	velY = 1.1;
 	velZ = .05;
 
-	limitXmax = -305.4;
-	limitYmax = -155;
-	limitZmax = -4.6;
-	limitXmin = -305.8;
-	limitYmin = -157.1;
-	limitZmin = -4.2;
+
+	limitXmax = positionActuel.x + 8;
+
+	limitYmax = positionActuel.y + 3;
+
+	limitZmax = positionActuel.z + 8;
+
+	limitXmin = positionActuel.x - 5;
+
+	limitYmin = positionActuel.y -1;
+
+	limitZmin = positionActuel.z - 5;
 
 	incrementY = .5;
 

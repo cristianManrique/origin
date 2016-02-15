@@ -1,18 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scPendulum1.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scOscillation1.js">
     <Files>
-      <File FileName="Assets\Scripts\scPendulum1.js" Line="18" Column="36" />
-      <File FileName="Assets\Scripts\scPendulum2.js" Line="18" Column="79" />
-      <File FileName="Assets\Scripts\scOscillation1.js" Line="13" Column="2" />
-      <File FileName="Assets\Scripts\scOscillation2.js" Line="20" Column="2" />
-      <File FileName="Assets\Scripts\scLancerSort.js" Line="10" Column="1" NotebookId="1" />
-      <File FileName="Assets\Scripts\scChoisirArme.js" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets\Scripts\scGestionJeu.js" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets\Scripts\scOgre.js" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets\Scripts\scAffichage.js" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets\Scripts\scEpeeMalcom.js" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets\Scripts\scDeplacementFee.js" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets\Scripts\scOscillation1.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scOscillation2.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scHeros.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scLancerSort.js" Line="90" Column="2" />
+      <File FileName="Assets\Scripts\scGestionJeu.js" Line="168" Column="5" />
+      <File FileName="Assets\Scripts\scAffichage.js" Line="32" Column="2" />
+      <File FileName="Assets\Scripts\scDeplacementFee.js" Line="69" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
