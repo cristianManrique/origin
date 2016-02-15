@@ -75,36 +75,31 @@
 
     //::::::::::::::::::::://
     /*
-    * Mettre à jour les textes des Potions trouvées
+    * Nombbre de potions de vie
     * @access private
     * @var int
     */
     private var nbPotionVie:int = 0;
-    private var nbPotionSort:int=0;
+
+    /*
+    * Nombre de potions pour jetter un sort
+    * @access private
+    * @var int
+    */
+    private var nbPotionSort:int = 0;
     /*
     * Verifie quel coeur il faut augmente ou diminue le ALPHA
     * @access private
     * @var int
     */
-    private var numCoeurG:int;
+//    private var numCoeurG:int;
 
-    //::::::::::::::::::::://
     /*
     * Gerer le niv d'Alpha du coeur
     * @access private
     * @var float
     */
-    private var AlphaCoeurG:float;
-
-
- 
-    /*
-    * c'est la quantite total des potion
-    * @access private
-    * @var int
-    */
-    //private var quantitePotionSort:int=0;
-
+//    private var AlphaCoeurG:float;
 
     /*
     * Script pour lancer un sort
@@ -112,8 +107,6 @@
     * @var Script
     */
      private var scriptLancerSort: scLancerSort;
-
-
 
     /*
     * Point Origin des sorts, objet parent du scLancerSort
@@ -136,13 +129,10 @@
     * @var Script
     */
      private var nbPotionsReveille = 0;
-    /**
-    *variable pour gerer quand le joueur pourrait instancier une particule
-    *@var boolean
-    *@access private
-    **/
-    //private var peuTirer: boolean = true;
-    private var peuTirer: boolean = false;
+
+function Awake () {
+//    DontDestroyOnLoad (transform.gameObject);
+}
 
 function Start () {
     
@@ -151,9 +141,6 @@ function Start () {
     //:: Chercher LES SCRIPTS JS
     gestionscAffichage=canvas.GetComponent.<scAffichage>();
     gestionscBarreVies=canvas.GetComponent.<scBarreVies>();
-
-    //:: Débuter Affichages des panneaux à FALSE
-    gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);
 
     objOriginSorts = GameObject.FindWithTag("originSort");
     scriptLancerSort = objOriginSorts.GetComponent.<scLancerSort>();
@@ -171,7 +158,7 @@ function Update () {
 
     //:: Permet de mettre à jour L'affichage des coeurs
     //:: ATTENTION:  numCoeur dans scBarredeVie.js
-    numCoeurG = gestionscBarreVies.numCoeur;
+//    numCoeurG = gestionscBarreVies.numCoeur;
 
 }//FIn update
 
@@ -186,7 +173,7 @@ function OnTriggerEnter(other: Collider) {
             case "bonbon":
                 JoueSonVictoire();
                 gestionscBarreVies.AugmenteBarreVies();
-                AlphaCoeurG++;//Augmente le Alpha
+//                AlphaCoeurG++;//Augmente le Alpha
                 //gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
                 //var message="un bonbon";
                 //Debug.Log("bonbon");
@@ -199,7 +186,7 @@ function OnTriggerEnter(other: Collider) {
                 //message="un gateau";
                 //Debug.Log("gateau");
                 Destroy(other.gameObject);
-                AlphaCoeurG++;//Augmente le Alpha
+//                AlphaCoeurG++;//Augmente le Alpha
                 //gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
                 break;
 
@@ -213,32 +200,27 @@ function OnTriggerEnter(other: Collider) {
                 Destroy(other.gameObject);
                 break;        
             case "potionReveille":
-                JoueSonVictoire();
                 nbPotionsReveille++;
                 // message="une potion Reveille";
                 if (nbPotionsReveille == 1) {
-                    //permet de passé au boss1
-                    SceneManager.LoadScene("niveau1");
-                }
-                else if (nbPotionsReveille == 2) {
                     //permet de passé au niveau deux après avoir tuer le boss niveau1
                     SceneManager.LoadScene("boss1");
                 }
-                else if (nbPotionsReveille == 3) {
+                else if (nbPotionsReveille == 2) {
                     //permet de passé au niveau deux après avoir tuer le boss niveau1
                     SceneManager.LoadScene("niveau2");
                 }
-                else if (nbPotionsReveille == 4) {
+                else if (nbPotionsReveille == 3) {
                     //permet de passé au boss1
                     SceneManager.LoadScene("boss2");
                 }
-                else if (nbPotionsReveille == 5) {
+                else if (nbPotionsReveille == 4) {
                     //permet de finir le jeu après avoir tuer le boss niveau 2
                     SceneManager.LoadScene("gagnant");
                 }
                 break;
            case "potionSort":
-    //::addition de chaque potion rammassée.
+                //::addition de chaque potion rammassée.
                 JoueSonVictoire();
                 checkPotion=true;
                 gestionscAffichage.MettreAJourPotionsUI(checkPotion);
@@ -312,18 +294,18 @@ function OnTriggerEnter(other: Collider) {
 
 
 //:::::::::::::: OnTriggerExit :::::::::::::://
-function OnTriggerExit(other:Collider) {
-    if(other.gameObject.tag)
-    {
-       switch(other.gameObject.tag)
-        {
-          case "ogre":
-                gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);
-                //ne pas afficher ce panneau
-               break;
-       }
-   }
-}//fin OnTrigger EXit
+//function OnTriggerExit(other:Collider) {
+//    if(other.gameObject.tag)
+//    {
+//       switch(other.gameObject.tag)
+//        {
+//          case "ogre":
+//                gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);
+//                //ne pas afficher ce panneau
+//               break;
+//       }
+//   }
+//}//fin OnTrigger EXit
 
 
 

@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 import UnityEngine.UI;
 
 /**
@@ -79,13 +79,6 @@ import UnityEngine.UI;
 	* @var int
 	*/
 	public var restant:int;
-
-	/*
-	* Indique le coeur à diminuer le alpha
-	* @access private
-	* @var int
-	*/
-	public var numCoeur:int = 4;
 
 
 //:::::::::::Awake :::::::::://

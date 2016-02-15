@@ -260,8 +260,6 @@ function mort() {
     var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/gateau")) as GameObject;
     bonus.transform.position = this.gameObject.transform.position;
     Destroy(this.gameObject);
-    gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher Barre de vie de Ennemi
-
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
