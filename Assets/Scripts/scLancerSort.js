@@ -93,7 +93,11 @@ function Start () {
 }
 
 function Update () {
+<<<<<<< HEAD
+	//Debug.Log("noPotions = "+noPotions);
+=======
 	// Debug.Log("noPotions = "+noPotions);
+>>>>>>> refs/remotes/ReveSansFin/master
 
 	//Debug.Log(peuTirer);
     //noPotions = scriptGestionJeu.getNbPotionsSort();
