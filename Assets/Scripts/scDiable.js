@@ -176,5 +176,5 @@ function mort() {
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:int) {
     pointsVieDiable -= dommages;
-    Debug.Log("pointsVieDiable");
+//    Debug.Log("pointsVieDiable");
 }

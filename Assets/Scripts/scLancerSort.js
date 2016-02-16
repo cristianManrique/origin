@@ -93,15 +93,6 @@ function Start () {
 }
 
 function Update () {
-<<<<<<< HEAD
-	//Debug.Log("noPotions = "+noPotions);
-=======
-	// Debug.Log("noPotions = "+noPotions);
->>>>>>> refs/remotes/ReveSansFin/master
-
-	//Debug.Log(peuTirer);
-    //noPotions = scriptGestionJeu.getNbPotionsSort();
-//   	if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
 
    	if(Input.GetButtonDown("Fire2") && !peuTirer && noPotions>0) {
 		Debug.Log("feu sort");
@@ -111,7 +102,6 @@ function Update () {
 		
 	}
 	//Jeter un sort
-		//JeterSort();
 	if (bouleBleue) {
 		bouleBleue.transform.Translate(Vector3.forward * 10 * Time.deltaTime);
 	}

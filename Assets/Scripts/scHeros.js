@@ -2,30 +2,24 @@
 @script RequireComponent(CharacterController)
 @script RequireComponent(Animator)
 
-/**
-* TP Developpement de JEU
-* Gestion du Héros
-*  gérer l'attaque, les vies, le nombre de potions et le health et les déplacements
-* @author Cristian Manrique
-* @author Stephane Leclerc
-* @author Jonathan Martel
-* @date 2016-01-20
-*/
+//:::::::::::variables :::::::::://
 
 /*
 * Nombre de Vie du héros
 * @access private
 * @var GameObject
 */
-private var Vies: int = 3;
+private var Vies: int= 3;
 
 /*
 * Sante c'est la resistance avant de perdre une vie
 * @access private
 * @var GameObject
 */
-private var Sante: int = 10;
+private var Sante: int= 10;
 
+
+//::::::::::::::::::::://
 /**
 * Vitesse de déplacement de base
 * @access public
@@ -70,6 +64,8 @@ private var vitesseRot:float =3.0;
 */
 private var gravite: float = 15;
 
+
+//::::::::::::::::::::://
 /**
 * Gerer si peut sauter
 * @access private
@@ -91,13 +87,6 @@ private var voler: boolean = false;
 */
 private var animeCourse: boolean = false;
 
-/*  
-* Verifier si c'est le dernier objet a trouver
-* @access private
-* @var checkSiFin
-*/
-private var checkSiFin:boolean = false;
-
 /**
 * Gerer si peut attack
 * @access private
@@ -112,6 +101,8 @@ private var attack: boolean = false;
 */
 private var animeAtack: boolean = false;
 
+
+//::::::::::::::::::::://
 /*  
 * Verifier si le panneau pause est disponible
 * @access private
@@ -119,6 +110,8 @@ private var animeAtack: boolean = false;
 */
 private var checkPanneauPause: int = 0;
 
+
+//::::::::::::::::::::://
 /**
 * Contient le controleur d'animation
 * @access public
@@ -133,6 +126,9 @@ private var animateur: Animator;
 */
 private var controller:CharacterController;
 
+
+//::::::::::::::::::::://
+
 /*
 * Contient le AudioClip Marche
 * @access public
@@ -146,6 +142,8 @@ public var AudioWalk: AudioClip;
 */
 private var TypeAudioSource:AudioSource;
 
+
+//::::::::::::::::::::://
 /*
 * Contient la camera
 * @access private
@@ -160,15 +158,16 @@ private var cam:Camera;
 */
 private var canvas: GameObject;
 
+//::::::::::::::::::::://
 /*
-* Contient le script scAffichages
+* Contient le script affichage
 * @access private
 * @var scAffichage
 */
 private var gestionAffichage: scAffichage;
 
 /*
-* Correspond à la var restante dans scAffichage
+* Correspond à la var restante dans scBArreVies
 * elle permet de diminuer la var
 * @access private
 * @var int
@@ -232,10 +231,8 @@ function Update()
 
     animateur.SetFloat('vitesseRot', inputX);
     //:: dire à l'animator d'utiliser cette variable du code
-
-
     
-    if(controller.isGrounded || voler==true)//s'il est sol OU si voler est true 
+    if(controller.isGrounded || voler)//s'il est sol OU si voler est true 
     { 
         dirMouvement = Vector3(0, 0, inputY);   // Calcul du mouvement
         // ajouter l'animateur pour les animation
@@ -282,7 +279,7 @@ function Update()
         else {
             animateur.SetBool('animeCourse', false);
             //:: dire à l'animator d'utiliser cette variable du code
-
+        }
     
         if(Input.GetKeyDown('space'))//:: Si space est enfoncé
         {
@@ -298,16 +295,51 @@ function Update()
             animateur.SetBool('saut', false);
             //:: dire à l'animator d'utiliser cette variable du code
         }
-        peutVolerAir();
-    }//FIN controller    
+        if(Input.GetKey(KeyCode.Z) && voler)
+        {
+            animateur.SetBool('saut', false);
+            dirMouvement.y += 200 * Time.deltaTime;
+
+            //il peut voler!!!
+            //Debug.Log('il vole');
+        }
+
+        if(Input.GetKey(KeyCode.X) && voler)
+        {
+            animateur.SetBool('saut', false);
+            dirMouvement.y -= 600*Time.deltaTime;
+            //Debug.Log('il descend');
+
+        }
+    }//FIN controller
+
+
+//appelle de la function voler dans les airs.
+    
 
     //:: Application de la gravité au mouvement
     dirMouvement.y -= gravite*Time.deltaTime;
     //:: Affectation du mouvement au Character controller
     controller.Move(dirMouvement * Time.deltaTime);
 
-
 }//FIN UPDATE
+
+
+
+//:::::::::::::: OnTriggerExit :::::::::::::://
+function OnTriggerExit(other: Collider) {
+
+    //:::::::::::::: ACTIVER Jetpack   
+    if (other.gameObject.tag == 'feeVolante') 
+    {
+        voler = true;// mettre a true
+        Destroy(other.gameObject);
+        timerVoler();
+    }
+}//FIN OnTriggerExit
+
+
+
 
 //:::::::::::::: function DiminueVies :::::::::::::://
 function DiminueVies() {
@@ -338,26 +370,8 @@ function getNbVies() {
     return Vies;
 }
 //:::::::::::::: function qui permet de voler:::::::::://
-function peutVolerAir()
+function timerVoler()
 {
-    
-        if(Input.GetKey(KeyCode.Z) && voler==true)
-        {
-          
-            dirMouvement.y += 200 * Time.deltaTime;
-           
-            //il peut voler!!!
-            //Debug.Log('il vole');
-        }
-    
-            if(Input.GetKey(KeyCode.X) && voler==true)
-            {
-                
-                dirMouvement.y -= 600*Time.deltaTime;
-                //Debug.Log('il descend');
-
-            }
-    yield WaitForSeconds (5);
-    voler=false;
-    
+    yield WaitForSeconds(10);
+    voler = false; 
 }
