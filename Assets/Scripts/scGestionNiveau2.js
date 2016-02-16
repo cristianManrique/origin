@@ -1,5 +1,11 @@
 ﻿#pragma strict
 
+/**
+* Script pour redemarrer la position du heros lorsque le niveau commence
+* @author Cristina Mahneke
+* @date 15/02/2016
+**/
+
 var heros: GameObject;
 
 function Start () {

@@ -1,10 +1,21 @@
 ﻿#pragma strict
+/**
+* Script pour arreter le deplacements des ennemis temporalment
+* @author Cristina Mahneke
+* @date 15/02/2016
+**/
 
-var agentEnnemiOgre: NavMeshAgent;
-var agentEnnemiDiable: NavMeshAgent;
-var agentEnnemiLutin: NavMeshAgent;
-var agentEnnemiBoss1: NavMeshAgent;
-var agentEnnemiBoss2: NavMeshAgent;
+
+/**
+*variables qui sockent les nav mesh agents des ennemis
+*@var NavMeshAgent
+*@access private
+**/
+private var agentEnnemiOgre: NavMeshAgent;
+private var agentEnnemiDiable: NavMeshAgent;
+private var agentEnnemiLutin: NavMeshAgent;
+private var agentEnnemiBoss1: NavMeshAgent;
+private var agentEnnemiBoss2: NavMeshAgent;
 function Start () {
 
 }

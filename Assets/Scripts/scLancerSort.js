@@ -102,15 +102,8 @@ function Start () {
 }
 
 function Update () {
-<<<<<<< HEAD
-	//Debug.Log("noPotions = "+noPotions);
-=======
-<<<<<<< HEAD
-	//Debug.Log("noPotions = "+noPotions);
-=======
-	// Debug.Log("noPotions = "+noPotions);
->>>>>>> refs/remotes/ReveSansFin/master
->>>>>>> upstream/master
+
+	
 
 	//Debug.Log(peuTirer);
     //noPotions = scriptGestionJeu.getNbPotionsSort();
@@ -174,16 +167,7 @@ function Feu(){
 	monProjectile= Instantiate(bouleBleue, transform.position, transform.rotation);	
 
 	monProjectile.tag = "monProjectile";	
-	//:: Ajout force
-	//monProjectile.GetComponent.<Rigidbody>().AddForce(this.transform.forward * force);
 
-
-	//:: Detruire si l'objet ne bouge pas
-	
-	/*if (monProjectile.GetComponent.<Rigidbody>().IsSleeping())
-		{
-		Destroy(monProjectile);
-		}*/
 
 	yield WaitForSeconds(3);
 	autoDetruire();	
