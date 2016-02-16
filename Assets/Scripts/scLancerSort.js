@@ -102,10 +102,18 @@ function Start () {
 }
 
 function Update () {
+<<<<<<< HEAD
 	//Debug.Log("noPotions = "+noPotions);
+=======
+<<<<<<< HEAD
+	//Debug.Log("noPotions = "+noPotions);
+=======
+	// Debug.Log("noPotions = "+noPotions);
+>>>>>>> refs/remotes/ReveSansFin/master
+>>>>>>> upstream/master
 
 	//Debug.Log(peuTirer);
-    
+    //noPotions = scriptGestionJeu.getNbPotionsSort();
    	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
 
    	if(Input.GetButtonDown("Fire2") && peuTirer == false && noPotions>0) {

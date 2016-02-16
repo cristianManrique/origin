@@ -142,8 +142,8 @@ function Start () {
     gestionscAffichage=canvas.GetComponent.<scAffichage>();
     gestionscBarreVies=canvas.GetComponent.<scBarreVies>();
 
-    objOriginSorts = GameObject.FindWithTag("originSort");
-    scriptLancerSort = objOriginSorts.GetComponent.<scLancerSort>();
+    // objOriginSorts = GameObject.FindWithTag("originSort");
+    // scriptLancerSort = objOriginSorts.GetComponent.<scLancerSort>();
 
     scriptChoisirArme = GetComponent(scChoisirArme);
 
@@ -152,7 +152,7 @@ function Start () {
 function Update () {
 
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
-    scriptLancerSort.noPotions = nbPotionSort;
+    // scriptLancerSort.noPotions = nbPotionSort;
     //nbPotionSort = scriptLancerSort.noPotions;
     //scriptChoisirArme.noPotions = nbPotionSort;
 
@@ -218,6 +218,12 @@ function OnTriggerEnter(other: Collider) {
                     //permet de finir le jeu après avoir tuer le boss niveau 2
                     SceneManager.LoadScene("gagnant");
                 }
+                break;
+                
+            case "PotionReveilleMenu":
+                //::addition de chaque potion rammassée.
+                Destroy(other.gameObject);
+                SceneManager.LoadScene("menu");
                 break;
            case "potionSort":
                 //::addition de chaque potion rammassée.
@@ -317,9 +323,23 @@ function JoueSonVictoire(){
 //:::::::::::::: function qui reduire le nb de potion sort :::::::::::::://
 function reductionPotionSort()
 {
-    nbPotionSort--;
+//condition pour réduire les potions sort
+    if(nbPotionSort>0)
+    {
+        nbPotionSort--;  
+    }
+    else
+        {
+            //condition pour que les potions ne soit pas en négatif.
+            nbPotionSort=0;
+        }
+       
     gestionscAffichage.quantitePotionSort(nbPotionSort);//affichage UI
 }
 
+function getNbPotionsSort()
+{
+    return nbPotionSort;//affichage UI
+}
 
 
