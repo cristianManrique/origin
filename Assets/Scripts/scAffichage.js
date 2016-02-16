@@ -48,7 +48,7 @@ private var gestionscHeros: scHeros;
  * @access private
  * @var float
  */
-private var TempsDim:float = 6.0;
+private var TempsDim:float = 30.0;
 
 /**
  * Limite la barre de vie
@@ -56,13 +56,6 @@ private var TempsDim:float = 6.0;
  * @var float
  */
 private var Limite:float = 0.0;
-
-/**
- * Gérer le alpha du coeur
- * @access public
- * @var float
- */
-public var AlphaCoeur:float;
 
 //::::::::::::::::::::://
 /*
@@ -112,7 +105,7 @@ private var maxBarre: int = 10;
 * @access private
 * @var int
 */
-public var restant:int;
+private var restant:int;
 
 /*
 * GameObject contient les panneaux avec le texte pour l'informations du jeu pour chaque éléments.
