@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Unity 5.3.1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Unity 5.3.1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\scBarreVies.js" />
      <Compile Include="Assets\Scripts\scBgVideo.js" />
      <Compile Include="Assets\Scripts\scBoss1.js" />
+     <Compile Include="Assets\Scripts\scBoss2.js" />
      <Compile Include="Assets\Scripts\scCamera.js" />
      <Compile Include="Assets\Scripts\scChoisirArme.js" />
      <Compile Include="Assets\Scripts\scDeplacementFee.js" />
@@ -60,22 +61,31 @@
      <Compile Include="Assets\Scripts\scDiable.js" />
      <Compile Include="Assets\Scripts\scFantome.js" />
      <Compile Include="Assets\Scripts\scFourcheDiable.js" />
+     <Compile Include="Assets\Scripts\scGelerEnnemi.js" />
      <Compile Include="Assets\Scripts\scGestionJeu.js" />
-     <Compile Include="Assets\Scripts\scGrosProjectileBoss.js" />
+     <Compile Include="Assets\Scripts\scGestionNiveau2.js" />
+     <Compile Include="Assets\Scripts\scGrosProjectileBoss1.js" />
+     <Compile Include="Assets\Scripts\scGrosProjectileBoss2.js" />
      <Compile Include="Assets\Scripts\scHeros.js" />
      <Compile Include="Assets\Scripts\scLancerSort.js" />
+     <Compile Include="Assets\Scripts\scLave.js" />
      <Compile Include="Assets\Scripts\scLutin.js" />
      <Compile Include="Assets\Scripts\scMassueOgre.js" />
      <Compile Include="Assets\Scripts\scMenuIntro.js" />
      <Compile Include="Assets\Scripts\scOgre.js" />
      <Compile Include="Assets\Scripts\scOscillation1.js" />
      <Compile Include="Assets\Scripts\scOscillation2.js" />
-     <Compile Include="Assets\Scripts\scPetitProjectileBoss.js" />
+     <Compile Include="Assets\Scripts\scPetitProjectileBoss1.js" />
+     <Compile Include="Assets\Scripts\scPetitProjectileBoss2.js" />
+     <Compile Include="Assets\Scripts\scPlateformesMobiles.js" />
      <Compile Include="Assets\Scripts\scRejouerPartie.js" />
      <Compile Include="Assets\Scripts\scSoleil.js" />
+     <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Simple.shader" />
+     <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+     <None Include="Assets\Lava_Flowing_Shader\ReadMe.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
@@ -86,10 +96,10 @@
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Unity 5.3.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Unity 5.3.1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Users/e1495595/Documents/Unity5.3.1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

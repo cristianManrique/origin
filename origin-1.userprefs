@@ -1,14 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scOscillation1.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scGelerEnnemi.js">
     <Files>
-      <File FileName="Assets\Scripts\scOscillation1.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\scOscillation2.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\scHeros.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\scLancerSort.js" Line="90" Column="2" />
-      <File FileName="Assets\Scripts\scGestionJeu.js" Line="168" Column="5" />
-      <File FileName="Assets\Scripts\scAffichage.js" Line="32" Column="2" />
-      <File FileName="Assets\Scripts\scDeplacementFee.js" Line="69" Column="2" />
+      <File FileName="Assets\Scripts\scLancerSort.js" Line="17" Column="5" />
+      <File FileName="Assets\Scripts\scGelerEnnemi.js" Line="2" Column="1" />
+      <File FileName="Assets\Scripts\scLoadSceneBoss2.js" Line="2" Column="1" />
+      <File FileName="Assets\Scripts\scDetectionETInfligeDommage.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scAvanceBoule.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scAttaqueClara.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scLutin.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scGestionJeu.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scGestionNiveau2.js" Line="1" Column="15" />
+      <File FileName="Assets\Scripts\scOgre.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

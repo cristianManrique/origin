@@ -8,12 +8,7 @@
 * @date 25/01/2016
 **/
 
-	/**
-	*la distance/longueur maximum du RayCast
-	*@var int
-	*@access public
-	**/
-	public var maxHitPoint:int = 10;
+
 
 	/**
 	*variable pour gerer quand le joueur pourrait instancier une particule
@@ -30,6 +25,13 @@
 	**/
 	public var cadenceTir: float = 1;
 
+	  /**
+	Variable de force de lancer
+	* @access private
+	* @var int
+	*/
+	private var force:int;
+
 	/**
 	*le nombre des potions que le heros possede
 	*@var int
@@ -37,15 +39,14 @@
 	**/
 	public var noPotions: int;
 
-	private var bouleBleue:GameObject;
+	 /**
+	*GameObject contenant la particule a lancer
+	* @access public
+	* @var GameObject
+	*/
+	public var bouleBleue:GameObject;
 
-	/**
-	*les GameObjects emmeteurs de particules
-	*@var GameObject
-	*@access public
-	**/
-	public var emmeteur1: GameObject;
-	public var emmeteur2: GameObject;
+
 
 //::::::::::::::::::::://
     /**
@@ -68,7 +69,15 @@
 	*/
 	private var scriptGestionJeu:scGestionJeu;
 
+	/**
+	* Variable projectile
+	* @access private
+	* @var GameObject
+	*/
+	private var monProjectile:GameObject;
 
+
+	private var GroupesProjectiles:GameObject[];
 
 //:::::::::::Awake :::::::::://
 function Awake()
@@ -93,11 +102,8 @@ function Start () {
 }
 
 function Update () {
-<<<<<<< HEAD
-	//Debug.Log("noPotions = "+noPotions);
-=======
-	// Debug.Log("noPotions = "+noPotions);
->>>>>>> refs/remotes/ReveSansFin/master
+
+	
 
 	//Debug.Log(peuTirer);
     //noPotions = scriptGestionJeu.getNbPotionsSort();
@@ -152,46 +158,20 @@ function JeterSort(){
 
 //Methode que instanciera les prefabs des emmeteurs
 function Feu(){
-	//attraper la position de la souris
-	var ray : Ray = new Ray (transform.position,Input.mousePosition);
-
-	//direction en avant de notre position
-	var direction: Vector3= transform.TransformDirection(Vector3.forward);
 	
-	//Raycast sert a dterminer l'angle de attent pour tirer et aussi pour determiner si on est vu pour un ennemis(est ce que'il y a quelque chose en face de moi?, si oui, quoi(RaycastHit)?
-	var objetToucher: RaycastHit;
-	
-	//Debug.Log("Feu");
-
-
-	//est-ce qu'il y a un autre GameObject a 10 unites de distance ou moins devant le heros?
-//	if(Physics.Raycast(ray, objetToucher,10)){
-	
-//		Debug.Log("Touche");
-
-		Debug.DrawLine(transform.position,  objetToucher.point);
-
-		//nous allons faire roter notre transform, une fois vers le point touche et dans une autre instance en avant du heros
-		//transform.LookAt(objetToucher.point);
-		var rotNormal:Quaternion = Quaternion.FromToRotation(Vector3.up, objetToucher.normal);
-		var rotForward:Quaternion = Quaternion.FromToRotation(Vector3.up, transform.forward);
-
-//		Debug.Log(objetToucher.collider.name);
-
-		//un emmeteur sera instancie a notre point d'origin, et le deuxieme sur l'objet touche
-		var etoiles:GameObject = Instantiate(emmeteur1, transform.position, rotForward);//etoiles
-//		Instantiate(emmeteur2, objetToucher.point , rotNormal);//boule bleue
-		bouleBleue = Instantiate(emmeteur2, transform.position , rotNormal);//boule bleue
+			var position:Vector3 = transform.position;
+			position.y+=2;
+			position.z+=100;
 		
-				
-		//si on touche un rigidbody on veut plus de la force
-		/*if(objetToucher.rigidbody){
-			objetToucher.rigidbody.AddForce(1000*direction);
-		}
-		objetToucher.collider.SendMessageUpwards("touché", forceArme,SendMessageOptions.DontRequireReceiver);
-		*/
-		
-//	}
+	//:: Instancier un clone
+	monProjectile= Instantiate(bouleBleue, transform.position, transform.rotation);	
+
+	monProjectile.tag = "monProjectile";	
+
+
+	yield WaitForSeconds(3);
+	autoDetruire();	
+
 	
 	yield WaitForSeconds(cadenceTir);
 
@@ -199,3 +179,13 @@ function Feu(){
 	peuTirer = true;
 	
 }//fin feu();
+
+function autoDetruire(){
+
+	GroupesProjectiles =  GameObject.FindGameObjectsWithTag ("monProjectile");
+ 
+     for(var i = 0 ; i < GroupesProjectiles.length ; i ++)
+         Destroy(GroupesProjectiles[i]);
+
+	
+}
