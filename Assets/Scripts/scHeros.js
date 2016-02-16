@@ -176,9 +176,6 @@ private var gestionAffichage: scAffichage;
 private var restanteSante:int;
 
 
-
-
-
 //:::::::::::Awake :::::::::://
 function Awake()
 {
@@ -216,7 +213,7 @@ function Update()
     if(Vies==0)
     {
      SceneManager.LoadScene("gameOver");
-     Debug.Log("GAMEOVER");
+     
     }
 
 
@@ -226,18 +223,7 @@ function Update()
     var inputY = Input.GetAxis('Vertical');
 
     
-    if(Input.GetKeyDown('space'))//:: Si space est enfoncé
-    {
-        saut = true;
-        animateur.SetBool('saut', true);
-        //:: dire à l'animator d'utiliser cette variable du code
-    }
-    if(Input.GetKeyUp('space'))//:: Si space est enfoncé
-    {
-        saut = false;
-        animateur.SetBool('saut', false);
-        //:: dire à l'animator d'utiliser cette variable du code
-    }
+    
     
 
     //:: Application de la rotation directement sur le transform
@@ -284,20 +270,6 @@ function Update()
         {
             dirMouvement *= vitesse * marche;
         }
-        
-            
-//:::::::::::::: GERER SAUT :::::::::://  
-        if(saut)
-        {
-            dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
-            saut=false;//:: remettre à FALSE
-            animateur.SetBool('saut', true);
-            //:: dire à l'animator d'utiliser cette variable du code    
-        }
-        else {
-            animateur.SetBool('saut', false);
-            //:: dire à l'animator d'utiliser cette variable du code
-        }
 
 
 //:::::::::::::: GERER animeCourse ::::::::::// 
@@ -310,34 +282,32 @@ function Update()
         else {
             animateur.SetBool('animeCourse', false);
             //:: dire à l'animator d'utiliser cette variable du code
-        }        
-    }//FIN controller
 
-
-//:::::::::::::: GÉRER VOLE :::::::::://
-    if(Input.GetKey(KeyCode.Z) && voler==true)
-    {
-
-        dirMouvement.y += 200 * Time.deltaTime;
-        //il peut voler!!!
-        //Debug.Log('il vole');
-    }
-
-    if(Input.GetKey(KeyCode.X) && voler==true)
-    {
-
-        dirMouvement.y -= gravite* 200 *Time.deltaTime;
-        //Debug.Log('il descend');
-
-    }
     
+        if(Input.GetKeyDown('space'))//:: Si space est enfoncé
+        {
+            dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
+            saut=false;//:: remettre à FALSE
+            animateur.SetBool('saut', true);
+
+            //:: dire à l'animator d'utiliser cette variable du code
+        }
+        if(Input.GetKeyUp('space'))//:: Si space est enfoncé
+        {
+            saut = false;
+            animateur.SetBool('saut', false);
+            //:: dire à l'animator d'utiliser cette variable du code
+        }
+        peutVolerAir();
+    }//FIN controller    
+
     //:: Application de la gravité au mouvement
     dirMouvement.y -= gravite*Time.deltaTime;
     //:: Affectation du mouvement au Character controller
     controller.Move(dirMouvement * Time.deltaTime);
 
-}//FIN UPDATE
 
+}//FIN UPDATE
 
 //:::::::::::::: function DiminueVies :::::::::::::://
 function DiminueVies() {
@@ -366,4 +336,28 @@ function updateDommages(dommagesInfliges:int) {
 //:::::::::::::: function updateDommages :::::::::::::://
 function getNbVies() {
     return Vies;
+}
+//:::::::::::::: function qui permet de voler:::::::::://
+function peutVolerAir()
+{
+    
+        if(Input.GetKey(KeyCode.Z) && voler==true)
+        {
+          
+            dirMouvement.y += 200 * Time.deltaTime;
+           
+            //il peut voler!!!
+            //Debug.Log('il vole');
+        }
+    
+            if(Input.GetKey(KeyCode.X) && voler==true)
+            {
+                
+                dirMouvement.y -= 600*Time.deltaTime;
+                //Debug.Log('il descend');
+
+            }
+    yield WaitForSeconds (5);
+    voler=false;
+    
 }

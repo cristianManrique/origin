@@ -170,6 +170,12 @@ function OnTriggerEnter(other: Collider) {
                     SceneManager.LoadScene("gagnant");
                 }
                 break;
+                
+            case "PotionReveilleMenu":
+                //::addition de chaque potion rammassée.
+                Destroy(other.gameObject);
+                SceneManager.LoadScene("menu");
+                break;
            case "potionSort":
                 //::addition de chaque potion rammassée.
                 JoueSonVictoire();
@@ -251,7 +257,17 @@ function JoueSonVictoire(){
 //:::::::::::::: function qui reduire le nb de potion sort :::::::::::::://
 function reductionPotionSort()
 {
-    nbPotionSort--;
+//condition pour réduire les potions sort
+    if(nbPotionSort>0)
+    {
+        nbPotionSort--;  
+    }
+    else
+        {
+            //condition pour que les potions ne soit pas en négatif.
+            nbPotionSort=0;
+        }
+       
     gestionscAffichage.quantitePotionSort(nbPotionSort);//affichage UI
 }
 

@@ -131,7 +131,7 @@ function Start () {
 }
 
 function Update () {
-
+	
 //permet l'affichage de la quantité total des potion de Sort
      //gestionscAffichage.quantitePotionSort(objet01, quantitePotionSort);
 
@@ -152,7 +152,8 @@ function Update () {
 
 
 //soustraction de la gravité selon le temps.
-	deplacementDirection.y-=gravite*Time.deltaTime;
+	deplacementDirection.y-=gravite;
+	
 //c'est le déplacement du controleurLutin avec la fonction Move dans une direction multiplier par le temps.
 	controleurLutin.Move(deplacementDirection*Time.deltaTime);
 
@@ -180,16 +181,26 @@ function OnControllerColliderHit(rayonToucher:ControllerColliderHit)
 
 	//Si le héros est détecté à proximité, l'ogre se met en mode attaque.
 function OnTriggerEnter(autreObjet:Collider)
-{
-    if(autreObjet.gameObject.tag=='heros')
+{   
+	if(autreObjet.gameObject.tag=='pointeEpee')
 	{
 	//Il y a contact avec le heros.
 		contactHeros=true;
-//		Debug.Log('contact avec heros');
+		//Debug.Log('contact avec heros epee');
 		gestionJeu.reductionPotionSort();
-//		Debug.Log(quantitePotionSort);
-
+////		Debug.Log(quantitePotionSort);
+//
 	}
+	if(autreObjet.gameObject.tag=='heros')
+	{
+		//Il y a contact avec le heros.
+		contactHeros=true;
+		//Debug.Log('contact avec heros corps');
+		gestionJeu.reductionPotionSort();
+		////		Debug.Log(quantitePotionSort);
+		//
+	}
+	
 }
 
 
@@ -267,10 +278,13 @@ function deplacementLutin()
 function mortLutin()
 	{
 		var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/potionSort")) as GameObject;
-    	bonus.transform.position = lutin.transform.position;
+		Debug.Log(bonus);
+    	//bon x	qsa	Q		Qs		
+		bonus.transform.position = lutin.transform.position;
     	//bonus.AddComponent.<BoxCollider>();
     	//bonus.GetComponent(BoxCollider).isTrigger = true;
     	bonus.tag = "potionSort";
+		Debug.Log(bonus.tag);
 		Destroy(lutin);
 		//Debug.Log('mortLutin');
 	}
