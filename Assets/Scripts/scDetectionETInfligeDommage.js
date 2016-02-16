@@ -75,6 +75,7 @@ private var canvas: GameObject;
 */
 private var scriptAffichage: scAffichage;
 
+private var navAgent: GameObject;
 
 function Start (){
 
@@ -125,6 +126,8 @@ function OnTriggerEnter(other:Collider) {
                 scriptAffichage.DiminuerBarreViesEnnemi();// diminuer la barre de vie du Boss 2
             	break;
         }
+
+
     }
 
 }
