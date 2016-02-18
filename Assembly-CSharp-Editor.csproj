@@ -6,7 +6,11 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
+<<<<<<< HEAD
     <ProjectGuid>{8A06831E-A3C3-86AB-DEC9-050DB4A97AD9}</ProjectGuid>
+=======
+    <ProjectGuid>{FA61949E-F4AC-04DA-99BF-8E4A738470BD}</ProjectGuid>
+>>>>>>> ReveSansFin/master
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -62,7 +66,11 @@
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
  <Reference Include="Assembly-UnityScript">
+<<<<<<< HEAD
  <HintPath>/Users/CRISMAN/Documents/GitHub/origin/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+=======
+ <HintPath>I:/Github/Reve_sans_fin_origin/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+>>>>>>> ReveSansFin/master
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -94,6 +102,7 @@
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
+<<<<<<< HEAD
  <Reference Include="UnityEditor.iOS.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
  </Reference>
@@ -103,6 +112,8 @@
  <Reference Include="UnityEditor.SamsungTV.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/STVPlayer/UnityEditor.SamsungTV.Extensions.dll</HintPath>
  </Reference>
+=======
+>>>>>>> ReveSansFin/master
  <Reference Include="UnityEditor.WebGL.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
  </Reference>
@@ -112,6 +123,7 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+<<<<<<< HEAD
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
@@ -121,6 +133,14 @@
       <Project>{D11B749F-F2B4-3FC3-A81C-5C3C1AB9A6BC}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{5F16780F-EBAF-F907-76D8-5E4063C9DA8E}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+=======
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{6F5775A9-441B-B725-221A-210AA6FDE48B}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{B5B32B68-1475-F996-8149-756E2F3E2F10}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+>>>>>>> ReveSansFin/master
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

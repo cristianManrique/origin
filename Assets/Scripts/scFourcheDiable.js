@@ -11,25 +11,20 @@
 * @access private
 * @var int
 */
-private var dommagesInfliges:int = 0.5;
+private var dommagesInfliges:int = 5;
 
 /*
-* Contient le script qui gère le jeu.
+* Contient le script qui gère le heros
 * @access private
-* @var scGestionJeu
+* @var scHeros
 */
-private var scriptGestionJeu:scHeros;
+private var scriptHeros:scHeros;
 
 //Infliges des dommages au héros quand la fourche le touche.
 function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
         Debug.Log(autreObjet.gameObject);
-
-        scriptGestionJeu = GameObject.FindWithTag("heros").GetComponent(scHeros);
-        scriptGestionJeu.updateDommages(dommagesInfliges);
-
-        //scriptGestionJeu = autreObjet.gameObject.GetComponent(scGestionJeu);
-       // scriptGestionJeu.updateDommages(dommagesInfliges);
-
+        scriptHeros = autreObjet.gameObject.GetComponent(scHeros);
+        scriptHeros.updateDommages(dommagesInfliges);
     }
 }

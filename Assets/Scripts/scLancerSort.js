@@ -46,15 +46,12 @@
 	*/
 	public var bouleBleue:GameObject;
 
-
-
-//::::::::::::::::::::://
     /**
      * Contient le controleur d'animation
      * @access public
      * @var Animator
      */
-    //private var animateur: Animator;
+    private var animateur: Animator;
     /**
      * Contient le héro (clara ou Mlacom)
      * @access private
@@ -67,7 +64,7 @@
 	* @access private
 	* @var scGestionJeu
 	*/
-	private var scriptGestionJeu:scGestionJeu;
+	private var scriptHeros:scHeros;
 
 	/**
 	* Variable projectile
@@ -86,7 +83,7 @@ function Awake()
     heros = GameObject.FindWithTag("heros");
     //:: chercher le héros
 
-    //animateur = heros.gameObject.GetComponent.<Animator>();
+    animateur = heros.gameObject.GetComponent.<Animator>();
     //:: trouver le composant Animator
 	
 }
@@ -95,36 +92,27 @@ function Awake()
 
 function Start () {
 
-	scriptGestionJeu = heros.GetComponent.<scGestionJeu>();
-
-
+	scriptHeros = heros.GetComponent.<scHeros>();
 
 }
 
 function Update () {
 
-	
-
-	//Debug.Log(peuTirer);
-    //noPotions = scriptGestionJeu.getNbPotionsSort();
-   	//if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false && peuTirer == true){
-
-   	if(Input.GetButtonDown("Fire2") && peuTirer == false && noPotions>0) {
+   	if(Input.GetButtonDown("Fire2") && !peuTirer && noPotions>0) {
 		Debug.Log("feu sort");
 		Feu();
 		peuTirer = true;
-		scriptGestionJeu.reductionPotionSort();//diminue une potion et mise à jour dans UI
+		scriptHeros.reductionPotionSort();//diminue une potion et mise à jour dans UI
 		
 	}
 	//Jeter un sort
-		//JeterSort();
 	if (bouleBleue) {
 		bouleBleue.transform.Translate(Vector3.forward * 10 * Time.deltaTime);
 	}
 
 
 	//:::::::::::::: GERER animation jeterSort ::::::::::// 
-	/*if(peuTirer)
+	if(peuTirer)
 	{
 		peuTirer=false;//:: remettre à FALSE pour arrêter l'animation
 		animateur.SetBool('jeteSort', true);
@@ -133,35 +121,17 @@ function Update () {
 	else {
 		animateur.SetBool('jeteSort', false);
         //:: dire à l'animator d'utiliser cette variable du code
-	}*/
+	}
 	
 }// FIN UPDATE
 
-//***********fonction a integrer un fois on est pret avec les animations***********//
-/*
-function JeterSort(){
-	
-	if(Input.GetButton("Fire2") && animateur.GetBool('jeteSort')==false){
-	
-		animateur.SetLayerWeight(1,1f);
-		
-		animateur.SetBool('jeteSort', true);
-		
-	}else{
-		
-		animateur.SetLayerWeight(0,1f);
-		animateur.SetBool('jeteSort', false);
-		}
-	
-}
-*/
 
 //Methode que instanciera les prefabs des emmeteurs
 function Feu(){
 	
-			var position:Vector3 = transform.position;
-			position.y+=2;
-			position.z+=100;
+    var position:Vector3 = transform.position;
+    position.y+=2;
+    position.z+=100;
 		
 	//:: Instancier un clone
 	monProjectile= Instantiate(bouleBleue, transform.position, transform.rotation);	
