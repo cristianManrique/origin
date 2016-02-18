@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 
 /**
  * TP Developpement de JEU
@@ -115,8 +115,6 @@ function autoDetruire(){
  
      for(var i = 0 ; i < GroupesProjectiles.length ; i ++)
          Destroy(GroupesProjectiles[i]);
-
-	
 }
 
 

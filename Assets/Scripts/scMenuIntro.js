@@ -205,7 +205,7 @@ function demarrerTuto() {
 
 //Méthode qui charge la scène de sélection du personnage.
 function demarrerJeu() {
-//    SceneManager.LoadScene("choixPerso");
+    SceneManager.LoadScene("niveau1");
 }
 
 //Méthode qui affiche le panneau des crédits et au besoin cache les autres panneaux ouverts.

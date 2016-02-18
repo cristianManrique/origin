@@ -175,7 +175,7 @@ function Update () {
     
     if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
         frapper();
-        Debug.Log("frappe"); 
+//        Debug.Log("frappe"); 
     }
     else if (distanceHeros < distancePatrouille) {//Si le héros est assez près pour être poursuivi...
         //Debug.Log("poursuite");
@@ -193,7 +193,7 @@ function Update () {
 
   
     if (pointsVieOgre <= 0) {//L'ogre est mort
-    	Debug.Log('entre fonction moins 0');
+//    	Debug.Log('entre fonction moins 0');
         mort();
     }
 }
@@ -265,5 +265,5 @@ function mort() {
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:int) {
     pointsVieOgre -= dommages;
-    Debug.Log(pointsVieOgre);
+//    Debug.Log(pointsVieOgre);
 }

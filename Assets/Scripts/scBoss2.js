@@ -130,7 +130,7 @@ private var distanceHeros:float;
 * @access private
 * @var float
 */
-private var pointsVieBoss2:float = 10.0;
+private var pointsVieBoss2:float = 40.0;
 
 /*
 * determine la vitesse a laquelle le Boss2 retombe au sol.
@@ -240,12 +240,15 @@ function Start () {
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
     
-    gestionscAffichage.AfficherPanneauBarreVieEnnemi(true);//Afficher le panneau
+    gestionscAffichage.setBarreBoss(pointsVieBoss2);//Afficher le panneau + rempli barre de vie en fonction des points de vie du boss.
 }
 
 function Update () {
 
     if (estVivant) {
+        
+        gestionscAffichage.EnnemiSlider.value = pointsVieBoss2;//Update de la barre de vie du boss
+        
         distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre le Boss2 et le heros.
     
         if(destinationPatrouilleActuelle >= destinationsPatrouille.length){
