@@ -5,6 +5,7 @@
 * Gestion de tout le Jeu
 * @author Cristian Manrique
 * @author stéphane Leclerc
+* @author David Lachambre
 * @author Jonathan Martel
 * @date 2016-01-16
 * 
@@ -39,28 +40,6 @@ private var gestionscAffichage: scAffichage;
 */
 public var AudioVictoire: AudioClip;
 
-/*
-* GameObject contient les panneaux avec le texte pour l'informations du jeu pour chaque éléments.
-*@acces public
-* var GameObject
-*/
-public var messageBonbon:GameObject;
-public var messagePotionSort:GameObject;
-public var messageOgre:GameObject;
-public var messageFeeVolante:GameObject;
-public var messageDiable:GameObject;
-public var messageFantome:GameObject;
-public var messageLutin:GameObject;
-public var messagePotionReveille:GameObject;
-
-//::::::::::::::::::::://
-/*
-* Verifie si on augmente ou on diminue le ALPHA de la potion sort
-* @access private
-* @var boolean
-*/
-private var checkPotion:boolean = false;
-
 //::::::::::::::::::::://
 /*
 * Nombbre de potions de vie
@@ -91,6 +70,13 @@ private var nbPotionSort:int = 0;
 private var objOriginSorts: GameObject;
 
 /*
+* Point Origin des sorts, objet parent du scLancerSort
+* @access private
+* @var GameObject
+*/
+private var scriptHeros: scHeros;
+
+/*
 * détermine le nombre de potions de réveil ammassées par le joueur
  * Permet de loader la prochaine scenes
 * @access private
@@ -103,6 +89,8 @@ function Awake () {
 }
 
 function Start () {
+    
+    scriptHeros = GameObject.FindWithTag("heros").GetComponent.<scHeros>();
     
     canvas = GameObject.FindWithTag("canvas");//GUI jeu
 
@@ -131,120 +119,41 @@ function OnTriggerEnter(other: Collider) {
             //:::::::::::::: Gestion des objets trouvées
             case "bonbon":
                 JoueSonVictoire();
-                gestionscAffichage.AugmenteBarreVies();
-//                AlphaCoeurG++;//Augmente le Alpha
-                //gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
-                //var message="un bonbon";
-                //Debug.Log("bonbon");
+                scriptHeros.augmenterSante(5);
                 Destroy(other.gameObject);
                 break;
 
             case "gateau":
                 JoueSonVictoire();
-                gestionscAffichage.AugmenteBarreVies();
-                //message="un gateau";
-                //Debug.Log("gateau");
+                scriptHeros.augmenterSante(10);
                 Destroy(other.gameObject);
-//                AlphaCoeurG++;//Augmente le Alpha
-                //gestionscAffichage.AugmenteAlphaCoeurUI(AlphaCoeurG, numCoeurG);
                 break;
 
             case "potionVie":
                 JoueSonVictoire();
-                nbPotionVie++;//potionVie trouvée
-                //checkPotion=true;
-                //gestionscAffichage.MettreAJourPotionsUI(checkPotion, checkPotion2);
-                //message="une potion Vie";
-                //Debug.Log("potionVie");
+                scriptHeros.AugmenteVies();
                 Destroy(other.gameObject);
                 break;        
             case "potionReveille":
                 nbPotionsReveille++;
-                // message="une potion Reveille";
                 if (nbPotionsReveille == 1) {
                     //permet de passé au niveau deux après avoir tuer le boss niveau1
-                    SceneManager.LoadScene("niveau2");
+                    SceneManager.LoadScene("boss2");
                 }
                 else if (nbPotionsReveille == 2) {
-                    //permet de passé au boss1
+                    //permet de passé à la scène de fin de jeu
                     SceneManager.LoadScene("gagnant");
                 }
                 break;
-                
             case "PotionReveilleMenu":
-                //::addition de chaque potion rammassée.
-                Destroy(other.gameObject);
                 SceneManager.LoadScene("menu");
                 break;
            case "potionSort":
-                //::addition de chaque potion rammassée.
                 JoueSonVictoire();
-                checkPotion=true;
-                gestionscAffichage.MettreAJourPotionsUI(checkPotion);
-         		nbPotionSort++;
+         		scriptHeros.augmenterPotionsSort();
             	Destroy(other.gameObject);
                	break;
-
-            //:::::::::::::: Gestion Panneaux Tuto
-            case "MessageBonbon":
-                //regleBonbon.informationBonbon(true);
-                messageBonbon.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
-
-            case "MessagePotionSort":
-                messagePotionSort.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
-
-            case "MessageOgre":
-                messageOgre.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
-
-            case "MessageFeeVolante":
-                messageFeeVolante.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
-
-            case "MessageDiable":
-                messageDiable.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
-
-            case "MessageFantome":
-                messageFantome.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
-
-            case "MessageLutin":
-                messageLutin.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
-
-            case "MessageBonbon":
-                //regleBonbon.informationBonbon(true);
-                messageBonbon.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
-
-            case "MessagePotionReveille":
-                //regleBonbon.informationBonbon(true);
-                messagePotionReveille.SetActive(true);
-                Time.timeScale=0;
-                Destroy(other.gameObject);
-                break;
         }
-        //:: Mise à jour de l'affichage de la quantité total des potion de Sort
-        gestionscAffichage.quantitePotionSort(nbPotionSort);
     }
 
 }//fin trigger enter
@@ -253,27 +162,3 @@ function OnTriggerEnter(other: Collider) {
 function JoueSonVictoire(){
     GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
 }
-
-//:::::::::::::: function qui reduire le nb de potion sort :::::::::::::://
-function reductionPotionSort()
-{
-//condition pour réduire les potions sort
-    if(nbPotionSort>0)
-    {
-        nbPotionSort--;  
-    }
-    else
-        {
-            //condition pour que les potions ne soit pas en négatif.
-            nbPotionSort=0;
-        }
-       
-    gestionscAffichage.quantitePotionSort(nbPotionSort);//affichage UI
-}
-
-function getNbPotionsSort()
-{
-    return nbPotionSort;//affichage UI
-}
-
-

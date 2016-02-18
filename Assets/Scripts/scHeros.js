@@ -9,23 +9,28 @@
 * @access private
 * @var GameObject
 */
-private var Vies: int= 3;
+private var vies:int = 3;
 
 /*
 * Sante c'est la resistance avant de perdre une vie
 * @access private
-* @var GameObject
+* @var float
 */
-private var Sante: int= 10;
+private var sante:float;
 
-
-//::::::::::::::::::::://
 /**
 * Vitesse de déplacement de base
 * @access public
 * @var float
 */
 private var vitesse:float = 1.0;
+
+/*
+* Nombre de potions permettant de lancer un sort
+* @access private
+* @var integer
+*/
+private var nbPotionSort:int = 0;//potionSort
 
 /**
 * Vitesse de saut
@@ -166,13 +171,19 @@ private var canvas: GameObject;
 */
 private var gestionAffichage: scAffichage;
 
+/**
+ * Pour diminuer la sante de facon progressive et constante
+ * @access private
+ * @var float
+ */
+private var vitesseDim:float = 0.2;
+
 /*
-* Correspond à la var restante dans scBArreVies
-* elle permet de diminuer la var
-* @access private
-* @var int
+* Maximum de sante
+* @access public
+* @var float
 */
-private var restanteSante:int;
+public var santeMax:float = 100.0;
 
 
 //:::::::::::Awake :::::::::://
@@ -192,7 +203,7 @@ function Start ()
     TypeAudioSource = GetComponent.<AudioSource>();
     canvas = GameObject.FindWithTag("canvas");
     gestionAffichage = canvas.GetComponent.<scAffichage>();
-  
+    sante = santeMax;
 }
 
 
@@ -200,19 +211,13 @@ function Start ()
 function Update()
 {
 
+//    Debug.Log(sante);
+    sante -= (vitesseDim * Time.deltaTime);
 //:::::::::::::: GERER VIES :::::::::://
-    if(Sante ==0)
-    {
-      Vies--;
-      Sante=10;//remettre à 10
 
-
-    }
-
-    if(Vies==0)
+    if(vies == 0)
     {
      SceneManager.LoadScene("gameOver");
-     
     }
 
 
@@ -220,10 +225,6 @@ function Update()
     //:: Lecture des variables d'axe
     var inputX = Input.GetAxis('Horizontal');   
     var inputY = Input.GetAxis('Vertical');
-
-    
-    
-    
 
     //:: Application de la rotation directement sur le transform
     transform.Rotate(0, inputX * vitesseRot, 0);
@@ -281,18 +282,12 @@ function Update()
             //:: dire à l'animator d'utiliser cette variable du code
         }
     
-        if(Input.GetKeyDown('space'))//:: Si space est enfoncé
+        if(Input.GetKeyDown('space') && !voler)//:: Si space est enfoncé et que le heros n'est pas en train de voler
         {
             dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
             saut=false;//:: remettre à FALSE
             animateur.SetBool('saut', true);
 
-            //:: dire à l'animator d'utiliser cette variable du code
-        }
-        if(Input.GetKeyUp('space'))//:: Si space est enfoncé
-        {
-            saut = false;
-            animateur.SetBool('saut', false);
             //:: dire à l'animator d'utiliser cette variable du code
         }
         if(Input.GetKey(KeyCode.Z) && voler)
@@ -312,6 +307,12 @@ function Update()
 
         }
     }//FIN controller
+    if(Input.GetKeyUp('space'))//:: Si space est enfoncé
+    {
+        saut = false;
+        animateur.SetBool('saut', false);
+        //:: dire à l'animator d'utiliser cette variable du code
+    }
 
 
 //appelle de la function voler dans les airs.
@@ -327,7 +328,7 @@ function Update()
 
 
 //:::::::::::::: OnTriggerExit :::::::::::::://
-function OnTriggerExit(other: Collider) {
+function OnTriggerEnter(other: Collider) {
 
     //:::::::::::::: ACTIVER Jetpack   
     if (other.gameObject.tag == 'feeVolante') 
@@ -343,8 +344,8 @@ function OnTriggerExit(other: Collider) {
 
 //:::::::::::::: function DiminueVies :::::::::::::://
 function DiminueVies() {
-    if (Vies > 0) {
-        Vies--;
+    if (vies > 0) {
+        vies--;
     }
 //   Debug.Log("Vies du héros"+Vies);
 }
@@ -352,26 +353,78 @@ function DiminueVies() {
 
 //:::::::::::::: function AugmenteVies :::::::::::::://
 function AugmenteVies() {
-    //Vies += nbVies;
-    Vies++;
+    if (vies == 3) {
+        sante = santeMax;
+    }
+    else {
+        vies++;
+    }
    // Debug.Log("Vies du héros"+Vies);
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommagesInfliges:int) {
-    Sante -= dommagesInfliges;
-    gestionAffichage.DiminuerBarreVies(dommagesInfliges);
-    //Debug.Log("Santée du héros" +Sante);
-
+    Debug.Log("heros touche, baisse de : " + dommagesInfliges);
+    
+    sante -= dommagesInfliges;
+    
+    if(sante <= 0) {//Si 0 ou negatif...
+      vies--;//Enleve une vie
+      sante = santeMax + sante;//Repporte l'excedent enleve sur sante sur le prochain cycle de barre de vie (santeMax + 0 ou nombre negatif)
+    }
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function getNbVies() {
-    return Vies;
+    return vies;
 }
 //:::::::::::::: function qui permet de voler:::::::::://
 function timerVoler()
 {
     yield WaitForSeconds(10);
     voler = false; 
+}
+
+function getSante() {
+    return sante;
+}
+
+function zeroSante() {
+    sante = 0;
+}
+
+function augmenterSante(increment:int) {
+    if (sante < santeMax) {
+        if (sante + increment < santeMax) {
+            sante += increment;
+        }
+        else {
+            sante = santeMax;
+        }
+    }
+}
+
+//:::::::::::::: function qui reduire le nb de potion sort :::::::::::::://
+function reductionPotionSort()
+{
+//condition pour réduire les potions sort
+    if(nbPotionSort > 0)
+    {
+        nbPotionSort--;  
+    }
+    else
+    {
+        //condition pour que les potions ne soit pas en négatif.
+        nbPotionSort = 0;
+    }
+}
+
+function getNbPotionsSort()
+{
+    return nbPotionSort;
+}
+
+function augmenterPotionsSort()
+{
+    nbPotionSort++;
 }

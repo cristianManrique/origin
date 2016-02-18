@@ -60,7 +60,7 @@ private var distanceRepos:float = 15.0;
 * @access private
 * @var float
 */
-private var distancePoursuite:float = 1.5;
+private var distancePoursuite:float = 2;
 
 /*
 * État de santé de l'diable
@@ -109,7 +109,7 @@ function Start () {
     controleurDiable = this.gameObject.GetComponent(CharacterController);
 }
 
-function FixedUpdate () {
+function Update () {
     
     distanceHeros = Vector3.Distance (this.transform.position, cible.position);//Calcul de la distance entre le diable et le héros.
 

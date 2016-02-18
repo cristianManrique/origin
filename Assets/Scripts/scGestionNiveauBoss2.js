@@ -11,8 +11,8 @@
 * @access private
 * @var Vector3
 */
-//private var positionDepartHeros:Vector3 = new Vector3(1,2.4,-108);
-private var positionDepartHeros:Vector3 = new Vector3(1,2.4,-6.7);
+private var positionDepartHeros:Vector3 = new Vector3(1,2.4,-108);
+//private var positionDepartHeros:Vector3 = new Vector3(1,2.4,-6.7);//Pour débuter près du boss. Pour fins de test.
 
 /*
 * Contient le heros
@@ -31,6 +31,4 @@ private var scriptGestionAffichage:scAffichage;
 function Start () {
     heros = GameObject.FindWithTag("heros");//Va chercher le heros
     heros.transform.position = positionDepartHeros;//Replace le héros en position de départ au chargement du niveau puisque le héros n'est pas détruit entre les chargements des différents niveaux.
-    scriptGestionAffichage = GameObject.FindWithTag("canvas").GetComponent("scAffichage") as scAffichage;
-    scriptGestionAffichage.resetBarreEnnemi();//Rempli la barre de vie de l'ennemi.
 }

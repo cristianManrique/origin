@@ -46,9 +46,6 @@
 	*/
 	public var bouleBleue:GameObject;
 
-
-
-//::::::::::::::::::::://
     /**
      * Contient le controleur d'animation
      * @access public
@@ -67,7 +64,7 @@
 	* @access private
 	* @var scGestionJeu
 	*/
-	private var scriptGestionJeu:scGestionJeu;
+	private var scriptHeros:scHeros;
 
 	/**
 	* Variable projectile
@@ -95,9 +92,7 @@ function Awake()
 
 function Start () {
 
-	scriptGestionJeu = heros.GetComponent.<scGestionJeu>();
-
-
+	scriptHeros = heros.GetComponent.<scHeros>();
 
 }
 
@@ -107,7 +102,7 @@ function Update () {
 		Debug.Log("feu sort");
 		Feu();
 		peuTirer = true;
-		scriptGestionJeu.reductionPotionSort();//diminue une potion et mise à jour dans UI
+		scriptHeros.reductionPotionSort();//diminue une potion et mise à jour dans UI
 		
 	}
 	//Jeter un sort

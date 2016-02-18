@@ -5,7 +5,7 @@
 * @update 12-02-2016
 */
 
-private var dommages: int = 2;//Le dommage inflige au heros
+private var dommages: int = 30;//Le dommage inflige au heros
 private var scriptHeros: scHeros;
 
 function OnTriggerEnter(objetEnCollision: Collider) {

@@ -1,6 +1,6 @@
 #pragma strict
 
-private var dommages: int = 1;//Le dommage inflige au heros
+private var dommages: int = 5;//Le dommage inflige au heros
 private var scriptHeros: scHeros;
 
 function OnTriggerEnter(objetEnCollision: Collider) {

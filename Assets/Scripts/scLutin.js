@@ -34,7 +34,21 @@ private var deplacementDirection:Vector3;
 * @access private
 * @var vitesse
 */
-private var vitesse:float=2;
+private var vitesse:float;
+
+/*
+* vitesse de marche du lutin.
+* @access private
+* @var vitesseMarche
+*/
+private var vitesseMarche:float=2;
+
+/*
+* vitesse du lutin lorsqu'il se sauve.
+* @access private
+* @var vitesseFuite
+*/
+private var vitesseFuite:float=4;
 
  /*
 * delai pour un changement direction (rotation).
@@ -84,7 +98,7 @@ private var directionHeros:Vector3;
 * @access private
 * @var nombreVieLutin
 */
-private var nombreVieLutin:float=5;
+private var nombreVieLutin:int=3;
 
 /*
 * condition pour savoir s'il y a contact avec le héros
@@ -105,7 +119,7 @@ private var quantitePotionSort:int=0;
 * @access private
 * @var scAffichageTP.js
 */
-private var gestionJeu: scGestionJeu;
+private var scriptHeros: scHeros;
 
 /*
 * GameObject canvas contient panneaux d'affichage
@@ -114,7 +128,12 @@ private var gestionJeu: scGestionJeu;
 */
  private var canvas: GameObject;
 
-  
+/*
+* Heros du jeu
+* @access private
+* @var GameObject
+*/
+ private var heros: GameObject;
 
 
 function Start () {
@@ -124,10 +143,11 @@ function Start () {
 	nouvelleRotation=Random.Range(0,90);
 //il va chercher le CharacterController qui est mis dans la variable controleurLutin
 
-	gestionJeu = GameObject.FindWithTag("heros").GetComponent(scGestionJeu);
+    heros = GameObject.FindWithTag("heros");
+	scriptHeros = heros.GetComponent(scHeros);
 
 	 //gestionscAffichage=canvas.GetComponent.<scAffichage>();
-
+    vitesse = vitesseMarche;
 }
 
 function Update () {
@@ -136,15 +156,12 @@ function Update () {
      //gestionscAffichage.quantitePotionSort(objet01, quantitePotionSort);
 
 //trouver le heros et le suivre selon le tag avec sa position et celui du lutin.
-	directionHeros=GameObject.FindWithTag('heros').transform.position-transform.position;
+	directionHeros=heros.transform.position-transform.position;
 //empêche le lutin de monter lorsque le heros monte ou vole.
 	directionHeros.y=0;
 
-
-
-		//appelle de fonction pour le déplacement du lutin.
-		deplacementLutin();
-	
+    //appelle de fonction pour le déplacement du lutin.
+    deplacementLutin();
 
 
 //permet de voir le rayon
@@ -182,25 +199,13 @@ function OnControllerColliderHit(rayonToucher:ControllerColliderHit)
 	//Si le héros est détecté à proximité, l'ogre se met en mode attaque.
 function OnTriggerEnter(autreObjet:Collider)
 {   
-	if(autreObjet.gameObject.tag=='pointeEpee')
+	if(autreObjet.gameObject.tag=='pointeEpee' || autreObjet.gameObject.tag=='heros')
 	{
 	//Il y a contact avec le heros.
 		contactHeros=true;
-		//Debug.Log('contact avec heros epee');
-		gestionJeu.reductionPotionSort();
-////		Debug.Log(quantitePotionSort);
-//
-	}
-	if(autreObjet.gameObject.tag=='heros')
-	{
-		//Il y a contact avec le heros.
-		contactHeros=true;
-		//Debug.Log('contact avec heros corps');
-		gestionJeu.reductionPotionSort();
-		////		Debug.Log(quantitePotionSort);
-		//
-	}
-	
+		scriptHeros.reductionPotionSort();
+//		Debug.Log(quantitePotionSort);
+	}	
 }
 
 
@@ -210,6 +215,7 @@ function deplacementLutin()
 //s'il n'y a pas contact avec le héros
 	if(!contactHeros)
 	{
+        vitesse = vitesseMarche;
 		//condition qui permet de savoir si le heros est près avec la public variable magnitude(il compare les vectors) 
 //sinon il se déplace tout seul.
 	if(directionHeros.magnitude<6)
@@ -236,6 +242,7 @@ function deplacementLutin()
 
 //permet au lutin de changer de direction opposer au heros pour le fuir.
 		transform.rotation=Quaternion.Euler(0,nouvelleRotation,0);
+        vitesse = vitesseFuite;
 		//Debug.Log(transform.position);
 		//Debug.Log('entreElse');
 		//Debug.Log(transform.rotation);
@@ -277,14 +284,16 @@ function deplacementLutin()
 
 function mortLutin()
 	{
+        var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesRecompense")) as GameObject;
+        etoiles.transform.position = this.gameObject.transform.position;
 		var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/potionSort")) as GameObject;
-		Debug.Log(bonus);
+//		Debug.Log(bonus);
     	//bon x	qsa	Q		Qs		
 		bonus.transform.position = lutin.transform.position;
     	//bonus.AddComponent.<BoxCollider>();
     	//bonus.GetComponent(BoxCollider).isTrigger = true;
     	bonus.tag = "potionSort";
-		Debug.Log(bonus.tag);
+//		Debug.Log(bonus.tag);
 		Destroy(lutin);
 		//Debug.Log('mortLutin');
 	}
