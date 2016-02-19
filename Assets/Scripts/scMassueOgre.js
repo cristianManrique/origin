@@ -11,7 +11,7 @@
 * @access private
 * @var int
 */
-private var dommagesInfliges:int = 1;
+private var dommagesInfliges:int = 10;
 
 /*
 * Contient le script qui gère le heros

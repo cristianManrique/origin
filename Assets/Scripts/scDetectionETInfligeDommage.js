@@ -73,7 +73,7 @@ private var canvas: GameObject;
 * @access public
 * @var scBarreEnnemi
 */
-private var scriptscBarreEnnemi: scBarreEnnemi;
+private var scriptAffichage: scAffichage;
 
 private var navAgent: GameObject;
 
@@ -81,7 +81,7 @@ function Start (){
 
 	heros = GameObject.FindWithTag("heros");
     canvas = GameObject.FindWithTag("canvas");
-    scriptscBarreEnnemi=canvas.GetComponent.<scBarreEnnemi>();
+    scriptAffichage=canvas.GetComponent.<scAffichage>();
 
 }
 
@@ -116,14 +116,14 @@ function OnTriggerEnter(other:Collider) {
 //                Debug.Log(other.gameObject.tag);
 		        scriptBoss1 = other.gameObject.GetComponent(scBoss1);//Aller chercher le script du Boss 1
 		        scriptBoss1.updateDommages(dommagesInfliges);//chercher la function updateDommages
-                scriptscBarreEnnemi.DiminuerBarreViesEnnemi();// diminuer la barre de vie du Boss 1
+                scriptAffichage.DiminuerBarreViesEnnemi();// diminuer la barre de vie du Boss 1
             	break;
 
             case "boss2":
 //                Debug.Log(other.gameObject.tag);
 		        scriptBoss2 = other.gameObject.GetComponent(scBoss2);//Aller chercher le script du Boss 2
 		        scriptBoss2.updateDommages(dommagesInfliges);//chercher la function updateDommages 
-                scriptscBarreEnnemi.DiminuerBarreViesEnnemi();// diminuer la barre de vie du Boss 2
+                scriptAffichage.DiminuerBarreViesEnnemi();// diminuer la barre de vie du Boss 2
             	break;
         }
 
