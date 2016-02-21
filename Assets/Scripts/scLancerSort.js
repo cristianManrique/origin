@@ -4,88 +4,62 @@
 * Script pour instancier des emmeteurs de particules a maniere des sorts
 * @author Cristina Mahneke
 * @author Cristian Manrique
+* @author David Lachambre
 * @source TPfinal Session 4, materiel du cours de Assemblage de Jeu 1 avec Jonathan Martel
 * @date 25/01/2016
 **/
 
+/**
+*L'e point d'origine du sort lance par le heros
+*@var GameObject
+*@access public
+**/
+public var originSort: GameObject;
 
+/**
+*le nombre des potions que le heros possede
+*@var int
+*@access private
+**/
+private var nbPotions: int;
 
-	/**
-	*variable pour gerer quand le joueur pourrait instancier une particule
-	*@var boolean
-	*@access private
-	**/
-	//private var peuTirer: boolean = true;
-	private var peuTirer: boolean = false;
+/**
+Variable de force de lancer
+* @access private
+* @var int
+*/
+private var force:int;
 
-	/**
-	*le temps en seconds que le joueur doit attendre avant de pouvoir lancer une autre sort
-	*@var int
-	*@access public
-	**/
-	public var cadenceTir: float = 1;
+/**
+ * Contient le controleur d'animation
+ * @access public
+ * @var Animator
+ */
+private var animateur: Animator;
 
-	  /**
-	Variable de force de lancer
-	* @access private
-	* @var int
-	*/
-	private var force:int;
+/**
+ * Contient le héro (clara ou Mlacom)
+ * @access private
+ * @var GameObject
+ */
+private var heros: GameObject;
 
-	/**
-	*le nombre des potions que le heros possede
-	*@var int
-	*@access public
-	**/
-	public var noPotions: int;
+/*
+* Contient le script qui gère le jeu.
+* @access private
+* @var scGestionJeu
+*/
+private var scriptHeros:scHeros;
 
-	 /**
-	*GameObject contenant la particule a lancer
-	* @access public
-	* @var GameObject
-	*/
-	public var bouleBleue:GameObject;
-
-    /**
-     * Contient le controleur d'animation
-     * @access public
-     * @var Animator
-     */
-    private var animateur: Animator;
-    /**
-     * Contient le héro (clara ou Mlacom)
-     * @access private
-     * @var GameObject
-     */
-    private var heros: GameObject;
-
-	/*
-	* Contient le script qui gère le jeu.
-	* @access private
-	* @var scGestionJeu
-	*/
-	private var scriptHeros:scHeros;
-
-	/**
-	* Variable projectile
-	* @access private
-	* @var GameObject
-	*/
-	private var monProjectile:GameObject;
-
-
-	private var GroupesProjectiles:GameObject[];
 
 //:::::::::::Awake :::::::::://
 function Awake()
 {
-
-    heros = GameObject.FindWithTag("heros");
+    heros = this.gameObject;
     //:: chercher le héros
 
-    animateur = heros.gameObject.GetComponent.<Animator>();
+    animateur = this.gameObject.GetComponent.<Animator>();
     //:: trouver le composant Animator
-	
 }
 
 
@@ -93,69 +67,30 @@ function Awake()
 function Start () {
 
 	scriptHeros = heros.GetComponent.<scHeros>();
-
 }
 
 function Update () {
+    
+    nbPotions = scriptHeros.getNbPotionsSort();
 
-   	if(Input.GetButtonDown("Fire2") && !peuTirer && noPotions>0) {
-		Debug.Log("feu sort");
-		Feu();
-		peuTirer = true;
+   	if(Input.GetButtonDown("Fire2") && nbPotions > 0) {
 		scriptHeros.reductionPotionSort();//diminue une potion et mise à jour dans UI
-		
-	}
-	//Jeter un sort
-	if (bouleBleue) {
-		bouleBleue.transform.Translate(Vector3.forward * 10 * Time.deltaTime);
-	}
-
-
-	//:::::::::::::: GERER animation jeterSort ::::::::::// 
-	if(peuTirer)
-	{
-		peuTirer=false;//:: remettre à FALSE pour arrêter l'animation
 		animateur.SetBool('jeteSort', true);
-        //:: dire à l'animator d'utiliser cette variable du code	
 	}
-	else {
-		animateur.SetBool('jeteSort', false);
-        //:: dire à l'animator d'utiliser cette variable du code
-	}
-	
+    else {
+        animateur.SetBool('jeteSort', false);
+    }
 }// FIN UPDATE
 
-
-//Methode que instanciera les prefabs des emmeteurs
-function Feu(){
-	
-    var position:Vector3 = transform.position;
-    position.y+=2;
-    position.z+=100;
-		
-	//:: Instancier un clone
-	monProjectile= Instantiate(bouleBleue, transform.position, transform.rotation);	
-
-	monProjectile.tag = "monProjectile";	
-
-
-	yield WaitForSeconds(3);
-	autoDetruire();	
-
-	
-	yield WaitForSeconds(cadenceTir);
-
-	//une fois fini de lance un sort, on pourrait lancer un autre
-	peuTirer = true;
-	
-}//fin feu();
-
-function autoDetruire(){
-
-	GroupesProjectiles =  GameObject.FindGameObjectsWithTag ("monProjectile");
- 
-     for(var i = 0 ; i < GroupesProjectiles.length ; i ++)
-         Destroy(GroupesProjectiles[i]);
-
-	
+//Lance un sort - appelé par un animator event
+function lancerUnSort() {
+    
+    //:: Instancier un projectile sort
+    var sort: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPrefabs/bouleBleue")) as GameObject;
+    Physics.IgnoreCollision(sort.GetComponent.<Collider>(), heros.GetComponent.<Collider>());//Ignore les collisions entre le heros et le projectile
+    sort.transform.position = originSort.transform.position;
+	sort.transform.rotation = this.gameObject.transform.rotation;
+    
+    var etoilesSort: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPrefabs/etoilesSort")) as GameObject;
+    etoilesSort.transform.position = sort.transform.position;
 }

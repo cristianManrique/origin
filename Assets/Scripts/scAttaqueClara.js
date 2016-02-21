@@ -15,45 +15,55 @@
 
 //:::::::::::variables :::::::::://
 
-  //::::::CLARA::::::://
-     /**
-	Variable de force de lancer
-	* @access private
-	* @var int
-	*/
-	private var force:int;
-	/**
-	Variable de force MIN de lancer
-	* @access private
-	* @var int
-	*/
-	private var forceMin:int = 1000;
+//::::::CLARA::::::://
 
-	/*
-	* GameObject Contient particule
-	* @access public
-	* @var ParticleSystem
-	*/
-	//public var FeuMagie:ParticleSystem;
+/**
+*L'e point d'origine du sort lance par le heros
+*@var GameObject
+*@access public
+**/
+public var originAttack: GameObject;
 
-	/*
-	* GameObject Contient bouleFeu
-	* @access public
-	* @var ParticleSystem
-	*/
-	public var boule:GameObject;
-	/**
-	* Variable projectile
-	* @access private
-	* @var GameObject
-	*/
-	private var monProjectile:GameObject;
+/**
+Variable de force de lancer vers l'avant
+* @access private
+* @var int
+*/
+private var forceAvant:int = 500;
+
+/**
+Variable de force de lancer vers le haut
+* @access private
+* @var int
+*/
+private var forceHaut:int = 50;
+
+/**
+* Contient le controleur d'animation
+* @access public
+* @var Animator
+*/
+private var animateur: Animator;
+
+/**
+* Contient le hÃ©ro (clara ou Mlacom)
+* @access private
+* @var GameObject
+*/
+private var heros: GameObject;
 
 
-	private var GroupesProjectiles:GameObject[];
+private var GroupesProjectiles:GameObject[];
 
 
+function Awake()
+{
+    heros = this.gameObject;
+    //:: chercher le hÃ©ros
 
+    animateur = this.gameObject.GetComponent.<Animator>();
+    //:: trouver le composant Animator
+}
 
 
 //:::::::::::Start :::::::::://
@@ -62,70 +72,15 @@ function Start () {
 	
 }
 
-
-//:::::::::::::: UPDATE :::::::::::::://
-function Update()
-{
-
-
-//:::::::::::::: GERER ATTAQUE CLARA ::::::::::// 
-	if(Input.GetButtonDown("Fire1"))
-	{
-		lancer();
-		
-	
-    }
-}
-
-
 //:::::::::::::: function lancer ::::::::::// 
-function lancer() {
+function lancerBoule() {
 
-	
-	var position:Vector3 = transform.position;
-			position.y+=2;
-			position.z+=100;
-		
-	//:: Instancier un clone
-	monProjectile= Instantiate(boule, transform.position, transform.rotation);	
-
-	monProjectile.tag = "monProjectile";	
-	//:: Ajout force
-	monProjectile.GetComponent.<Rigidbody>().AddForce(this.transform.forward * force);
-
-
-	//:: Detruire si l'objet ne bouge pas
-	
-	if (monProjectile.GetComponent.<Rigidbody>().IsSleeping())
-		{
-		Destroy(monProjectile);
-		}
-
-	yield WaitForSeconds(3);
-	autoDetruire();
-
-	
-
-	
+    //:: Instancier un projectile sort
+    var boule: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPrefabs/bouleFeux")) as GameObject;
+    Physics.IgnoreCollision(boule.GetComponent.<Collider>(), this.GetComponent.<Collider>());//Ignore les collisions entre le heros et le projectile
+    boule.transform.position = originAttack.transform.position;
+	boule.transform.rotation = this.gameObject.transform.rotation;
+    boule.GetComponent(Rigidbody).AddForce(this.transform.forward * forceAvant);
+    boule.GetComponent(Rigidbody).AddForce(this.transform.up * forceHaut);
+    Destroy(boule, 3);
 }
-
-function autoDetruire(){
-
-	GroupesProjectiles =  GameObject.FindGameObjectsWithTag ("monProjectile");
- 
-     for(var i = 0 ; i < GroupesProjectiles.length ; i ++)
-         Destroy(GroupesProjectiles[i]);
-}
-
-
-//:::::::::::::: convertir RGB en unity couleur::::::::::// 
-function convertirCouleurs (r : int, g : int, b : int) : Color {
-    return Color(r/255.0, g/255.0, b/255.0);
-}
-
-
-
-
-		
-
-	

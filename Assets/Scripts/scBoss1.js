@@ -130,7 +130,7 @@ private var distanceHeros:float;
 * @access private
 * @var float
 */
-private var pointsVieBoss1:float = 30.0;
+private var pointsVieBoss1:float = 20.0;
 
 /*
 * determine la vitesse a laquelle le boss1 retombe au sol.
@@ -223,6 +223,13 @@ private var decalagePositionPetitRocher: float = 5.0;
 */
 private var decalageHauteurPetitRocher: float = 2.0;
 
+/*
+* Détermine si touche par un sort du heros
+* @access private
+* @var boolean
+*/
+ private var estGele: boolean;
+
 
 function Start () {
 
@@ -245,9 +252,14 @@ function Start () {
 
 function Update () {
 
-    if (estVivant) {
-        
-        gestionscAffichage.EnnemiSlider.value = pointsVieBoss1;//Update de la barre de vie du boss
+    if (pointsVieBoss1 <= 0) {//le boss1 est mort
+//    	Debug.Log('entre fonction moins 0');
+        estVivant = false;
+        mort();
+    }
+    gestionscAffichage.EnnemiSlider.value = pointsVieBoss1;//Update de la barre de vie du boss
+    
+    if (estVivant && !estGele) {
         
         distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre le boss1 et le heros.
     
@@ -261,12 +273,6 @@ function Update () {
         var positionHeros : Vector3 = cible.position - this.transform.position;
         var nouvelleRotation = Quaternion.LookRotation(positionHeros);
         this.transform.rotation = Quaternion.Lerp(this.transform.rotation, nouvelleRotation, vitesseRotation * Time.deltaTime);
-
-        if (pointsVieBoss1 <= 0) {//le boss1 est mort
-    //    	Debug.Log('entre fonction moins 0');
-            estVivant = false;
-            mort();
-        }
 
         if (sauter && peutSauter) {//Si le Boss peut et doit sauter...
             peutSauter = false;//Ne pourra plus sauter.
@@ -394,11 +400,16 @@ function pluieDeRochers() {
     var petitRocher3: GameObject = Instantiate (Resources.Load ("Prefabs/Objets/petitRocherProjectile")) as GameObject;
     petitRocher3.transform.position = grosRocher.transform.position;
     petitRocher3.transform.position.z = grosRocher.transform.position.z + Random.Range(-decalagePositionPetitRocher, decalagePositionPetitRocher);
-    petitRocher3.transform.position.y = grosRocher.transform.position.y + Random.Range(0, decalageHauteurPetitRocher); 
+    petitRocher3.transform.position.y = grosRocher.transform.position.y + Random.Range(0, decalageHauteurPetitRocher);
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
-function updateDommages(dommages:int) {
+function updateDommages(dommages:float) {
     pointsVieBoss1 -= dommages;
 //    Debug.Log(pointsVieBoss1);
+}
+
+//Gèle et dégèle l'ennemi avant et après avoir été touché par un sort
+function setEstGele (state:boolean) {
+    estGele = state;
 }

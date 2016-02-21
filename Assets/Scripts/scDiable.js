@@ -67,7 +67,7 @@ private var distancePoursuite:float = 2;
 * @access private
 * @var float
 */
-private var pointsVieDiable:float = 10.0;
+private var pointsVieDiable:float = 3.0;
 
 /*
 * Détermine la vitesse à laquelle le diable retombe au sol.
@@ -96,6 +96,13 @@ private var donnerUnCoup:boolean = false;
 */
 private var heros:GameObject;
 
+/*
+* Détermine si touche par un sort du heros
+* @access private
+* @var boolean
+*/
+ private var estGele: boolean;
+
 
 function Start () {
 	heros =	GameObject.FindWithTag('heros');
@@ -111,27 +118,29 @@ function Start () {
 
 function Update () {
     
-    distanceHeros = Vector3.Distance (this.transform.position, cible.position);//Calcul de la distance entre le diable et le héros.
+    if (!estGele) {//Si le lutin n'est pas gelé...
+        distanceHeros = Vector3.Distance (this.transform.position, cible.position);//Calcul de la distance entre le diable et le héros.
 
-    if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
-        this.transform.LookAt(Vector3(cible.position.x, this.transform.position.y, cible.position.z));
-        frapper();
-//        Debug.Log("frappe"); 
-    }
-    else if (distanceHeros < distanceRepos) {//Si le héros est assez près pour être poursuivi...
-//        Debug.Log("poursuite");
-        this.transform.LookAt(Vector3(cible.position.x, this.transform.position.y, cible.position.z));
-        poursuivre();
-    }
-    else {//Si le héros n'est pas suffisamment près...
-            seReposer();
-//            Debug.Log("en repos");
-    }
-    var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
-    position3D.y -= gravite * Time.deltaTime;//Permet d'appliquer la gravite sur le diable en diminuant progressivement la hauteur sur l'axe des Y.
-    controleurDiable.Move(position3D);//Appliquer la gravité seulement, le déplacement en x et z est régi par le navMesh.
-    if (pointsVieDiable <= 0) {//Le diable est mort
-        mort();
+        if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
+            this.transform.LookAt(Vector3(cible.position.x, this.transform.position.y, cible.position.z));
+            frapper();
+    //        Debug.Log("frappe"); 
+        }
+        else if (distanceHeros < distanceRepos) {//Si le héros est assez près pour être poursuivi...
+    //        Debug.Log("poursuite");
+            this.transform.LookAt(Vector3(cible.position.x, this.transform.position.y, cible.position.z));
+            poursuivre();
+        }
+        else {//Si le héros n'est pas suffisamment près...
+                seReposer();
+    //            Debug.Log("en repos");
+        }
+        var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
+        position3D.y -= gravite * Time.deltaTime;//Permet d'appliquer la gravite sur le diable en diminuant progressivement la hauteur sur l'axe des Y.
+        controleurDiable.Move(position3D);//Appliquer la gravité seulement, le déplacement en x et z est régi par le navMesh.
+        if (pointsVieDiable <= 0) {//Le diable est mort
+            mort();
+        }
     }
 }
 
@@ -174,7 +183,12 @@ function mort() {
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
-function updateDommages(dommages:int) {
+function updateDommages(dommages:float) {
     pointsVieDiable -= dommages;
 //    Debug.Log("pointsVieDiable");
+}
+
+//Gèle et dégèle l'ennemi avant et après avoir été touché par un sort
+function setEstGele (state:boolean) {
+    estGele = state;
 }
