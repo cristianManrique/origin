@@ -185,8 +185,8 @@ ModelImporter:
     - serializedVersion: 16
       name: sword_and_shield_power_up
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 71
+      firstFrame: 15
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

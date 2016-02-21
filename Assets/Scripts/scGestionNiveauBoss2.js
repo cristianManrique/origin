@@ -21,14 +21,10 @@ private var positionDepartHeros:Vector3 = new Vector3(1,2.4,-108);
 */
 private var heros:GameObject;
 
-/*
-* Contient le script
-* @access private
-* @var scAffichage
-*/
-private var scriptGestionAffichage:scAffichage;
-
 function Start () {
     heros = GameObject.FindWithTag("heros");//Va chercher le heros
     heros.transform.position = positionDepartHeros;//Replace le héros en position de départ au chargement du niveau puisque le héros n'est pas détruit entre les chargements des différents niveaux.
+    var camActuelle:Camera = GameObject.FindWithTag("camPrincipale").GetComponent.<Camera>();//Doit aller chercher la cam à chaque activation car elle n'est pas la même d'un niveau à l'autre.
+    var scriptLookAtMouse:scLookAtMouse = heros.GetComponent.<scLookAtMouse>();
+    scriptLookAtMouse.setCam(camActuelle);//Actualisation de la caméra dans le script LookAtMouse
 }

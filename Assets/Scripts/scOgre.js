@@ -97,7 +97,7 @@ private var vitesse:float;
 private var distanceHeros:float;
 
 /*
-* Distance à laquelle l'ogre se met en mode poursuite.
+* Distance à laquelle l'ogre se met en mode attaque (frapper le heros).
 * @access private
 * @var float
 */
@@ -108,14 +108,14 @@ private var distancePoursuite:float = 1.5;
 * @access private
 * @var float
 */
-private var distancePatrouille:float = 10.0;
+private var distancePatrouille:float = 15.0;
 
 /*
 * État de santé de l'ogre
 * @access private
 * @var float
 */
-private var pointsVieOgre:float = 10.0;
+private var pointsVieOgre:float = 5.0;
 
 /*
 * Détermine la vitesse à laquelle l'ogre retombe au sol.
@@ -152,6 +152,15 @@ private var canvas: GameObject;
 */
 private var gestionscAffichage: scAffichage;
 
+/*
+* Détermine si touche par un sort du heros
+* @access private
+* @var boolean
+*/
+ private var estGele: boolean;
+
+
+
 function Start () {
 
     
@@ -171,27 +180,27 @@ function Start () {
 
 function Update () {
 
-    distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre l'ogre et le héros.
-    
-    if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
-        frapper();
-//        Debug.Log("frappe"); 
-    }
-    else if (distanceHeros < distancePatrouille) {//Si le héros est assez près pour être poursuivi...
-        //Debug.Log("poursuite");
-        poursuivre();
-    }
-    else {//Si le héros n'est pas suffisamment près...
-        if(destinationPatrouilleActuelle < destinationsPatrouille.length){
-            patrouiller();
-            //Debug.Log("patrouille");
-        }
-        else {    
-            destinationPatrouilleActuelle = 0;//Reset de la prochaine destination de patrouille.
-        }
-    }
+    if (!estGele) {//Si le lutin n'est pas gelé...
+        distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre l'ogre et le héros.
 
-  
+        if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
+            frapper();
+    //        Debug.Log("frappe"); 
+        }
+        else if (distanceHeros < distancePatrouille) {//Si le héros est assez près pour être poursuivi...
+            //Debug.Log("poursuite");
+            poursuivre();
+        }
+        else {//Si le héros n'est pas suffisamment près...
+            if(destinationPatrouilleActuelle < destinationsPatrouille.length){
+                patrouiller();
+                //Debug.Log("patrouille");
+            }
+            else {    
+                destinationPatrouilleActuelle = 0;//Reset de la prochaine destination de patrouille.
+            }
+        }
+    }
     if (pointsVieOgre <= 0) {//L'ogre est mort
 //    	Debug.Log('entre fonction moins 0');
         mort();
@@ -263,7 +272,12 @@ function mort() {
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
-function updateDommages(dommages:int) {
+function updateDommages(dommages:float) {
     pointsVieOgre -= dommages;
 //    Debug.Log(pointsVieOgre);
+}
+
+//Gèle et dégèle l'ennemi avant et après avoir été touché par un sort
+function setEstGele (state:boolean) {
+    estGele = state;
 }
