@@ -46,7 +46,7 @@ private var forceHaut:int = 50;
 private var animateur: Animator;
 
 /**
-* Contient le hÃ©ro (clara ou Mlacom)
+* Contient le héros (clara ou Malcom)
 * @access private
 * @var GameObject
 */

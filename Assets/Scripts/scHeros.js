@@ -317,16 +317,20 @@ function Update()
         {
             dirMouvement.y += 200 * Time.deltaTime;
             //Debug.Log('il vole');
+            animateur.SetBool('voler', true);
+            //:: dire Ã  l'animator d'utiliser cette variable du code
         }
 
         if(Input.GetKey(KeyCode.X) && voler)
         {
             dirMouvement.y -= 600*Time.deltaTime;
             //Debug.Log('il descend');
+            //animateur.SetBool('voler', false);
+        //:: dire Ã  l'animator d'utiliser cette variable du code
         }
     }//FIN controller    
 
-    //:: Application de la gravitÃ© au mouvement
+    //:: Application de la gravite au mouvement
     dirMouvement.y -= gravite*Time.deltaTime;
     //:: Affectation du mouvement au Character controller
     controller.Move(dirMouvement * Time.deltaTime);
@@ -407,7 +411,8 @@ function getNbVies() {
 function timerVoler()
 {
     yield WaitForSeconds(10);
-    voler = false; 
+    voler = false;
+    animateur.SetBool('voler', false); 
 }
 
 //Retourne l'etat actuel de la sante du heros
