@@ -26,6 +26,6 @@ function OnTriggerEnter(autreObjet:Collider) {
         scriptHeros = autreObjet.gameObject.GetComponent(scHeros);
 //        Debug.Log(autreObjet.gameObject);
         autreObjet.gameObject.transform.position = new Vector3(1,2.5,-108);
-        scriptHeros.zeroSante();
+        scriptHeros.enleverVie();
     }
 }

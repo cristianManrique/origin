@@ -5,7 +5,14 @@
 //:::::::::::variables :::::::::://
 
 /*
-* Nombre de Vie du héros
+* Maximum de sante
+* @access public
+* @var float
+*/
+public var santeMax:float = 100.0;
+
+/*
+* Nombre de Vie du hÃ©ros
 * @access private
 * @var GameObject
 */
@@ -19,11 +26,11 @@ private var vies:int = 3;
 private var sante:float;
 
 /**
-* Vitesse de déplacement de base
+* Vitesse de dÃ©placement de base
 * @access public
 * @var float
 */
-private var vitesse:float = 1.0;
+private var vitesse:float;
 
 /*
 * Nombre de potions permettant de lancer un sort
@@ -43,15 +50,15 @@ private var vitesseSaut:float = 10.0;
 * @access public
 * @var float
 */
-private var course:float = 6.0;
+private var vitesseCourse:float = 6.0;
 /**
 * Multiplicateur de marche
 * @access public
 * @var float
 */
-private var marche:float = 4.0;
+private var vitesseMarche:float = 3.0;
 /**
-* Contient le vecteur de déplacement
+* Contient le vecteur de dÃ©placement
 * @access private
 * @var Vector3
 */
@@ -63,11 +70,11 @@ private var dirMouvement : Vector3 = Vector3.zero;
 */
 private var vitesseRot:float =3.0;
 /**
-* Contient la vitesse de la gravité
+* Contient la vitesse de la gravitÃ©
 * @access private
 * @var float
 */
-private var gravite: float = 15;
+private var gravite: float = 20;
 
 
 //::::::::::::::::::::://
@@ -85,28 +92,6 @@ private var saut: boolean = false;
 */
 private var voler: boolean = false;
 
-/**
-* Gerer si anime Course
-* @access private
-* @var boolean
-*/
-private var animeCourse: boolean = false;
-
-/**
-* Gerer si peut attack
-* @access private
-* @var boolean
-*/
-private var attack: boolean = false;
-
-/**
-* Gerer si anime attack
-* @access private
-* @var boolean
-*/
-private var animeAtack: boolean = false;
-
-
 //::::::::::::::::::::://
 /*  
 * Verifier si le panneau pause est disponible
@@ -114,7 +99,6 @@ private var animeAtack: boolean = false;
 * @var integer
 */
 private var checkPanneauPause: int = 0;
-
 
 //::::::::::::::::::::://
 /**
@@ -125,21 +109,12 @@ private var checkPanneauPause: int = 0;
 private var animateur: Animator;
 
 /*
-* Contient le controller (accès par l'inspecteur)
+* Contient le controller (accÃ¨s par l'inspecteur)
 * @access private
 * @var CharacterController
 */
 private var controller:CharacterController;
 
-
-//::::::::::::::::::::://
-
-/*
-* Contient le AudioClip Marche
-* @access public
-* @var AudioClip
-*/
-public var AudioWalk: AudioClip;
 /*
 * le Type AudioSource
 * @access private
@@ -178,39 +153,95 @@ private var gestionAffichage: scAffichage;
  */
 private var vitesseDim:float = 0.2;
 
+/**
+ * DÃ©termine si le joueur est en contact avec le sol
+ * @access private
+ * @var boolean
+ */
+private var auSol:boolean = true;
+
+/**
+ * Permet de calculer le temps passÃ© sur le sol
+ * @access private
+ * @var float
+ */
+private var tempsAuSol:float = 0.0;//temps en secondes
+
+/**
+ * Permet de donner une marge de tolÃ©rence pour la propriÃ©tÃ© "auSol"
+ * @access private
+ * @var float
+ */
+private var toleranceAuSol:float = 0.3;//temps en secondes
+
+/**
+ * DÃ©termine si le heros est en train de sauter
+ * @access private
+ * @var float
+ */
+private var enSaut:boolean = false;
+
+/**
+ * DÃ©termine si l'aqnim de course doit jouer
+ * @access private
+ * @var float
+ */
+private var animCourse:boolean = false;
+
 /*
-* Maximum de sante
-* @access public
-* @var float
+* Collider de la pointe de l'epee de Malcom
+* @access private
+* @var CapsuleCollider
 */
-public var santeMax:float = 100.0;
+private var ColliderEpee: CapsuleCollider;
+
+/*
+* contient le script LookAtMouse
+* @access private
+* @var scLookAtMouse
+*/
+private var scriptLookAtMouse: scLookAtMouse;
+
+/*
+* Contient le AudioClip Marche
+* @access public
+* @var AudioClip
+*/
+public var AudioWalk: AudioClip;
+
+/*
+* Pointe de l'epee de Malcom
+* @access public
+* @var GameObject
+*/
+public var epee: GameObject;
 
 
 //:::::::::::Awake :::::::::://
 function Awake()
 {
-
     animateur = this.gameObject.GetComponent.<Animator>();
     controller =this.gameObject.GetComponent.<CharacterController>();
-    
 }
 
 //:::::::::::Start :::::::::://
 function Start () 
 {
-
     //::chercher le composant de type AudioSource
     TypeAudioSource = GetComponent.<AudioSource>();
     canvas = GameObject.FindWithTag("canvas");
     gestionAffichage = canvas.GetComponent.<scAffichage>();
     sante = santeMax;
+    if (this.name == "malcom") {
+        ColliderEpee = epee.GetComponent(CapsuleCollider);
+    }
+    scriptLookAtMouse = GetComponent(scLookAtMouse);
 }
 
 
 //:::::::::::::: UPDATE :::::::::::::://
 function Update()
-{
-
+{    
 //    Debug.Log(sante);
     sante -= (vitesseDim * Time.deltaTime);
 //:::::::::::::: GERER VIES :::::::::://
@@ -220,109 +251,103 @@ function Update()
      SceneManager.LoadScene("gameOver");
     }
 
-
 //:::::::::::::: GERER DEPLACEMENT :::::::::://
+    
+    //Permet de donner une marge de tolÃ©rence Ã  la propriÃ©tÃ© "auSol" qui dÃ©termine si le heros peut sauter.
+    //-------------------------------------
+
+    if (controller.isGrounded) {
+        enSaut = false;
+        tempsAuSol = Time.time;
+        animateur.SetBool('saut', false);
+    }
+    if (Time.time - tempsAuSol < toleranceAuSol) {
+        auSol = true;
+    }
+    else {
+        auSol = false;
+    }
+    //-------------------------------------
+    
     //:: Lecture des variables d'axe
     var inputX = Input.GetAxis('Horizontal');   
     var inputY = Input.GetAxis('Vertical');
 
     //:: Application de la rotation directement sur le transform
     transform.Rotate(0, inputX * vitesseRot, 0);
-
-
     animateur.SetFloat('vitesseRot', inputX);
-    //:: dire à l'animator d'utiliser cette variable du code
     
-    if(controller.isGrounded || voler)//s'il est sol OU si voler est true 
-    { 
+//:::::::::::::: GERER SAUT :::::::::://
+    
+    if(Input.GetKeyDown('space') && !enSaut && !voler)//:: Si space est enfoncÃ© et que le heros n'est pas en train de voler
+    {
+        dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
+        animateur.SetBool('animCourse', false);
+        animateur.SetBool('saut', true);
+        inputY = 0;//Pour ameliorer l'animation
+        enSaut = true;
+    }
+    
+    if((auSol && !enSaut) || voler)//s'il est sol OU si voler est true 
+    {
+        
+//:::::::::::::: GERER DEPLACEMENT :::::::::://
+        
         dirMouvement = Vector3(0, 0, inputY);   // Calcul du mouvement
-        // ajouter l'animateur pour les animation
-        animateur.SetFloat('vitesseDeplace', inputY * course);
-        //:: dire à l'animator d'utiliser cette variable du code    
+        //:: dire Ã  l'animator d'utiliser cette variable du code
         dirMouvement = transform.TransformDirection(dirMouvement);
-
-
-//:::::::::::::: GERER ATTAQUE :::::::::://
-    if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncé
-    {
-        attack = true;
-        animateur.SetBool('animeAtack', true);
-        //:: dire à l'animator d'utiliser cette variable du code
-    }
-    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncé
-    {
-        attack = false;
-        animateur.SetBool('animeAtack', false);
-        //:: dire à l'animator d'utiliser cette variable du code
-    }
-
-
+        dirMouvement *= vitesse;
+        
 //:::::::::::::: GERER COURSE :::::::::://
+        
         if(Input.GetKey('left shift'))
         {
-            dirMouvement *= vitesse * course;
-            animateur.SetFloat('vitesseDeplace', inputY * course);
-            animeCourse= true;
+            vitesse = vitesseCourse;
+            animCourse = true;
         }
         else
         {
-            dirMouvement *= vitesse * marche;
-        }
-
-
-//:::::::::::::: GERER animeCourse ::::::::::// 
-        if(animeCourse)
-        {
-            animeCourse=false;//:: remettre à FALSE
-            animateur.SetBool('animeCourse', true);
-            //:: dire à l'animator d'utiliser cette variable du code    
-        }
-        else {
-            animateur.SetBool('animeCourse', false);
-            //:: dire à l'animator d'utiliser cette variable du code
+            vitesse = vitesseMarche;
+            animCourse = false;
         }
     
-        if(Input.GetKeyDown('space') && !voler)//:: Si space est enfoncé et que le heros n'est pas en train de voler
-        {
-            dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
-            saut=false;//:: remettre à FALSE
-            animateur.SetBool('saut', true);
-
-            //:: dire à l'animator d'utiliser cette variable du code
-        }
+//:::::::::::::: GERER VOLER :::::::::://
+        
         if(Input.GetKey(KeyCode.Z) && voler)
         {
-            animateur.SetBool('saut', false);
             dirMouvement.y += 200 * Time.deltaTime;
-
-            //il peut voler!!!
             //Debug.Log('il vole');
         }
 
         if(Input.GetKey(KeyCode.X) && voler)
         {
-            animateur.SetBool('saut', false);
             dirMouvement.y -= 600*Time.deltaTime;
             //Debug.Log('il descend');
-
         }
-    }//FIN controller
-    if(Input.GetKeyUp('space'))//:: Si space est enfoncé
-    {
-        saut = false;
-        animateur.SetBool('saut', false);
-        //:: dire à l'animator d'utiliser cette variable du code
-    }
+    }//FIN controller    
 
-
-//appelle de la function voler dans les airs.
-    
-
-    //:: Application de la gravité au mouvement
+    //:: Application de la gravitÃ© au mouvement
     dirMouvement.y -= gravite*Time.deltaTime;
     //:: Affectation du mouvement au Character controller
     controller.Move(dirMouvement * Time.deltaTime);
+    animateur.SetFloat('vitesseDeplace', inputY);
+    animateur.SetBool('animCourse', animCourse);
 
+    //:::::::::::::: GERER ATTAQUE :::::::::://
+    if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncÃ©
+    {
+        animateur.SetBool('animAttack', true);
+        //:: dire Ã  l'animator d'utiliser cette variable du code
+    }
+    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncÃ©
+    {
+        animateur.SetBool('animAttack', false);
+        //:: dire Ã  l'animator d'utiliser cette variable du code
+    }
+    
+    if(Input.GetKeyDown(KeyCode.M)) {
+        toggleLookAtMouse();
+    }
 }//FIN UPDATE
 
 
@@ -347,7 +372,7 @@ function DiminueVies() {
     if (vies > 0) {
         vies--;
     }
-//   Debug.Log("Vies du héros"+Vies);
+//   Debug.Log("Vies du hÃ©ros"+Vies);
 }
 
 
@@ -359,12 +384,12 @@ function AugmenteVies() {
     else {
         vies++;
     }
-   // Debug.Log("Vies du héros"+Vies);
+   // Debug.Log("Vies du hÃ©ros"+Vies);
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommagesInfliges:int) {
-    Debug.Log("heros touche, baisse de : " + dommagesInfliges);
+//    Debug.Log("heros touche, baisse de : " + dommagesInfliges);
     
     sante -= dommagesInfliges;
     
@@ -385,14 +410,18 @@ function timerVoler()
     voler = false; 
 }
 
+//Retourne l'etat actuel de la sante du heros
 function getSante() {
     return sante;
 }
 
-function zeroSante() {
-    sante = 0;
+//Enleve une vie et retabli la sante au maximum
+function enleverVie() {
+    sante = santeMax;
+    vies--;
 }
 
+//Augmente la sante du heros d'une valeur determinee par le passage d'un parametre
 function augmenterSante(increment:int) {
     if (sante < santeMax) {
         if (sante + increment < santeMax) {
@@ -407,24 +436,47 @@ function augmenterSante(increment:int) {
 //:::::::::::::: function qui reduire le nb de potion sort :::::::::::::://
 function reductionPotionSort()
 {
-//condition pour réduire les potions sort
+//condition pour rÃ©duire les potions sort
     if(nbPotionSort > 0)
     {
         nbPotionSort--;  
     }
     else
     {
-        //condition pour que les potions ne soit pas en négatif.
+        //condition pour que les potions ne soit pas en nÃ©gatif.
         nbPotionSort = 0;
     }
 }
 
+//Retourne le nombre de potions sort
 function getNbPotionsSort()
 {
     return nbPotionSort;
 }
 
+//Permet d'augmenter le nombre de potions de sort
 function augmenterPotionsSort()
 {
     nbPotionSort++;
+}
+
+//Le collider de l'epee de Malcom est active par un animation event quand Malcom donne un coup et desactive lorsdque le coup a ete donnee
+function toggleColliderEpee() {
+    
+    if (ColliderEpee.enabled) {
+        ColliderEpee.enabled = false;
+    }
+    else {
+        ColliderEpee.enabled = true;
+    }
+}
+
+//Permet d'activer ou dÃ©sactiver le mouse look du personnage
+function toggleLookAtMouse() {
+    if (scriptLookAtMouse.enabled) {
+        scriptLookAtMouse.enabled = false;
+    }
+    else {
+        scriptLookAtMouse.enabled = true;
+    }
 }

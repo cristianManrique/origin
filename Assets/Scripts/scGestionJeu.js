@@ -67,13 +67,6 @@ private var nbPotionSort:int = 0;
 * @access private
 * @var GameObject
 */
-private var objOriginSorts: GameObject;
-
-/*
-* Point Origin des sorts, objet parent du scLancerSort
-* @access private
-* @var GameObject
-*/
 private var scriptHeros: scHeros;
 
 /*
@@ -96,16 +89,18 @@ function Start () {
 
     //:: Chercher LES SCRIPTS JS
     gestionscAffichage=canvas.GetComponent.<scAffichage>();
-
-    objOriginSorts = GameObject.FindWithTag("originSort");
-    scriptLancerSort = objOriginSorts.GetComponent.<scLancerSort>();
+    scriptLancerSort = GetComponent.<scLancerSort>();
+    
+    var camActuelle:Camera = GameObject.FindWithTag("camPrincipale").GetComponent.<Camera>();//Doit aller chercher la cam à chaque activation car elle n'est pas la même d'un niveau à l'autre.
+    var scriptLookAtMouse:scLookAtMouse = this.gameObject.GetComponent.<scLookAtMouse>();
+    scriptLookAtMouse.setCam(camActuelle);//Actualisation de la caméra dans le script LookAtMouse
 }
 
 function Update () {
 
 	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
 
-    scriptLancerSort.noPotions = nbPotionSort;
+//    scriptLancerSort.noPotions = nbPotionSort;
 
 }//FIn update
 
@@ -138,7 +133,7 @@ function OnTriggerEnter(other: Collider) {
                 nbPotionsReveille++;
                 if (nbPotionsReveille == 1) {
                     //permet de passé au niveau deux après avoir tuer le boss niveau1
-                    SceneManager.LoadScene("boss2");
+                    SceneManager.LoadScene("niveau2");
                 }
                 else if (nbPotionsReveille == 2) {
                     //permet de passé à la scène de fin de jeu
