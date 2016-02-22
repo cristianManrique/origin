@@ -23,7 +23,7 @@ private var scriptHeros:scHeros;
 //Infliges des dommages au héros quand la massue le touche.
 function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
-        Debug.Log(autreObjet.gameObject);
+//        Debug.Log(autreObjet.gameObject);
         scriptHeros = autreObjet.gameObject.GetComponent(scHeros);
         scriptHeros.updateDommages(dommagesInfliges);
     }

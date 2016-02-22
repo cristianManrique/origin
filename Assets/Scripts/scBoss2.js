@@ -130,7 +130,7 @@ private var distanceHeros:float;
 * @access private
 * @var float
 */
-private var pointsVieBoss2:float = 40.0;
+private var pointsVieBoss2:float = 30.0;
 
 /*
 * determine la vitesse a laquelle le Boss2 retombe au sol.
@@ -223,6 +223,13 @@ private var decalagePositionPetitMorceauLave: float = 5.0;
 */
 private var decalageHauteurPetitMorceauLave: float = 2.0;
 
+/*
+* Détermine si touche par un sort du heros
+* @access private
+* @var boolean
+*/
+ private var estGele: boolean;
+
 
 function Start () {
 
@@ -245,9 +252,14 @@ function Start () {
 
 function Update () {
 
-    if (estVivant) {
-        
-        gestionscAffichage.EnnemiSlider.value = pointsVieBoss2;//Update de la barre de vie du boss
+    if (pointsVieBoss2 <= 0) {//le Boss2 est mort
+//    	Debug.Log('entre fonction moins 0');
+        estVivant = false;
+        mort();
+    }
+    gestionscAffichage.EnnemiSlider.value = pointsVieBoss2;//Update de la barre de vie du boss
+    
+    if (estVivant && !estGele) {
         
         distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre le Boss2 et le heros.
     
@@ -261,12 +273,6 @@ function Update () {
         var positionHeros : Vector3 = cible.position - this.transform.position;
         var nouvelleRotation = Quaternion.LookRotation(positionHeros);
         this.transform.rotation = Quaternion.Lerp(this.transform.rotation, nouvelleRotation, vitesseRotation * Time.deltaTime);
-
-        if (pointsVieBoss2 <= 0) {//le Boss2 est mort
-    //    	Debug.Log('entre fonction moins 0');
-            estVivant = false;
-            mort();
-        }
 
         if (sauter && peutSauter) {//Si le Boss peut et doit sauter...
             peutSauter = false;//Ne pourra plus sauter.
@@ -396,7 +402,12 @@ function pluieDeLave() {
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
-function updateDommages(dommages:int) {
+function updateDommages(dommages:float) {
     pointsVieBoss2 -= dommages;
 //    Debug.Log(pointsVieBoss2);
+}
+
+//Gèle et dégèle l'ennemi avant et après avoir été touché par un sort
+function setEstGele (state:boolean) {
+    estGele = state;
 }
