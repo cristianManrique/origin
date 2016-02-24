@@ -82,7 +82,7 @@ function Start (){
 
 //Infliges des dommages aux Ennemis
 function OnTriggerEnter(other:Collider) {
-    
+//    Debug.Log(other.gameObject);
     //:::::::::::::: Gérer le jeu
     if(other.gameObject.tag)
     {

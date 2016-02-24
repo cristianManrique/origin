@@ -345,7 +345,7 @@ function Update()
         //:: dire Ã  l'animator d'utiliser cette variable du code
     }
     
-    if(Input.GetKeyDown(KeyCode.M)) {
+    if(Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(2)) {
         toggleLookAtMouse();
     }
 }//FIN UPDATE
@@ -471,12 +471,16 @@ function toggleColliderEpee() {
     }
 }
 
-//Permet d'activer ou dÃ©sactiver le mouse look du personnage
+//Permet d'activer ou désactiver le mouse look du personnage
 function toggleLookAtMouse() {
+    var message:String;
     if (scriptLookAtMouse.enabled) {
         scriptLookAtMouse.enabled = false;
+        message = "Contrôle souris désactivé";
     }
     else {
         scriptLookAtMouse.enabled = true;
+        message = "Contrôle souris activé";
     }
+    gestionAffichage.afficherMessage(message);
 }
