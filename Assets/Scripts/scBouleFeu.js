@@ -13,7 +13,7 @@
 * @access private
 * @var int
 */
-private var dommagesInfliges:float = 0.5;
+private var dommagesInfliges:float = 1;
 
 /*
 * Contient le script qui gère l'ogre
