@@ -60,7 +60,7 @@ private var navMeshOgre:NavMeshAgent;
 * @access private
 * @var Transform
 */
-public var cible:Transform;
+private var cible:Transform;
 
 /*
 * Destination actuelle de l'ogre en mode patrouille.
