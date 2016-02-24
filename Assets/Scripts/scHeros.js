@@ -50,15 +50,15 @@ private var vitesseSaut:float = 10.0;
 * @access public
 * @var float
 */
-private var vitesseCourse:float = 6.0;
+private var vitesseCourse:float = 8.0;
 /**
 * Multiplicateur de marche
 * @access public
 * @var float
 */
-private var vitesseMarche:float = 3.0;
+private var vitesseMarche:float = 4.0;
 /**
-* Contient le vecteur de dÃ©placement
+* Contient le vecteur de deplacement
 * @access private
 * @var Vector3
 */
@@ -70,7 +70,7 @@ private var dirMouvement : Vector3 = Vector3.zero;
 */
 private var vitesseRot:float =3.0;
 /**
-* Contient la vitesse de la gravitÃ©
+* Contient la vitesse de la gravite
 * @access private
 * @var float
 */
@@ -215,6 +215,12 @@ public var AudioWalk: AudioClip;
 * @var GameObject
 */
 public var epee: GameObject;
+/**
+*le joueuer
+*@var GameObject
+*@access public
+**/
+ private var vitesseRotation: float = 1.5;
 
 
 //:::::::::::Awake :::::::::://
@@ -236,6 +242,8 @@ function Start ()
         ColliderEpee = epee.GetComponent(CapsuleCollider);
     }
     scriptLookAtMouse = GetComponent(scLookAtMouse);
+
+    //animateur.SetBool('animAttack', false);//Debuter à false
 }
 
 
@@ -312,21 +320,38 @@ function Update()
         }
     
 //:::::::::::::: GERER VOLER :::::::::://
-        
+//source rotation: http://docs.unity3d.com/ScriptReference/Transform-rotation.html
         if(Input.GetKey(KeyCode.Z) && voler)
         {
             dirMouvement.y += 200 * Time.deltaTime;
             //Debug.Log('il vole');
+            animateur.SetBool('voler', true);
+            //:: dire Ã  l'animator d'utiliser cette variable du code
+
+            //:: Smoothly inclinaisons a transform towards a target rotation.
+            var smooth = 2.0;
+            var angleRotation = 60.0;
+            
+            var inclinaisonAutourDuX = inputY * angleRotation;
+
+            var target = Quaternion.Euler(inclinaisonAutourDuX, 0, 0);
+            // // Dampen towards the target rotation
+            this.transform.rotation = Quaternion.Slerp(transform.rotation, target,  Time.deltaTime * smooth);
+            // this.transform.rotation = Quaternion.Slerp(transform.rotation, new Quaternion (0, 0, 0, 1),  Time.deltaTime * smooth);
         }
 
         if(Input.GetKey(KeyCode.X) && voler)
         {
-            dirMouvement.y -= 600*Time.deltaTime;
+            dirMouvement.y -= 300*Time.deltaTime;
             //Debug.Log('il descend');
+            animateur.SetBool('voler', false);
+            //:: dire Ã  l'animator d'utiliser cette variable du code
+
+            reinitialiserRotation();//remettre rotation du héros à 0
         }
     }//FIN controller    
 
-    //:: Application de la gravitÃ© au mouvement
+    //:: Application de la gravite au mouvement
     dirMouvement.y -= gravite*Time.deltaTime;
     //:: Affectation du mouvement au Character controller
     controller.Move(dirMouvement * Time.deltaTime);
@@ -336,9 +361,10 @@ function Update()
     //:::::::::::::: GERER ATTAQUE :::::::::://
     if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncÃ©
     {
-        animateur.SetBool('animAttack', true);
+        animateur.SetTrigger('animAttack');
         //:: dire Ã  l'animator d'utiliser cette variable du code
     }
+
     if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncÃ©
     {
         animateur.SetBool('animAttack', false);
@@ -368,15 +394,17 @@ function OnTriggerEnter(other: Collider) {
 
 
 //:::::::::::::: function DiminueVies :::::::::::::://
+//Permet de diminuer la vie du héros
 function DiminueVies() {
     if (vies > 0) {
         vies--;
     }
-//   Debug.Log("Vies du hÃ©ros"+Vies);
+//   Debug.Log("Vies du heros"+Vies);
 }
 
 
 //:::::::::::::: function AugmenteVies :::::::::::::://
+//Permet d'augmenter la vie du héros
 function AugmenteVies() {
     if (vies == 3) {
         sante = santeMax;
@@ -384,10 +412,11 @@ function AugmenteVies() {
     else {
         vies++;
     }
-   // Debug.Log("Vies du hÃ©ros"+Vies);
+   // Debug.Log("Vies du heros"+Vies);
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
+//Lorsque le héros est attaqué, cette function lui afflige des dommages à la barre de vie
 function updateDommages(dommagesInfliges:int) {
 //    Debug.Log("heros touche, baisse de : " + dommagesInfliges);
     
@@ -399,28 +428,35 @@ function updateDommages(dommagesInfliges:int) {
     }
 }
 
-//:::::::::::::: function updateDommages :::::::::::::://
+//:::::::::::::: function getNbVies :::::::::::::://
+//Permet de controler le nombre de vie
 function getNbVies() {
     return vies;
 }
 //:::::::::::::: function qui permet de voler:::::::::://
+//Permet de limiter le vole du héros à 10 seconde
 function timerVoler()
 {
     yield WaitForSeconds(10);
-    voler = false; 
-}
+    voler = false;
+    animateur.SetBool('voler', false);
 
-//Retourne l'etat actuel de la sante du heros
+    reinitialiserRotation();//remettre rotation du héros à 0
+
+}
+//:::::::::::::: function getSante:::::::::://
+//Permet de controler la sante du héros
 function getSante() {
     return sante;
 }
 
+//:::::::::::::: function enleverVie:::::::::://
 //Enleve une vie et retabli la sante au maximum
 function enleverVie() {
     sante = santeMax;
     vies--;
 }
-
+//:::::::::::::: function augmenterSante:::::::::://
 //Augmente la sante du heros d'une valeur determinee par le passage d'un parametre
 function augmenterSante(increment:int) {
     if (sante < santeMax) {
@@ -433,7 +469,8 @@ function augmenterSante(increment:int) {
     }
 }
 
-//:::::::::::::: function qui reduire le nb de potion sort :::::::::::::://
+//:::::::::::::: function reductionPotionSort :::::::::::::://
+//function qui reduire le nb de potion sort
 function reductionPotionSort()
 {
 //condition pour rÃ©duire les potions sort
@@ -448,18 +485,20 @@ function reductionPotionSort()
     }
 }
 
+//:::::::::::::: function getNbPotionsSort:::::::::://
 //Retourne le nombre de potions sort
 function getNbPotionsSort()
 {
     return nbPotionSort;
 }
 
+//:::::::::::::: function augmenterPotionsSort:::::::::://
 //Permet d'augmenter le nombre de potions de sort
 function augmenterPotionsSort()
 {
     nbPotionSort++;
 }
-
+//:::::::::::::: function toggleColliderEpee:::::::::://
 //Le collider de l'epee de Malcom est active par un animation event quand Malcom donne un coup et desactive lorsdque le coup a ete donnee
 function toggleColliderEpee() {
     
@@ -471,7 +510,9 @@ function toggleColliderEpee() {
     }
 }
 
-//Permet d'activer ou désactiver le mouse look du personnage
+//:::::::::::::: function toggleLookAtMouse:::::::::://
+//Permet d'activer ou desactive le mouse look du personnage
+
 function toggleLookAtMouse() {
     var message:String;
     if (scriptLookAtMouse.enabled) {
@@ -483,4 +524,19 @@ function toggleLookAtMouse() {
         message = "Contrôle souris activé";
     }
     gestionAffichage.afficherMessage(message);
+}
+
+//:::::::::::::: function reinitialiserRotation:::::::::://
+// Reinitialise la rotation du héros lorsqu'il ne vole pas ou descend
+function reinitialiserRotation(){
+    //:: Remettre la rotation du heros à 0 de X et Z
+    var positionInitiale = this.transform.rotation;
+    positionInitiale.x=0;
+    positionInitiale.z=0;
+    this.transform.rotation = positionInitiale;
+    var smooth = 2.0;
+
+    // this.transform.rotation = Quaternion.Slerp(transform.rotation, positionInitiale,  Time.deltaTime * smooth);
+    // this.transform.rotation = Quaternion.Slerp(transform.rotation, new Quaternion (0, 0, 0, 1),  Time.deltaTime * smooth);
+
 }
