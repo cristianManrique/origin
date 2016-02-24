@@ -74,7 +74,7 @@ function Start () {
 
 //:::::::::::::: function lancer ::::::::::// 
 function lancerBoule() {
-
+    Debug.Log("lanceBoule");
     //:: Instancier un projectile sort
     var boule: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPrefabs/bouleFeux")) as GameObject;
     Physics.IgnoreCollision(boule.GetComponent.<Collider>(), this.GetComponent.<Collider>());//Ignore les collisions entre le heros et le projectile
