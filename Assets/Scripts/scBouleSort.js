@@ -12,7 +12,7 @@
 *@var int
 *@access private
 **/
-private var vitesseSort: int = 10;
+public var vitesseSort: float = 15;
 
 /**
 *la vitesse en seconde avant de dégeler un ennemi touché

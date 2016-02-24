@@ -75,11 +75,9 @@ function Update () {
 
    	if(Input.GetButtonDown("Fire2") && nbPotions > 0) {
 		scriptHeros.reductionPotionSort();//diminue une potion et mise à jour dans UI
-		animateur.SetBool('jeteSort', true);
+		animateur.SetTrigger('jeteSort');
 	}
-    else {
-        animateur.SetBool('jeteSort', false);
-    }
+
 }// FIN UPDATE
 
 //Lance un sort - appelé par un animator event
