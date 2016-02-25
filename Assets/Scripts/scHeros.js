@@ -364,8 +364,14 @@ function Update()
         animateur.SetTrigger('animAttack');
         //:: dire Ã  l'animator d'utiliser cette variable du code
     }
-  
-    if(Input.GetKeyDown(KeyCode.M)) {
+
+    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncÃ©
+    {
+        animateur.SetBool('animAttack', false);
+        //:: dire Ã  l'animator d'utiliser cette variable du code
+    }
+    
+    if(Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(2)) {
         toggleLookAtMouse();
     }
 }//FIN UPDATE
@@ -503,16 +509,23 @@ function toggleColliderEpee() {
         ColliderEpee.enabled = true;
     }
 }
+
 //:::::::::::::: function toggleLookAtMouse:::::::::://
 //Permet d'activer ou desactive le mouse look du personnage
+
 function toggleLookAtMouse() {
+    var message:String;
     if (scriptLookAtMouse.enabled) {
         scriptLookAtMouse.enabled = false;
+        message = "Contrôle souris désactivé";
     }
     else {
         scriptLookAtMouse.enabled = true;
+        message = "Contrôle souris activé";
     }
+    gestionAffichage.afficherMessage(message);
 }
+
 //:::::::::::::: function reinitialiserRotation:::::::::://
 // Reinitialise la rotation du héros lorsqu'il ne vole pas ou descend
 function reinitialiserRotation(){

@@ -159,6 +159,34 @@ private var nbPotions:int;//potionSort
 */
 public var PanneauBarreVieEnnemi:GameObject;
 
+/*
+* GameObject contient le texte de message pour la fonction LookAtMouse
+* @access public
+* @var Text
+*/
+public var messageLookAtMouse:Text;
+
+/**
+* Variable de controle du fade out
+* @access private
+* @var boolean
+*/
+private var fadeMsg: boolean = false;
+
+/**
+* Détermine la vitesse de fade du message
+* @access private
+* @var float
+*/
+private var vitesseFade: float = 1;
+
+/**
+* Temps d'affichage du message en secondes
+* @access private
+* @var int
+*/
+private var tempsAffichageMsg: int = 2;
+
 
 function Awake () {
     DontDestroyOnLoad (transform.gameObject);
@@ -194,6 +222,25 @@ function Start () {
 }
 
 function Update () {
+    
+    //Si l'avertissement est affiché a l'écran...
+    if (messageLookAtMouse.enabled) {
+        //Si son alpha est plein...
+        if (messageLookAtMouse.GetComponent(CanvasGroup).alpha == 1) {
+            TimerMsg();//Appel de fonction.
+        }
+        //Si le alpha est plus grand que 0...
+        if (messageLookAtMouse.GetComponent(CanvasGroup).alpha > 0) {
+            //Si le message doit fader...
+            if (fadeMsg) {
+                messageLookAtMouse.GetComponent(CanvasGroup).alpha -= vitesseFade * Time.deltaTime;//Fade progressif du alpha.
+            }
+        }
+        else {
+            messageLookAtMouse.enabled = true;//Désactivation du message.
+            fadeMsg = false;//Reset de la variable de controle fadeMsg.
+        }
+    }
     
     //Verif du nombre de potions, vies et sante
     nbPotions = gestionscHeros.getNbPotionsSort();
@@ -252,4 +299,19 @@ function setBarreBoss(pointsDeVieBoss:int) {
     maxBarreBoss = pointsDeVieBoss;
 	EnnemiSlider.maxValue = maxBarreBoss;
     PanneauBarreVieEnnemi.SetActive(true);
+}
+
+//Affiche un message a l'utilisateur
+function afficherMessage(message: String) {
+	fadeMsg = false;
+	messageLookAtMouse.GetComponent(CanvasGroup).alpha = 1;
+	messageLookAtMouse.text = message;
+	messageLookAtMouse.enabled = true;
+}
+
+//Timer a la fin duquel le message fade out.
+function TimerMsg() {
+	messageLookAtMouse.GetComponent(CanvasGroup).alpha = 0.999;//Pour ne pas que la fonction soit appelée une seconde fois d'affilé.
+	yield WaitForSeconds (tempsAffichageMsg);
+	fadeMsg = true;
 }
