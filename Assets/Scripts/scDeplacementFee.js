@@ -44,7 +44,9 @@ var limitZmin: float;
 **/
 private var positionActuel: Vector3;
 
+//private var rotationCible: Quaternion;
 
+//private var rotationActuel: Quaternion; 
 function Start () {
 
 //etablir les valeurs de depart
@@ -55,17 +57,17 @@ function Start () {
 	velZ = .05;
 
 
-	limitXmax = positionActuel.x + 3;
+	limitXmax = positionActuel.x + 1;
 
 	limitYmax = positionActuel.y + 2;
 
-	limitZmax = positionActuel.z + 4;
+	limitZmax = positionActuel.z + 2;
 
-	limitXmin = positionActuel.x - 5;
+	limitXmin = positionActuel.x - 1;
 
 	limitYmin = positionActuel.y -.5;
 
-	limitZmin = positionActuel.z - 3;
+	limitZmin = positionActuel.z - 1;
 
 	incrementY = .5;
 
@@ -80,7 +82,8 @@ function FixedUpdate () {
 
 	positionActuel.z += velZ;
 
-
+	//rotationCible= Quaternion.LookRotation(positionActuel);
+	//rotationActuel = transform.localRotation;
 
 	// si la fee atteint les limites predetermines, elle changera de direction
 	if(positionActuel.x <=limitXmin || positionActuel.x >= limitXmax){
@@ -95,6 +98,8 @@ function FixedUpdate () {
 	}
 
 	//mise a jour de la position
+	//transform.localRotation = Quaternion.Slerp(rotationActuel, rotationCible, Time.deltaTime);
+
 	transform.position = positionActuel;
 
 }

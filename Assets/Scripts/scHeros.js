@@ -418,7 +418,7 @@ function AugmenteVies() {
 //:::::::::::::: function updateDommages :::::::::::::://
 //Lorsque le héros est attaqué, cette function lui afflige des dommages à la barre de vie
 function updateDommages(dommagesInfliges:int) {
-//    Debug.Log("heros touche, baisse de : " + dommagesInfliges);
+   //Debug.Log("heros touche, baisse de : " + dommagesInfliges);
     
     sante -= dommagesInfliges;
     
