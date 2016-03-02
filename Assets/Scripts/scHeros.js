@@ -389,7 +389,7 @@ function AugmenteVies() {
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommagesInfliges:int) {
-//    Debug.Log("heros touche, baisse de : " + dommagesInfliges);
+   //Debug.Log("heros touche, baisse de : " + dommagesInfliges);
     
     sante -= dommagesInfliges;
     
