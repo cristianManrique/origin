@@ -6,12 +6,6 @@
 * @update 20-01-2016
 */
 
-/*
-* controleur de l'ogre.
-* @access public
-* @var CharacterController
-*/
-public var controleurOgre:CharacterController;
 
 /*
 * Vitesse de déplacement lors de l'attaque.
@@ -60,7 +54,7 @@ private var navMeshOgre:NavMeshAgent;
 * @access private
 * @var Transform
 */
-public var cible:Transform;
+private var cible:Transform;
 
 /*
 * Destination actuelle de l'ogre en mode patrouille.
@@ -74,7 +68,7 @@ private var destinationPatrouilleActuelle:int;
 * @access private
 * @var float
 */
-private var tempsPausePatrouille : float = 2;
+public var tempsPausePatrouille : float = 2;
 
 /*
 * Le temps actuel dans le jeu.
@@ -97,18 +91,18 @@ private var vitesse:float;
 private var distanceHeros:float;
 
 /*
-* Distance à laquelle l'ogre se met en mode attaque (frapper le heros).
+* Distance en bas de laquelle l'ogre se met en mode attaque (frapper le heros).
 * @access private
 * @var float
 */
-private var distancePoursuite:float = 1.5;
+public var distanceFrapper:float = 1.5;
 
 /*
-* Distance à laquelle l'ogre se met en mode patrouille.
+* Distance en bas de laquelle l'ogre se met en mode poursuite.
 * @access private
 * @var float
 */
-private var distancePatrouille:float = 15.0;
+public var distancePoursuite:float = 15.0;
 
 /*
 * État de santé de l'ogre
@@ -129,7 +123,7 @@ private var gravite:float = 10.0;
 * @access private
 * @var int
 */
-private var delaiCoupOgre:int = 2;
+public var delaiCoupOgre:int = 2;
 
 /*
 * Détermine si l'ogre doit frapper avec sa massue.
@@ -157,22 +151,49 @@ private var gestionscAffichage: scAffichage;
 * @access private
 * @var boolean
 */
- private var estGele: boolean;
+private var estGele: boolean;
+
+/**
+* Contient l'animateur de l'ogre
+* @access private
+* @var Animator
+*/
+private var animateur: Animator;
+
+/**
+* Velocite horizontale de l'ogre
+* @access private
+* @var Vector3
+*/
+private var velociteHorizontale: Vector3;
+
+/**
+* Massue de l'ogre
+* @access public
+* @var GameObject
+*/
+public var massue: GameObject;
+
+/**
+* Collider de la massue de l'ogre
+* @access private
+* @var Collider
+*/
+private var colliderMassue: Collider;
 
 
 
 function Start () {
 
-    
+    animateur = this.gameObject.GetComponent.<Animator>();
     //Initialisation et configuration du navMeshAgent
     navMeshOgre = this.gameObject.GetComponent(NavMeshAgent);
     navMeshOgre = GetComponentInChildren(NavMeshAgent);
     navMeshOgre.updateRotation = true;
-    navMeshOgre.updatePosition = true;
+    
+    colliderMassue = massue.GetComponent(CapsuleCollider);
     
     cible = GameObject.FindWithTag("heros").transform;
-    
-    controleurOgre = this.gameObject.GetComponent(CharacterController);
 
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
@@ -180,14 +201,21 @@ function Start () {
 
 function Update () {
 
+    velociteHorizontale = Vector3(navMeshOgre.velocity.x, 0, navMeshOgre.velocity.z);
+
+    // The speed on the x-z plane ignoring any speed 
+    var vitesseHorizontale: float = velociteHorizontale.magnitude;
+
+    animateur.SetFloat('vitesse', vitesseHorizontale);
+
     if (!estGele) {//Si le lutin n'est pas gelé...
         distanceHeros = Vector3.Distance (this.transform.position, cible.transform.position);//Calcul de la distance entre l'ogre et le héros.
 
-        if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
+        if (distanceHeros < distanceFrapper) {//Si suffisamment près pour attaquer...
             frapper();
-    //        Debug.Log("frappe"); 
+    //        Debug.Log("frappe");
         }
-        else if (distanceHeros < distancePatrouille) {//Si le héros est assez près pour être poursuivi...
+        else if (distanceHeros < distancePoursuite) {//Si le héros est assez près pour être poursuivi...
             //Debug.Log("poursuite");
             poursuivre();
         }
@@ -196,7 +224,7 @@ function Update () {
                 patrouiller();
                 //Debug.Log("patrouille");
             }
-            else {    
+            else {
                 destinationPatrouilleActuelle = 0;//Reset de la prochaine destination de patrouille.
             }
         }
@@ -218,12 +246,13 @@ function frapper () {
     var nouvelleRotation = Quaternion.LookRotation(positionHeros);
     this.transform.rotation = Quaternion.Lerp(this.transform.rotation, nouvelleRotation, vitesseRotation * Time.deltaTime);
     
-    if (donnerUnCoup) {//Si le temps est venu de frapper...
-        donnerUnCoup = false;
+//    if (donnerUnCoup) {//Si le temps est venu de frapper...
+        animateur.SetTrigger('frapper');
+//        donnerUnCoup = false;
         //Code pour donner un coup par animation
-        yield WaitForSeconds(delaiCoupOgre);//Timer...
-        donnerUnCoup = true;
-    }
+//        yield WaitForSeconds(delaiCoupOgre);//Timer...
+//        donnerUnCoup = true;
+//    }
 }
 
 //Méthode de poursuite de l'ogre.
@@ -280,4 +309,15 @@ function updateDommages(dommages:float) {
 //Gèle et dégèle l'ennemi avant et après avoir été touché par un sort
 function setEstGele (state:boolean) {
     estGele = state;
+}
+
+//Le collider de la massue de l'ogre est active par un animation event quand il donne un coup et desactive lorsdque le coup a ete donnee
+function toggleColliderMassue() {
+    
+    if (colliderMassue.enabled) {
+        colliderMassue.enabled = false;
+    }
+    else {
+        colliderMassue.enabled = true;
+    }
 }

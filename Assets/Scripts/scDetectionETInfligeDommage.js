@@ -17,9 +17,9 @@ private var heros:GameObject;
 /*
 * Quantité de dommage infligée par cette arme.
 * @access private
-* @var int
+* @var float
 */
-private var dommagesInfliges:int = 1;
+private var dommagesInfliges:float = 1.5;
 
 /*
 * Contient le script qui gère l'ogre
@@ -82,7 +82,7 @@ function Start (){
 
 //Infliges des dommages aux Ennemis
 function OnTriggerEnter(other:Collider) {
-    
+//    Debug.Log(other.gameObject);
     //:::::::::::::: Gérer le jeu
     if(other.gameObject.tag)
     {
