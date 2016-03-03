@@ -12,19 +12,9 @@
 */
 private var heros: GameObject;
 
-
-function Start () {
-    heros = GameObject.FindWithTag("heros");
-    var camActuelle:Camera = GameObject.FindWithTag("camPrincipale").GetComponent.<Camera>();//Doit aller chercher la cam à chaque activation car elle n'est pas la même d'un niveau à l'autre.
-    var scriptLookAtMouse:scLookAtMouse = heros.GetComponent.<scLookAtMouse>();
-    scriptLookAtMouse.setCam(camActuelle);//Actualisation de la caméra dans le script LookAtMouse
-}
-
 function OnTriggerEnter(other:Collider){
-		if(other.gameObject.tag == "heros"){
+    if(other.gameObject.tag == "heros"){
 //			Debug.Log(other.gameObject.tag == "heros");
-			SceneManager.LoadScene("Boss2");
-		}
-
-
-	}
+        SceneManager.LoadScene("Boss2");
+    }
+}

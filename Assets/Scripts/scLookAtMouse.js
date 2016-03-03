@@ -37,6 +37,12 @@ function Update () {
     }
 }
 
-function setCam(camActuelle:Camera) {
-    cam = camActuelle;
+//À chaque nouveau chargement de niveau...
+function OnLevelWasLoaded() {
+    
+    var sceneActuelle:String = SceneManager.GetActiveScene.name;
+    
+    if (sceneActuelle != "menu" && sceneActuelle != "gameOver" && sceneActuelle != "gagnant") {
+        cam = GameObject.FindWithTag("camPrincipale").GetComponent.<Camera>();//Doit aller chercher la cam à chaque activation car elle n'est pas la même d'un niveau à l'autre.
+    }
 }

@@ -16,6 +16,13 @@ import UnityEngine.SceneManagement;
 public var panneauCredits:GameObject;
 
 /**
+* Texte de l'inscription de sauvegarde
+* @access public
+* @var Text
+*/
+public var texteSauvegarde:Text;
+
+/**
 * panneau UI des sauvegardes du jeu
 * @access public
 * @var GameObject
@@ -116,6 +123,12 @@ private var canvasGroupSauvegardes:CanvasGroup;
 
 function Start() {
 
+    if (PlayerPrefs.HasKey("dateSauvegarde")) {
+        texteSauvegarde.text = PlayerPrefs.GetString("dateSauvegarde");
+    }
+    else {
+        texteSauvegarde.text = "Aucune sauvegarde";
+    }
     //Initialisation du CanvasGroup de chaque panneau
     canvasGroupCredits = panneauCredits.GetComponent(CanvasGroup);
     canvasGroupOptions = panneauOptions.GetComponent(CanvasGroup);
@@ -133,6 +146,7 @@ function Start() {
 }
 
 function Update() {
+    
     if (panneauCreditsFade) {//Si le panneau crédits doit fader...
         if (panneauCreditsFadeIn) {//Si FADE IN...
             if (canvasGroupCredits.alpha < opaque) {//Si l'alpha n'est pas complètement opaque...
@@ -255,4 +269,56 @@ function afficherSauvegardes() {
         panneauSauvegardesFadeIn = true;
     }
     panneauSauvegardesFade = true;//Pour fader le panneau dans la méthode Update().
+}
+
+//Méthode qui charge une partie sauvegardée.
+function chargerSauvegarde() {
+
+    if (PlayerPrefs.HasKey("niveau")) {
+        
+        SceneManager.LoadScene(PlayerPrefs.GetString("niveau"));
+        
+        var heros: GameObject = Instantiate (Resources.Load ("Prefabs/Personnages/" + PlayerPrefs.GetString("heros"))) as GameObject;
+        var scriptGestionJeu:scGestionJeu = heros.GetComponent.<scGestionJeu>();
+        var gui: GameObject = Instantiate (Resources.Load ("UI/GUI-JEU")) as GameObject;
+        var scriptHeros:scHeros = heros.GetComponent.<scHeros>();
+        
+        heros.transform.name = PlayerPrefs.GetString("heros");
+        scriptGestionJeu.setPartieEnChargement(true);
+        
+        if (PlayerPrefs.HasKey("positionX")) {
+            heros.transform.position.x = PlayerPrefs.GetFloat("positionX");
+        }
+        if (PlayerPrefs.HasKey("positionY")) {
+            heros.transform.position.y = PlayerPrefs.GetFloat("positionY");
+        }
+        if (PlayerPrefs.HasKey("positionZ")) {
+            heros.transform.position.z = PlayerPrefs.GetFloat("positionZ");
+        }
+        if (PlayerPrefs.HasKey("rotationX")) {
+            heros.transform.rotation.x = PlayerPrefs.GetFloat("rotationX");
+        }
+        if (PlayerPrefs.HasKey("rotationY")) {
+            heros.transform.rotation.y = PlayerPrefs.GetFloat("rotationY");
+        }
+        if (PlayerPrefs.HasKey("rotationZ")) {
+            heros.transform.rotation.z = PlayerPrefs.GetFloat("rotationZ");
+        }
+        if (PlayerPrefs.HasKey("nbPotionsSort")) {
+            scriptHeros.setNbPotionsSort(PlayerPrefs.GetInt("nbPotionsSort"));
+        }
+        if (PlayerPrefs.HasKey("nbPotionsReveil")) {
+            scriptGestionJeu.setNbPotionsReveille(PlayerPrefs.GetInt("nbPotionsReveil"));
+        }
+        if (PlayerPrefs.HasKey("sante")) {
+            scriptHeros.setSante(PlayerPrefs.GetFloat("sante"));
+        }
+        if (PlayerPrefs.HasKey("vies")) {
+            scriptHeros.setVies(PlayerPrefs.GetInt("vies"));
+        }
+        if (PlayerPrefs.HasKey("santeBoss")) {
+            scriptGestionJeu.setSanteBossSauvegarde(true);
+        }
+        scriptGestionJeu.resetPartieEnChargement();//Remise à la valeur d'origine.
+    }
 }
