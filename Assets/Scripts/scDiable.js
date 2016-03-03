@@ -103,6 +103,16 @@ private var heros:GameObject;
 */
  private var estGele: boolean;
 
+/**
+* Contient l'animateur du diable
+* @access private
+* @var Animator
+*/
+private var animateurDiable: Animator;
+
+
+
+
 
 function Start () {
 	heros =	GameObject.FindWithTag('heros');
@@ -114,6 +124,9 @@ function Start () {
     navMeshDiable.updateRotation = false;
     navMeshDiable.updatePosition = true;    
     controleurDiable = this.gameObject.GetComponent(CharacterController);
+    
+    //permet d'avoir l'animateur pour l'animation du personnage.
+    animateurDiable = this.gameObject.GetComponent.<Animator>();
 }
 
 function Update () {
@@ -121,18 +134,25 @@ function Update () {
     if (!estGele) {//Si le lutin n'est pas gelé...
         distanceHeros = Vector3.Distance (this.transform.position, cible.position);//Calcul de la distance entre le diable et le héros.
 
-        if (distanceHeros < distancePoursuite) {//Si suffisamment près pour attaquer...
+        if (distanceHeros < distancePoursuite ) {//Si suffisamment près pour attaquer...
             this.transform.LookAt(Vector3(cible.position.x, this.transform.position.y, cible.position.z));
             frapper();
-    //        Debug.Log("frappe"); 
+            animateurDiable.SetBool('attaqueDiable', true);
+
         }
         else if (distanceHeros < distanceRepos) {//Si le héros est assez près pour être poursuivi...
     //        Debug.Log("poursuite");
             this.transform.LookAt(Vector3(cible.position.x, this.transform.position.y, cible.position.z));
+            animateurDiable.SetBool("courirDiable",true);
             poursuivre();
+            
+           
+          
         }
         else {//Si le héros n'est pas suffisamment près...
                 seReposer();
+            animateurDiable.SetBool("reposDiable",true);
+           
     //            Debug.Log("en repos");
         }
         var position3D:Vector3 = Vector3(0,0,0);//Vecteur de déplacement (x,y,z).
@@ -149,12 +169,14 @@ function frapper () {
     
     navMeshDiable.speed = vitesseArret;
     navMeshDiable.SetDestination(this.transform.position);//Brake
+   
     
     if (donnerUnCoup) {//Si le temps est venu de frapper...
         donnerUnCoup = false;
         //Code pour donner un coup par animation
         yield WaitForSeconds(delaiCoupDiable);//Timer...
         donnerUnCoup = true;
+       
     }
 }
 
@@ -162,16 +184,20 @@ function frapper () {
 function poursuivre () {
     navMeshDiable.speed = vitessePoursuite;
     navMeshDiable.SetDestination(cible.position);//Poursuite du héros.
+   
+   
 }
 
 //Méthode de repos du diable.
 function seReposer () {
     navMeshDiable.speed = vitesseArret;
+    
     //Code anim repos (assoir au sol).
 }
 
 //Méthode qui détermine ce qui arrive quand le diable est tué, soit sa destruction et l'apparition d'une récompense.
 function mort() {
+    
     var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesRecompense")) as GameObject;
     etoiles.transform.position = this.gameObject.transform.position;
     var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/cupcake")) as GameObject;
