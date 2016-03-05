@@ -181,6 +181,13 @@ public var massue: GameObject;
 */
 private var colliderMassue: Collider;
 
+/**
+* Distance du prochain point de patrouille qui fait arrêter l'ogre.
+* @access private
+* @var float
+*/
+private var distanceArret: float = 2.0;
+
 
 
 function Start () {
@@ -274,7 +281,7 @@ function patrouiller () {
     ciblePatrouille.position.y = this.transform.position.y; // Garde la destination à la hauteur du personnage
     
     var distanceDestination = Vector3.Distance (this.transform.position, ciblePatrouille.position);//Calcul de la distance entre l'ogre et sa destination de patrouille.
-    if(distanceDestination <= 1) {//Si rendu à destination...
+    if(distanceDestination <= distanceArret) {//Si rendu à destination...
         //Arrêt de l'ogre.
         navMeshOgre.speed = vitesseArret;
         navMeshOgre.SetDestination(this.transform.position);//Brake

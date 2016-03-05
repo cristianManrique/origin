@@ -237,7 +237,7 @@ function Start ()
     canvas = GameObject.FindWithTag("canvas");
     gestionAffichage = canvas.GetComponent.<scAffichage>();
     
-    if (!scriptGestionJeu.getPartieEnChargement()) {//Si le jeu n'est pas une sauvegarde...
+    if (PlayerPrefs.GetInt("partieSauvegardee") == 0) {//Si le jeu n'est pas une sauvegarde...
         sante = santeMax;
     }
     if (this.name == "malcom") {
@@ -418,7 +418,7 @@ function AugmenteVies() {
 //:::::::::::::: function updateDommages :::::::::::::://
 //Lorsque le héros est attaqué, cette function lui afflige des dommages à la barre de vie
 function updateDommages(dommagesInfliges:int) {
-//    Debug.Log("heros touche, baisse de : " + dommagesInfliges);
+   //Debug.Log("heros touche, baisse de : " + dommagesInfliges);
     
     sante -= dommagesInfliges;
     

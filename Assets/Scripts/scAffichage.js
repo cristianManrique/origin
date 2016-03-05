@@ -317,3 +317,9 @@ function TimerMsg() {
 	yield WaitForSeconds (tempsAffichageMsg);
 	fadeMsg = true;
 }
+
+function OnLevelWasLoaded() {
+    
+    var alphaGui = GetComponent.<CanvasGroup>();
+    alphaGui.alpha = 1;//Met le GUI-JEU visible après le chargement d'un nouveau niveau (parce qu'il est mis invisible quand on charge une sauvegarde par l'interface du menu).
+}

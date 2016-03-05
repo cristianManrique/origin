@@ -11,7 +11,7 @@
 * @access private
 * @var Vector3
 */
-private var positionDepartHeros:Vector3 = new Vector3(-555, 21.35, 1);
+private var positionDepartHeros:Vector3 = new Vector3(-514.4, 21.91, 0.38);
 
 /*
 * Le héros
@@ -21,10 +21,10 @@ private var positionDepartHeros:Vector3 = new Vector3(-555, 21.35, 1);
 private var heros: GameObject;
 
 function Start () {
-	heros = GameObject.FindWithTag("heros");
-    var scriptGestionJeu:scGestionJeu = GameObject.FindWithTag("heros").GetComponent.<scGestionJeu>();
-    if (!scriptGestionJeu.getPartieEnChargement()) {//Si une partie sauvegardée n'est pas en chargement...
-        heros.transform.position = positionDepartHeros;//Replace le héros en position de départ au chargement du niveau puisque le héros n'est pas détruit entre les chargements des différents niveaux.
+    
+    if (PlayerPrefs.GetInt("partieSauvegardee") == 0) {
+        heros = GameObject.FindWithTag("heros");
+        heros.transform.position = positionDepartHeros;//Replace le héros en position de départ au chargement du niveau.
     }
 }
 

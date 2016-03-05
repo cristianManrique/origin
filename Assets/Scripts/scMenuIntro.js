@@ -1,6 +1,7 @@
 #pragma strict 
 
 import UnityEngine.SceneManagement;
+import UnityEngine.EventSystems;
 
 /**
 * Script de gestion des éléments du menu
@@ -16,11 +17,18 @@ import UnityEngine.SceneManagement;
 public var panneauCredits:GameObject;
 
 /**
-* Texte de l'inscription de sauvegarde
+* Texte de l'inscription de sauvegarde (nom niveau)
 * @access public
 * @var Text
 */
-public var texteSauvegarde:Text;
+public var texteSauvegarde1:Text;
+
+/**
+* Texte de l'inscription de sauvegarde (date)
+* @access public
+* @var Text
+*/
+public var texteSauvegarde2:Text;
 
 /**
 * panneau UI des sauvegardes du jeu
@@ -123,11 +131,29 @@ private var canvasGroupSauvegardes:CanvasGroup;
 
 function Start() {
 
-    if (PlayerPrefs.HasKey("dateSauvegarde")) {
-        texteSauvegarde.text = PlayerPrefs.GetString("dateSauvegarde");
+    if (PlayerPrefs.HasKey("niveau")) {
+        
+        var affichageNiveau:String = "";
+        switch (PlayerPrefs.GetString("niveau")) {
+            case "niveau1":
+                affichageNiveau = "Niveau 1";
+                break;
+            case "niveau2":
+                affichageNiveau = "Niveau 2";
+                break;
+            case "boss1":
+                affichageNiveau = "Boss niveau 1";
+                break;
+            case "boss2":
+                affichageNiveau = "Boss niveau 2";
+                break;
+        }
+        texteSauvegarde1.text = affichageNiveau;
+        texteSauvegarde2.text = PlayerPrefs.GetString("dateSauvegarde").ToLower();
     }
     else {
-        texteSauvegarde.text = "Aucune sauvegarde";
+        texteSauvegarde1.text = "Aucune sauvegarde";
+        texteSauvegarde2.text = "";
     }
     //Initialisation du CanvasGroup de chaque panneau
     canvasGroupCredits = panneauCredits.GetComponent(CanvasGroup);
@@ -214,22 +240,28 @@ function Update() {
 //Méthode qui charge la scène de tutoriel.
 function demarrerTuto() {
     
-    SceneManager.LoadScene("tutoriel");
+    PlayerPrefs.SetString("DebuterPartie", "tutoriel");
+    SceneManager.LoadScene("choixPerso");
 }
 
 //Méthode qui charge la scène de sélection du personnage.
 function demarrerJeu() {
-    SceneManager.LoadScene("niveau1");
+    
+    PlayerPrefs.SetString("DebuterPartie", "niveau1");
+    SceneManager.LoadScene("choixPerso");
 }
 
 //Méthode qui affiche le panneau des crédits et au besoin cache les autres panneaux ouverts.
 function afficherCredits() {
+    
+    EventSystem.current.SetSelectedGameObject(null, null);
     if (panneauOptions.activeSelf || panneauSauvegardes.activeSelf) {//Si un autre panneau est déjà visible...
         panneauOptionsFadeIn = false;
         panneauSauvegardesFadeIn = false;
     }
     
     if (panneauCreditsFadeIn) {
+        
         panneauCreditsFadeIn = false;
     }
     else {
@@ -241,6 +273,8 @@ function afficherCredits() {
 
 //Méthode qui affiche le panneau des options et au besoin cache les autres panneaux ouverts.
 function afficherOptions() {
+    
+    EventSystem.current.SetSelectedGameObject(null, null);
     if (panneauCredits.activeSelf || panneauSauvegardes.activeSelf) {//Si un autre panneau est déjà visible...
         panneauCreditsFadeIn = false;
         panneauSauvegardesFadeIn = false;
@@ -257,6 +291,8 @@ function afficherOptions() {
 
 //Méthode qui affiche le panneau des sauvegardes et au besoin cache les autres panneaux ouverts.
 function afficherSauvegardes() {
+    
+    EventSystem.current.SetSelectedGameObject(null, null);
     if (panneauCredits.activeSelf || panneauOptions.activeSelf) {//Si un autre panneau est déjà visible...
         panneauCreditsFadeIn = false;
         panneauOptionsFadeIn = false;
@@ -274,17 +310,21 @@ function afficherSauvegardes() {
 //Méthode qui charge une partie sauvegardée.
 function chargerSauvegarde() {
 
+    EventSystem.current.SetSelectedGameObject(null, null);
     if (PlayerPrefs.HasKey("niveau")) {
+        
+        PlayerPrefs.SetInt("partieSauvegardee", 1);
         
         SceneManager.LoadScene(PlayerPrefs.GetString("niveau"));
         
         var heros: GameObject = Instantiate (Resources.Load ("Prefabs/Personnages/" + PlayerPrefs.GetString("heros"))) as GameObject;
         var scriptGestionJeu:scGestionJeu = heros.GetComponent.<scGestionJeu>();
         var gui: GameObject = Instantiate (Resources.Load ("UI/GUI-JEU")) as GameObject;
+        var alphaGui = gui.GetComponent.<CanvasGroup>();
         var scriptHeros:scHeros = heros.GetComponent.<scHeros>();
         
+        alphaGui.alpha = 0;
         heros.transform.name = PlayerPrefs.GetString("heros");
-        scriptGestionJeu.setPartieEnChargement(true);
         
         if (PlayerPrefs.HasKey("positionX")) {
             heros.transform.position.x = PlayerPrefs.GetFloat("positionX");
@@ -319,6 +359,5 @@ function chargerSauvegarde() {
         if (PlayerPrefs.HasKey("santeBoss")) {
             scriptGestionJeu.setSanteBossSauvegarde(true);
         }
-        scriptGestionJeu.resetPartieEnChargement();//Remise à la valeur d'origine.
     }
 }

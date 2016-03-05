@@ -37,9 +37,9 @@
  private var heros: GameObject;
 
 /**
-*le joueuer
-*@var GameObject
-*@access public
+*vitesse de rotation
+*@var float
+*@access private
 **/
  private var vitesseRotation: float = 1.5;
 
