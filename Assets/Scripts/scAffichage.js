@@ -160,11 +160,11 @@ private var nbPotions:int;//potionSort
 public var PanneauBarreVieEnnemi:GameObject;
 
 /*
-* GameObject contient le texte de message pour la fonction LookAtMouse
+* GameObject contient le texte de message destiné au joueur
 * @access public
 * @var Text
 */
-public var messageLookAtMouse:Text;
+public var messageJoueur:Text;
 
 /**
 * Variable de controle du fade out
@@ -193,6 +193,8 @@ function Awake () {
 }
 
 function Start () {
+    
+    messageJoueur.GetComponent(CanvasGroup).alpha = 0;
     
 	canvas = GameObject.FindWithTag("canvas");
 	heros = GameObject.FindWithTag("heros");
@@ -224,20 +226,20 @@ function Start () {
 function Update () {
     
     //Si l'avertissement est affiché a l'écran...
-    if (messageLookAtMouse.enabled) {
+    if (messageJoueur.enabled) {
         //Si son alpha est plein...
-        if (messageLookAtMouse.GetComponent(CanvasGroup).alpha == 1) {
+        if (messageJoueur.GetComponent(CanvasGroup).alpha == 1) {
             TimerMsg();//Appel de fonction.
         }
         //Si le alpha est plus grand que 0...
-        if (messageLookAtMouse.GetComponent(CanvasGroup).alpha > 0) {
+        if (messageJoueur.GetComponent(CanvasGroup).alpha > 0) {
             //Si le message doit fader...
             if (fadeMsg) {
-                messageLookAtMouse.GetComponent(CanvasGroup).alpha -= vitesseFade * Time.deltaTime;//Fade progressif du alpha.
+                messageJoueur.GetComponent(CanvasGroup).alpha -= vitesseFade * Time.deltaTime;//Fade progressif du alpha.
             }
         }
         else {
-            messageLookAtMouse.enabled = true;//Désactivation du message.
+            messageJoueur.enabled = true;//Désactivation du message.
             fadeMsg = false;//Reset de la variable de controle fadeMsg.
         }
     }
@@ -304,14 +306,20 @@ function setBarreBoss(pointsDeVieBoss:int) {
 //Affiche un message a l'utilisateur
 function afficherMessage(message: String) {
 	fadeMsg = false;
-	messageLookAtMouse.GetComponent(CanvasGroup).alpha = 1;
-	messageLookAtMouse.text = message;
-	messageLookAtMouse.enabled = true;
+	messageJoueur.GetComponent(CanvasGroup).alpha = 1;
+	messageJoueur.text = message;
+	messageJoueur.enabled = true;
 }
 
 //Timer a la fin duquel le message fade out.
 function TimerMsg() {
-	messageLookAtMouse.GetComponent(CanvasGroup).alpha = 0.999;//Pour ne pas que la fonction soit appelée une seconde fois d'affilé.
+	messageJoueur.GetComponent(CanvasGroup).alpha = 0.999;//Pour ne pas que la fonction soit appelée une seconde fois d'affilé.
 	yield WaitForSeconds (tempsAffichageMsg);
 	fadeMsg = true;
+}
+
+function OnLevelWasLoaded() {
+    
+    var alphaGui = GetComponent.<CanvasGroup>();
+    alphaGui.alpha = 1;//Met le GUI-JEU visible après le chargement d'un nouveau niveau (parce qu'il est mis invisible quand on charge une sauvegarde par l'interface du menu).
 }

@@ -7,6 +7,13 @@
 **/
 
 /*
+* Position de départ du héros dans le niveau 2
+* @access private
+* @var Vector3
+*/
+private var positionDepartHeros:Vector3 = new Vector3(-514.4, 21.91, 0.38);
+
+/*
 * Le héros
 * @access private
 * @var GameObject
@@ -14,10 +21,10 @@
 private var heros: GameObject;
 
 function Start () {
-	heros = GameObject.FindWithTag("heros");
-	heros.transform.position=Vector3(-555, 21.35, 1);
-    var camActuelle:Camera = GameObject.FindWithTag("camPrincipale").GetComponent.<Camera>();//Doit aller chercher la cam à chaque activation car elle n'est pas la même d'un niveau à l'autre.
-    var scriptLookAtMouse:scLookAtMouse = heros.GetComponent.<scLookAtMouse>();
-    scriptLookAtMouse.setCam(camActuelle);//Actualisation de la caméra dans le script LookAtMouse
+    
+    if (PlayerPrefs.GetInt("partieSauvegardee") == 0) {
+        heros = GameObject.FindWithTag("heros");
+        heros.transform.position = positionDepartHeros;//Replace le héros en position de départ au chargement du niveau.
+    }
 }
 
