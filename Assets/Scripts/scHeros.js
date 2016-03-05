@@ -37,26 +37,26 @@ private var vitesse:float;
 * @access private
 * @var integer
 */
-private var nbPotionSort:int = 0;//potionSort
+public var nbPotionSort:int = 0;//potionSort
 
 /**
 * Vitesse de saut
 * @access public
 * @var float
 */
-private var vitesseSaut:float = 10.0;
+public var vitesseSaut:float = 10.0;
 /**
 * Multiplicateur de course
 * @access public
 * @var float
 */
-private var vitesseCourse:float = 8.0;
+public var vitesseCourse:float = 8.0;
 /**
 * Multiplicateur de marche
 * @access public
 * @var float
 */
-private var vitesseMarche:float = 4.0;
+public var vitesseMarche:float = 4.0;
 /**
 * Contient le vecteur de deplacement
 * @access private
@@ -68,7 +68,7 @@ private var dirMouvement : Vector3 = Vector3.zero;
 * @access public
 * @var float
 */
-private var vitesseRot:float =3.0;
+public var vitesseRot:float =3.0;
 /**
 * Contient la vitesse de la gravite
 * @access private
@@ -93,14 +93,6 @@ private var saut: boolean = false;
 private var voler: boolean = false;
 
 //::::::::::::::::::::://
-/*  
-* Verifier si le panneau pause est disponible
-* @access private
-* @var integer
-*/
-private var checkPanneauPause: int = 0;
-
-//::::::::::::::::::::://
 /**
 * Contient le controleur d'animation
 * @access public
@@ -121,7 +113,6 @@ private var controller:CharacterController;
 * @var AudioSource
 */
 private var TypeAudioSource:AudioSource;
-
 
 //::::::::::::::::::::://
 /*
@@ -215,12 +206,20 @@ public var AudioWalk: AudioClip;
 * @var GameObject
 */
 public var epee: GameObject;
+
 /**
-*le joueuer
-*@var GameObject
-*@access public
+*Vitesse de rotation du héros
+*@var float
+*@access private
 **/
  private var vitesseRotation: float = 1.5;
+
+/**
+*Le script de gestion du jeu
+*@var scGestionJeu
+*@access private
+**/
+ private var scriptGestionJeu: scGestionJeu;
 
 
 //:::::::::::Awake :::::::::://
@@ -233,17 +232,18 @@ function Awake()
 //:::::::::::Start :::::::::://
 function Start () 
 {
-    //::chercher le composant de type AudioSource
+    scriptGestionJeu = GetComponent.<scGestionJeu>();
     TypeAudioSource = GetComponent.<AudioSource>();
     canvas = GameObject.FindWithTag("canvas");
     gestionAffichage = canvas.GetComponent.<scAffichage>();
-    sante = santeMax;
+    
+    if (PlayerPrefs.GetInt("partieSauvegardee") == 0) {//Si le jeu n'est pas une sauvegarde...
+        sante = santeMax;
+    }
     if (this.name == "malcom") {
         ColliderEpee = epee.GetComponent(CapsuleCollider);
     }
     scriptLookAtMouse = GetComponent(scLookAtMouse);
-
-    //animateur.SetBool('animAttack', false);//Debuter à false
 }
 
 
@@ -429,10 +429,16 @@ function updateDommages(dommagesInfliges:int) {
 }
 
 //:::::::::::::: function getNbVies :::::::::::::://
-//Permet de controler le nombre de vie
+//Retourne le nombre de vie
 function getNbVies() {
     return vies;
 }
+//:::::::::::::: function setVies :::::::::::::://
+//Met à jour le nombre de vie
+function setVies(valeurVies:int) {
+    vies = valeurVies;
+}
+
 //:::::::::::::: function qui permet de voler:::::::::://
 //Permet de limiter le vole du héros à 10 seconde
 function timerVoler()
@@ -444,10 +450,16 @@ function timerVoler()
     reinitialiserRotation();//remettre rotation du héros à 0
 
 }
+
 //:::::::::::::: function getSante:::::::::://
-//Permet de controler la sante du héros
+//Retourne la valeur de sante du heros
 function getSante() {
     return sante;
+}
+//:::::::::::::: function setSante:::::::::://
+//Donne une nouvelle valeur à la sante du heros
+function setSante(valeurSante:float) {
+    sante = valeurSante;
 }
 
 //:::::::::::::: function enleverVie:::::::::://
@@ -490,6 +502,19 @@ function reductionPotionSort()
 function getNbPotionsSort()
 {
     return nbPotionSort;
+}
+//:::::::::::::: function getNbPotionsSort:::::::::://
+//Met à jour le nombre de potions sort
+function setNbPotionsSort(valeurPotion:int)
+{
+    nbPotionSort = valeurPotion;
+}
+
+//:::::::::::::: function getVies:::::::::://
+//Retourne le nombre de vies
+function getVies()
+{
+    return vies;
 }
 
 //:::::::::::::: function augmenterPotionsSort:::::::::://

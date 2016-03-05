@@ -11,6 +11,14 @@ public var speed = 4.0;
 
 private var cam:Camera;
  
+function Start() {
+    var sceneActuelle:String = SceneManager.GetActiveScene.name;
+    
+    if (sceneActuelle != "menu" && sceneActuelle != "gameOver" && sceneActuelle != "gagnant") {
+        cam = GameObject.FindWithTag("camPrincipale").GetComponent.<Camera>();//Doit aller chercher la cam à chaque activation car elle n'est pas la même d'un niveau à l'autre.
+    }
+}
+
 function Update () {
     // Generate a plane that intersects the transform's position with an upwards normal.
     var playerPlane = new Plane(Vector3.up, transform.position);
@@ -37,6 +45,12 @@ function Update () {
     }
 }
 
-function setCam(camActuelle:Camera) {
-    cam = camActuelle;
+//À chaque nouveau chargement de niveau...
+function OnLevelWasLoaded() {
+    
+    var sceneActuelle:String = SceneManager.GetActiveScene.name;
+    
+    if (sceneActuelle != "menu" && sceneActuelle != "gameOver" && sceneActuelle != "gagnant") {
+        cam = GameObject.FindWithTag("camPrincipale").GetComponent.<Camera>();//Doit aller chercher la cam à chaque activation car elle n'est pas la même d'un niveau à l'autre.
+    }
 }

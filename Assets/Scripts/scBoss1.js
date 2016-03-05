@@ -246,14 +246,12 @@ function Start () {
 
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
-    
     gestionscAffichage.setBarreBoss(pointsVieBoss1);//Afficher le panneau + rempli barre de vie en fonction des points de vie du boss.
 }
 
 function Update () {
 
     if (pointsVieBoss1 <= 0) {//le boss1 est mort
-//    	Debug.Log('entre fonction moins 0');
         estVivant = false;
         mort();
     }
@@ -412,4 +410,14 @@ function updateDommages(dommages:float) {
 //Gèle et dégèle l'ennemi avant et après avoir été touché par un sort
 function setEstGele (state:boolean) {
     estGele = state;
+}
+
+//Retourne l'état de santé du boss
+function getSanteBoss() {
+    return pointsVieBoss1;
+}
+
+//Met à jour l'état de santé du boss
+function setSanteBoss(valeurSante:float) {
+    pointsVieBoss1 = valeurSante;
 }
