@@ -84,6 +84,8 @@
      <Compile Include="Assets\Scripts\scLutin.js" />
      <Compile Include="Assets\Scripts\scMassueOgre.js" />
      <Compile Include="Assets\Scripts\scMenuIntro.js" />
+     <Compile Include="Assets\Scripts\scObstacle1.js" />
+     <Compile Include="Assets\Scripts\scObstacle2.js" />
      <Compile Include="Assets\Scripts\scOgre.js" />
      <Compile Include="Assets\Scripts\scOscillation1.js" />
      <Compile Include="Assets\Scripts\scOscillation2.js" />
