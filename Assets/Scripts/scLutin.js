@@ -142,6 +142,13 @@ private var scriptHeros: scHeros;
 */
  private var estGele: boolean;
 
+/**
+* Contient l'animateur du lutin
+* @access private
+* @var Animator
+*/
+private var animateurLutin: Animator;
+
 
 function Start () {
 //initialisation du temps de délai aléatoire avant de changer de direction.
@@ -155,6 +162,8 @@ function Start () {
 
 	 //gestionscAffichage=canvas.GetComponent.<scAffichage>();
     vitesse = vitesseMarche;
+    //permet d'avoir l'animateur pour l'animation du personnage.
+    animateurLutin = this.gameObject.GetComponent.<Animator>();
 }
 
 function Update () {
@@ -225,12 +234,19 @@ function deplacementLutin()
     if(!contactHeros)
     {
         vitesse = vitesseMarche;
+        //va chercher l'animation de marche du lutin
+        animateurLutin.SetBool('marcheLutin', true);
+        animateurLutin.SetBool('courirLutin', false);
+       
         //condition qui permet de savoir si le heros est près avec la public variable magnitude(il compare les vectors) 
 //sinon il se déplace tout seul.
     if(directionHeros.magnitude<10)
     {
 //permet de prendre la même valeur que le heros pour le suivre.
         deplacementDirection=directionHeros;
+        // va chercher l'animation de courir lutin
+        animateurLutin.SetBool('courirLutin', true);
+        animateurLutin.SetBool('marcheLutin', false);
         //Debug.Log('deplacement'+deplacementDirection);
         //Debug.Log('directionHero'+directionHeros);
 //permet que le lutin regarde le heros et de le suivre rapidement.
@@ -245,6 +261,9 @@ function deplacementLutin()
                 changementDirection=Time.fixedTime;
         //réafection du delaiChangementDirection aléatoirement.
                 delaiChangementDirection=Random.Range(1,3);
+                // va chercher l'animation de courir lutin
+                animateurLutin.SetBool('courirLutin', true);
+                animateurLutin.SetBool('marcheLutin', false);
             }
         }
     }else{
@@ -307,6 +326,10 @@ function mortLutin()
 function updateDommages(dommages:float) 
 {
     nombreVieLutin -= dommages;
+    if (nombreVieLutin > 0) {
+        var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;
+        etoiles.transform.position = this.gameObject.transform.position;
+    }
    //Debug.Log(nombreVieLutin);
 }
 

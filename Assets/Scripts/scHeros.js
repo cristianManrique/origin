@@ -12,7 +12,7 @@
 public var santeMax:float = 100.0;
 
 /*
-* Nombre de Vie du hÃ©ros
+* Nombre de Vie du hÃƒÂ©ros
 * @access private
 * @var GameObject
 */
@@ -26,7 +26,7 @@ private var vies:int = 3;
 private var sante:float;
 
 /**
-* Vitesse de dÃ©placement de base
+* Vitesse de dÃƒÂ©placement de base
 * @access public
 * @var float
 */
@@ -37,26 +37,26 @@ private var vitesse:float;
 * @access private
 * @var integer
 */
-private var nbPotionSort:int = 0;//potionSort
+public var nbPotionSort:int = 0;//potionSort
 
 /**
 * Vitesse de saut
 * @access public
 * @var float
 */
-private var vitesseSaut:float = 10.0;
+public var vitesseSaut:float = 10.0;
 /**
 * Multiplicateur de course
 * @access public
 * @var float
 */
-private var vitesseCourse:float = 8.0;
+public var vitesseCourse:float = 8.0;
 /**
 * Multiplicateur de marche
 * @access public
 * @var float
 */
-private var vitesseMarche:float = 4.0;
+public var vitesseMarche:float = 4.0;
 /**
 * Contient le vecteur de deplacement
 * @access private
@@ -68,7 +68,7 @@ private var dirMouvement : Vector3 = Vector3.zero;
 * @access public
 * @var float
 */
-private var vitesseRot:float =3.0;
+public var vitesseRot:float =3.0;
 /**
 * Contient la vitesse de la gravite
 * @access private
@@ -93,14 +93,6 @@ private var saut: boolean = false;
 private var voler: boolean = false;
 
 //::::::::::::::::::::://
-/*  
-* Verifier si le panneau pause est disponible
-* @access private
-* @var integer
-*/
-private var checkPanneauPause: int = 0;
-
-//::::::::::::::::::::://
 /**
 * Contient le controleur d'animation
 * @access public
@@ -109,7 +101,7 @@ private var checkPanneauPause: int = 0;
 private var animateur: Animator;
 
 /*
-* Contient le controller (accÃ¨s par l'inspecteur)
+* Contient le controller (accÃƒÂ¨s par l'inspecteur)
 * @access private
 * @var CharacterController
 */
@@ -122,7 +114,6 @@ private var controller:CharacterController;
 */
 private var TypeAudioSource:AudioSource;
 
-
 //::::::::::::::::::::://
 /*
 * Contient la camera
@@ -130,13 +121,6 @@ private var TypeAudioSource:AudioSource;
 * @var Camera
 */
 private var cam:Camera;
-
-/*
-* GameObject canvas contient UI
-* @access public
-* @var GameObject
-*/
-private var canvas: GameObject;
 
 //::::::::::::::::::::://
 /*
@@ -154,35 +138,35 @@ private var gestionAffichage: scAffichage;
 private var vitesseDim:float = 0.2;
 
 /**
- * DÃ©termine si le joueur est en contact avec le sol
+ * DÃƒÂ©termine si le joueur est en contact avec le sol
  * @access private
  * @var boolean
  */
 private var auSol:boolean = true;
 
 /**
- * Permet de calculer le temps passÃ© sur le sol
+ * Permet de calculer le temps passÃƒÂ© sur le sol
  * @access private
  * @var float
  */
 private var tempsAuSol:float = 0.0;//temps en secondes
 
 /**
- * Permet de donner une marge de tolÃ©rence pour la propriÃ©tÃ© "auSol"
+ * Permet de donner une marge de tolÃƒÂ©rence pour la propriÃƒÂ©tÃƒÂ© "auSol"
  * @access private
  * @var float
  */
 private var toleranceAuSol:float = 0.3;//temps en secondes
 
 /**
- * DÃ©termine si le heros est en train de sauter
+ * DÃƒÂ©termine si le heros est en train de sauter
  * @access private
  * @var float
  */
 private var enSaut:boolean = false;
 
 /**
- * DÃ©termine si l'aqnim de course doit jouer
+ * DÃƒÂ©termine si l'aqnim de course doit jouer
  * @access private
  * @var float
  */
@@ -215,12 +199,20 @@ public var AudioWalk: AudioClip;
 * @var GameObject
 */
 public var epee: GameObject;
+
 /**
-*le joueuer
-*@var GameObject
-*@access public
+*Vitesse de rotation du héros
+*@var float
+*@access private
 **/
  private var vitesseRotation: float = 1.5;
+
+/**
+*Le script de gestion du jeu
+*@var scGestionJeu
+*@access private
+**/
+ private var scriptGestionJeu: scGestionJeu;
 
 
 //:::::::::::Awake :::::::::://
@@ -233,17 +225,16 @@ function Awake()
 //:::::::::::Start :::::::::://
 function Start () 
 {
-    //::chercher le composant de type AudioSource
+    scriptGestionJeu = GetComponent.<scGestionJeu>();
     TypeAudioSource = GetComponent.<AudioSource>();
-    canvas = GameObject.FindWithTag("canvas");
-    gestionAffichage = canvas.GetComponent.<scAffichage>();
-    sante = santeMax;
+    
+    if (PlayerPrefs.GetInt("partieSauvegardee") == 0) {//Si le jeu n'est pas une sauvegarde...
+        sante = santeMax;
+    }
     if (this.name == "malcom") {
         ColliderEpee = epee.GetComponent(CapsuleCollider);
     }
     scriptLookAtMouse = GetComponent(scLookAtMouse);
-
-    //animateur.SetBool('animAttack', false);//Debuter à false
 }
 
 
@@ -253,15 +244,16 @@ function Update()
 //    Debug.Log(sante);
     sante -= (vitesseDim * Time.deltaTime);
 //:::::::::::::: GERER VIES :::::::::://
-
+    
     if(vies == 0)
     {
-     SceneManager.LoadScene("gameOver");
+        PlayerPrefs.SetInt("partieSauvegardee", 0);
+        SceneManager.LoadScene("gameOver");
     }
 
 //:::::::::::::: GERER DEPLACEMENT :::::::::://
     
-    //Permet de donner une marge de tolÃ©rence Ã  la propriÃ©tÃ© "auSol" qui dÃ©termine si le heros peut sauter.
+    //Permet de donner une marge de tolÃƒÂ©rence à la propriÃƒÂ©tÃƒÂ© "auSol" qui dÃƒÂ©termine si le heros peut sauter.
     //-------------------------------------
 
     if (controller.isGrounded) {
@@ -287,7 +279,7 @@ function Update()
     
 //:::::::::::::: GERER SAUT :::::::::://
     
-    if(Input.GetKeyDown('space') && !enSaut && !voler)//:: Si space est enfoncÃ© et que le heros n'est pas en train de voler
+    if(Input.GetKeyDown('space') && !enSaut && !voler)//:: Si space est enfoncÃƒÂ© et que le heros n'est pas en train de voler
     {
         dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
         animateur.SetBool('animCourse', false);
@@ -302,7 +294,7 @@ function Update()
 //:::::::::::::: GERER DEPLACEMENT :::::::::://
         
         dirMouvement = Vector3(0, 0, inputY);   // Calcul du mouvement
-        //:: dire Ã  l'animator d'utiliser cette variable du code
+        //:: dire à l'animator d'utiliser cette variable du code
         dirMouvement = transform.TransformDirection(dirMouvement);
         dirMouvement *= vitesse;
         
@@ -326,7 +318,7 @@ function Update()
             dirMouvement.y += 200 * Time.deltaTime;
             //Debug.Log('il vole');
             animateur.SetBool('voler', true);
-            //:: dire Ã  l'animator d'utiliser cette variable du code
+            //:: dire à l'animator d'utiliser cette variable du code
 
             //:: Smoothly inclinaisons a transform towards a target rotation.
             var smooth = 2.0;
@@ -345,7 +337,7 @@ function Update()
             dirMouvement.y -= 300*Time.deltaTime;
             //Debug.Log('il descend');
             animateur.SetBool('voler', false);
-            //:: dire Ã  l'animator d'utiliser cette variable du code
+            //:: dire à l'animator d'utiliser cette variable du code
 
             reinitialiserRotation();//remettre rotation du héros à 0
         }
@@ -359,16 +351,16 @@ function Update()
     animateur.SetBool('animCourse', animCourse);
 
     //:::::::::::::: GERER ATTAQUE :::::::::://
-    if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncÃ©
+    if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncÃƒÂ©
     {
         animateur.SetTrigger('animAttack');
-        //:: dire Ã  l'animator d'utiliser cette variable du code
+        //:: dire à l'animator d'utiliser cette variable du code
     }
 
-    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncÃ©
+    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncÃƒÂ©
     {
         animateur.SetBool('animAttack', false);
-        //:: dire Ã  l'animator d'utiliser cette variable du code
+        //:: dire à l'animator d'utiliser cette variable du code
     }
     
     if(Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(2)) {
@@ -420,8 +412,10 @@ function AugmenteVies() {
 function updateDommages(dommagesInfliges:int) {
    //Debug.Log("heros touche, baisse de : " + dommagesInfliges);
     
+    var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesHerosTouche")) as GameObject;
+    etoiles.transform.position = this.gameObject.transform.position;
     sante -= dommagesInfliges;
-    
+
     if(sante <= 0) {//Si 0 ou negatif...
       vies--;//Enleve une vie
       sante = santeMax + sante;//Repporte l'excedent enleve sur sante sur le prochain cycle de barre de vie (santeMax + 0 ou nombre negatif)
@@ -429,10 +423,16 @@ function updateDommages(dommagesInfliges:int) {
 }
 
 //:::::::::::::: function getNbVies :::::::::::::://
-//Permet de controler le nombre de vie
+//Retourne le nombre de vie
 function getNbVies() {
     return vies;
 }
+//:::::::::::::: function setVies :::::::::::::://
+//Met à jour le nombre de vie
+function setVies(valeurVies:int) {
+    vies = valeurVies;
+}
+
 //:::::::::::::: function qui permet de voler:::::::::://
 //Permet de limiter le vole du héros à 10 seconde
 function timerVoler()
@@ -444,10 +444,16 @@ function timerVoler()
     reinitialiserRotation();//remettre rotation du héros à 0
 
 }
+
 //:::::::::::::: function getSante:::::::::://
-//Permet de controler la sante du héros
+//Retourne la valeur de sante du heros
 function getSante() {
     return sante;
+}
+//:::::::::::::: function setSante:::::::::://
+//Donne une nouvelle valeur à la sante du heros
+function setSante(valeurSante:float) {
+    sante = valeurSante;
 }
 
 //:::::::::::::: function enleverVie:::::::::://
@@ -473,14 +479,14 @@ function augmenterSante(increment:int) {
 //function qui reduire le nb de potion sort
 function reductionPotionSort()
 {
-//condition pour rÃ©duire les potions sort
+//condition pour rÃƒÂ©duire les potions sort
     if(nbPotionSort > 0)
     {
         nbPotionSort--;  
     }
     else
     {
-        //condition pour que les potions ne soit pas en nÃ©gatif.
+        //condition pour que les potions ne soit pas en nÃƒÂ©gatif.
         nbPotionSort = 0;
     }
 }
@@ -490,6 +496,19 @@ function reductionPotionSort()
 function getNbPotionsSort()
 {
     return nbPotionSort;
+}
+//:::::::::::::: function getNbPotionsSort:::::::::://
+//Met à jour le nombre de potions sort
+function setNbPotionsSort(valeurPotion:int)
+{
+    nbPotionSort = valeurPotion;
+}
+
+//:::::::::::::: function getVies:::::::::://
+//Retourne le nombre de vies
+function getVies()
+{
+    return vies;
 }
 
 //:::::::::::::: function augmenterPotionsSort:::::::::://
@@ -535,8 +554,10 @@ function reinitialiserRotation(){
     positionInitiale.z=0;
     this.transform.rotation = positionInitiale;
     var smooth = 2.0;
+}
 
-    // this.transform.rotation = Quaternion.Slerp(transform.rotation, positionInitiale,  Time.deltaTime * smooth);
-    // this.transform.rotation = Quaternion.Slerp(transform.rotation, new Quaternion (0, 0, 0, 1),  Time.deltaTime * smooth);
-
+function OnLevelWasLoaded() {
+    
+    var canvas:GameObject = GameObject.FindWithTag("canvas");
+    gestionAffichage = canvas.GetComponent.<scAffichage>();
 }

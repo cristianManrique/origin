@@ -233,7 +233,7 @@ private var decalageHauteurPetitRocher: float = 2.0;
 
 function Start () {
 
-    
+    animateurBoss1.SetBool('enDeplacement', true);
     //Initialisation et configuration du navMeshAgent
     navMeshBoss1 = this.gameObject.GetComponent(NavMeshAgent);
     navMeshBoss1 = GetComponentInChildren(NavMeshAgent);
@@ -246,14 +246,12 @@ function Start () {
 
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
-    
     gestionscAffichage.setBarreBoss(pointsVieBoss1);//Afficher le panneau + rempli barre de vie en fonction des points de vie du boss.
 }
 
 function Update () {
 
     if (pointsVieBoss1 <= 0) {//le boss1 est mort
-//    	Debug.Log('entre fonction moins 0');
         estVivant = false;
         mort();
     }
@@ -276,10 +274,7 @@ function Update () {
 
         if (sauter && peutSauter) {//Si le Boss peut et doit sauter...
             peutSauter = false;//Ne pourra plus sauter.
-            animateurBoss1.SetBool('sauter', true);//Saut par animation.
-        }
-        else {
-            animateurBoss1.SetBool('sauter', false);
+            animateurBoss1.SetTrigger('sauter');//Saut par animation.
         }
         //Les animations de deplacement sont determinees par la velocite du boss.
         animateurBoss1.SetFloat('velociteX', navMeshBoss1.velocity.x / vitesse);
@@ -305,8 +300,8 @@ function patrouiller () {
     var distanceDestination = Vector3.Distance (this.transform.position, ciblePatrouille.position);//Calcul de la distance entre le boss1 et sa destination de patrouille.
     if(distanceDestination <= 1) {//Si rendu a destination...
         //Arret du boss1.
-//        navMeshBoss1.speed = vitesseArret;
 
+        animateurBoss1.SetBool('enDeplacement', false);
         if (peutSauter) {//Si le boss peut sauter...
             sauter = true;//Le Boss saute
         }
@@ -318,6 +313,7 @@ function patrouiller () {
             tempsActuel = Time.time;// Pause sur chaque destination
         }
         if ((Time.time - tempsActuel) >= tempsPause){//Si le temps de pause est ecoule...
+            animateurBoss1.SetBool('enDeplacement', true);
             destinationPatrouilleActuelle++;//Prochaine destination.
             navMeshBoss1.SetDestination(ciblePatrouille.position);
             tempsActuel = 0;//Reset du temps.
@@ -405,11 +401,26 @@ function pluieDeRochers() {
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:float) {
+    
     pointsVieBoss1 -= dommages;
+    if (pointsVieBoss1 > 0) {
+        var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;
+        etoiles.transform.position = this.gameObject.transform.position;
+    }
 //    Debug.Log(pointsVieBoss1);
 }
 
 //Gèle et dégèle l'ennemi avant et après avoir été touché par un sort
 function setEstGele (state:boolean) {
     estGele = state;
+}
+
+//Retourne l'état de santé du boss
+function getSanteBoss() {
+    return pointsVieBoss1;
+}
+
+//Met à jour l'état de santé du boss
+function setSanteBoss(valeurSante:float) {
+    pointsVieBoss1 = valeurSante;
 }

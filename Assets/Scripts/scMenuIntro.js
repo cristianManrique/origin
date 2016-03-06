@@ -1,6 +1,7 @@
 #pragma strict 
 
 import UnityEngine.SceneManagement;
+import UnityEngine.EventSystems;
 
 /**
 * Script de gestion des éléments du menu
@@ -14,6 +15,20 @@ import UnityEngine.SceneManagement;
 * @var GameObject
 */
 public var panneauCredits:GameObject;
+
+/**
+* Texte de l'inscription de sauvegarde (nom niveau)
+* @access public
+* @var Text
+*/
+public var texteSauvegarde1:Text;
+
+/**
+* Texte de l'inscription de sauvegarde (date)
+* @access public
+* @var Text
+*/
+public var texteSauvegarde2:Text;
 
 /**
 * panneau UI des sauvegardes du jeu
@@ -116,6 +131,30 @@ private var canvasGroupSauvegardes:CanvasGroup;
 
 function Start() {
 
+    if (PlayerPrefs.HasKey("niveau")) {
+        
+        var affichageNiveau:String = "";
+        switch (PlayerPrefs.GetString("niveau")) {
+            case "niveau1":
+                affichageNiveau = "Niveau 1";
+                break;
+            case "niveau2":
+                affichageNiveau = "Niveau 2";
+                break;
+            case "boss1":
+                affichageNiveau = "Boss niveau 1";
+                break;
+            case "boss2":
+                affichageNiveau = "Boss niveau 2";
+                break;
+        }
+        texteSauvegarde1.text = affichageNiveau;
+        texteSauvegarde2.text = PlayerPrefs.GetString("dateSauvegarde").ToLower();
+    }
+    else {
+        texteSauvegarde1.text = "Aucune sauvegarde";
+        texteSauvegarde2.text = "";
+    }
     //Initialisation du CanvasGroup de chaque panneau
     canvasGroupCredits = panneauCredits.GetComponent(CanvasGroup);
     canvasGroupOptions = panneauOptions.GetComponent(CanvasGroup);
@@ -133,6 +172,7 @@ function Start() {
 }
 
 function Update() {
+    
     if (panneauCreditsFade) {//Si le panneau crédits doit fader...
         if (panneauCreditsFadeIn) {//Si FADE IN...
             if (canvasGroupCredits.alpha < opaque) {//Si l'alpha n'est pas complètement opaque...
@@ -200,22 +240,28 @@ function Update() {
 //Méthode qui charge la scène de tutoriel.
 function demarrerTuto() {
     
-    SceneManager.LoadScene("tutoriel");
+    PlayerPrefs.SetString("DebuterPartie", "tutoriel");
+    SceneManager.LoadScene("choixPerso");
 }
 
 //Méthode qui charge la scène de sélection du personnage.
 function demarrerJeu() {
-    SceneManager.LoadScene("niveau1");
+    
+    PlayerPrefs.SetString("DebuterPartie", "niveau1");
+    SceneManager.LoadScene("choixPerso");
 }
 
 //Méthode qui affiche le panneau des crédits et au besoin cache les autres panneaux ouverts.
 function afficherCredits() {
+    
+    EventSystem.current.SetSelectedGameObject(null, null);
     if (panneauOptions.activeSelf || panneauSauvegardes.activeSelf) {//Si un autre panneau est déjà visible...
         panneauOptionsFadeIn = false;
         panneauSauvegardesFadeIn = false;
     }
     
     if (panneauCreditsFadeIn) {
+        
         panneauCreditsFadeIn = false;
     }
     else {
@@ -227,6 +273,8 @@ function afficherCredits() {
 
 //Méthode qui affiche le panneau des options et au besoin cache les autres panneaux ouverts.
 function afficherOptions() {
+    
+    EventSystem.current.SetSelectedGameObject(null, null);
     if (panneauCredits.activeSelf || panneauSauvegardes.activeSelf) {//Si un autre panneau est déjà visible...
         panneauCreditsFadeIn = false;
         panneauSauvegardesFadeIn = false;
@@ -243,6 +291,8 @@ function afficherOptions() {
 
 //Méthode qui affiche le panneau des sauvegardes et au besoin cache les autres panneaux ouverts.
 function afficherSauvegardes() {
+    
+    EventSystem.current.SetSelectedGameObject(null, null);
     if (panneauCredits.activeSelf || panneauOptions.activeSelf) {//Si un autre panneau est déjà visible...
         panneauCreditsFadeIn = false;
         panneauOptionsFadeIn = false;
@@ -255,4 +305,59 @@ function afficherSauvegardes() {
         panneauSauvegardesFadeIn = true;
     }
     panneauSauvegardesFade = true;//Pour fader le panneau dans la méthode Update().
+}
+
+//Méthode qui charge une partie sauvegardée.
+function chargerSauvegarde() {
+
+    EventSystem.current.SetSelectedGameObject(null, null);
+    if (PlayerPrefs.HasKey("niveau")) {
+        
+        PlayerPrefs.SetInt("partieSauvegardee", 1);
+        
+        SceneManager.LoadScene(PlayerPrefs.GetString("niveau"));
+        
+        var gui: GameObject = Instantiate (Resources.Load ("UI/GUI-JEU")) as GameObject;
+        var heros: GameObject = Instantiate (Resources.Load ("Prefabs/Personnages/" + PlayerPrefs.GetString("heros"))) as GameObject;
+        var scriptGestionJeu:scGestionJeu = heros.GetComponent.<scGestionJeu>();
+        var scriptHeros:scHeros = heros.GetComponent.<scHeros>();
+
+        heros.transform.name = PlayerPrefs.GetString("heros");
+        
+        PlayerPrefs.SetString("nomHeros", PlayerPrefs.GetString("heros"));
+        
+        if (PlayerPrefs.HasKey("positionX")) {
+            heros.transform.position.x = PlayerPrefs.GetFloat("positionX");
+        }
+        if (PlayerPrefs.HasKey("positionY")) {
+            heros.transform.position.y = PlayerPrefs.GetFloat("positionY");
+        }
+        if (PlayerPrefs.HasKey("positionZ")) {
+            heros.transform.position.z = PlayerPrefs.GetFloat("positionZ");
+        }
+        if (PlayerPrefs.HasKey("rotationX")) {
+            heros.transform.rotation.x = PlayerPrefs.GetFloat("rotationX");
+        }
+        if (PlayerPrefs.HasKey("rotationY")) {
+            heros.transform.rotation.y = PlayerPrefs.GetFloat("rotationY");
+        }
+        if (PlayerPrefs.HasKey("rotationZ")) {
+            heros.transform.rotation.z = PlayerPrefs.GetFloat("rotationZ");
+        }
+        if (PlayerPrefs.HasKey("nbPotionsSort")) {
+            scriptHeros.setNbPotionsSort(PlayerPrefs.GetInt("nbPotionsSort"));
+        }
+        if (PlayerPrefs.HasKey("nbPotionsReveil")) {
+            scriptGestionJeu.setNbPotionsReveille(PlayerPrefs.GetInt("nbPotionsReveil"));
+        }
+        if (PlayerPrefs.HasKey("sante")) {
+            scriptHeros.setSante(PlayerPrefs.GetFloat("sante"));
+        }
+        if (PlayerPrefs.HasKey("vies")) {
+            scriptHeros.setVies(PlayerPrefs.GetInt("vies"));
+        }
+        if (PlayerPrefs.HasKey("santeBoss")) {
+            scriptGestionJeu.setSanteBossSauvegarde(true);
+        }
+    }
 }

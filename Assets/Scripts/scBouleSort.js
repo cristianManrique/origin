@@ -46,10 +46,13 @@ function OnTriggerEnter(other:Collider) {
                 
                 scriptOgre.setEstGele(true);
 		        agentEnnemiOgre.Stop();
+                var animOgre:Animator = other.gameObject.GetComponent(Animator);
+                animOgre.enabled = false;
 		        yield WaitForSeconds(vitesseDegele);
                 if (agentEnnemiOgre) {
                     agentEnnemiOgre.Resume();
                     scriptOgre.setEstGele(false);
+                    animOgre.enabled = true;
                 }
                 break;
 
@@ -60,10 +63,13 @@ function OnTriggerEnter(other:Collider) {
                 
                 scriptDiable.setEstGele(true);
 		        agentEnnemiDiable.Stop();
+                var animDiable:Animator = other.gameObject.GetComponent(Animator);
+                animDiable.enabled = false;
 		        yield WaitForSeconds(vitesseDegele);
                 if (agentEnnemiDiable) {
                     agentEnnemiDiable.Resume();
                     scriptDiable.setEstGele(false);
+                    animDiable.enabled = true;
                 }
             	break;
 
@@ -72,9 +78,12 @@ function OnTriggerEnter(other:Collider) {
                 var scriptLutin:scLutin = other.gameObject.GetComponent(scLutin);
                 
                 scriptLutin.setEstGele(true);
+                var animLutin:Animator = other.gameObject.GetComponent(Animator);
+                animLutin.enabled = false;
 		        yield WaitForSeconds(vitesseDegele);
                 if (scriptLutin) {
                     scriptLutin.setEstGele(false);
+                    animLutin.enabled = true;
                 }
             	break;
 

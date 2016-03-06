@@ -160,11 +160,11 @@ private var nbPotions:int;//potionSort
 public var PanneauBarreVieEnnemi:GameObject;
 
 /*
-* GameObject contient le texte de message pour la fonction LookAtMouse
+* GameObject contient le texte de message destiné au joueur
 * @access public
 * @var Text
 */
-public var messageLookAtMouse:Text;
+public var messageJoueur:Text;
 
 /**
 * Variable de controle du fade out
@@ -187,6 +187,13 @@ private var vitesseFade: float = 1;
 */
 private var tempsAffichageMsg: int = 2;
 
+/**
+* CanvasGroup du messageJoueur
+* @access private
+* @var CanvasGroup
+*/
+private var CanvasGroupMessageJoueur: CanvasGroup;
+
 
 function Awake () {
     DontDestroyOnLoad (transform.gameObject);
@@ -194,7 +201,12 @@ function Awake () {
 
 function Start () {
     
-	canvas = GameObject.FindWithTag("canvas");
+    CanvasGroupMessageJoueur = messageJoueur.GetComponent(CanvasGroup);
+    
+    CanvasGroupMessageJoueur.alpha = 0;
+    
+	canvas = this.gameObject;
+    
 	heros = GameObject.FindWithTag("heros");
 
     gestionscHeros = heros.GetComponent.<scHeros>();
@@ -217,27 +229,25 @@ function Start () {
 
     //:: Débuter le ALPHA des SPRITES UI
     RenderPotion1.color.a = 0.3 ;
-    //:: Aller chercher le canvas
-    canvas = GameObject.FindWithTag("canvas");
 }
 
 function Update () {
-    
+//    Debug.Log();
     //Si l'avertissement est affiché a l'écran...
-    if (messageLookAtMouse.enabled) {
+    if (messageJoueur.enabled) {
         //Si son alpha est plein...
-        if (messageLookAtMouse.GetComponent(CanvasGroup).alpha == 1) {
+        if (CanvasGroupMessageJoueur.alpha == 1) {
             TimerMsg();//Appel de fonction.
         }
         //Si le alpha est plus grand que 0...
-        if (messageLookAtMouse.GetComponent(CanvasGroup).alpha > 0) {
+        else if (CanvasGroupMessageJoueur.alpha > 0) {
             //Si le message doit fader...
             if (fadeMsg) {
-                messageLookAtMouse.GetComponent(CanvasGroup).alpha -= vitesseFade * Time.deltaTime;//Fade progressif du alpha.
+                CanvasGroupMessageJoueur.alpha -= vitesseFade * Time.deltaTime;//Fade progressif du alpha.
             }
         }
         else {
-            messageLookAtMouse.enabled = true;//Désactivation du message.
+            messageJoueur.enabled = true;//Désactivation du message.
             fadeMsg = false;//Reset de la variable de controle fadeMsg.
         }
     }
@@ -304,14 +314,33 @@ function setBarreBoss(pointsDeVieBoss:int) {
 //Affiche un message a l'utilisateur
 function afficherMessage(message: String) {
 	fadeMsg = false;
-	messageLookAtMouse.GetComponent(CanvasGroup).alpha = 1;
-	messageLookAtMouse.text = message;
-	messageLookAtMouse.enabled = true;
+	CanvasGroupMessageJoueur.alpha = 1;
+	messageJoueur.text = message;
+	messageJoueur.enabled = true;
 }
 
 //Timer a la fin duquel le message fade out.
 function TimerMsg() {
-	messageLookAtMouse.GetComponent(CanvasGroup).alpha = 0.999;//Pour ne pas que la fonction soit appelée une seconde fois d'affilé.
+	CanvasGroupMessageJoueur.alpha = 0.999;//Pour ne pas que la fonction soit appelée une seconde fois d'affilé.
 	yield WaitForSeconds (tempsAffichageMsg);
 	fadeMsg = true;
+}
+
+function OnLevelWasLoaded() {
+    
+    if (PlayerPrefs.GetInt("partieSauvegardee") == 1) {
+        PlayerPrefs.SetInt("partieSauvegardee", 0);
+        heros = GameObject.FindWithTag("heros");
+        gestionscHeros = heros.GetComponent.<scHeros>();
+
+        maxBarreHeros = gestionscHeros.santeMax;
+
+        nbVies = gestionscHeros.getNbVies();
+        nbPotions = gestionscHeros.getNbPotionsSort();
+
+        vieSlider.maxValue = maxBarreHeros;
+        EnnemiSlider.maxValue = maxBarreBoss;
+    }
+    var canvasGroupGUI:CanvasGroup = GetComponent.<CanvasGroup>();
+    canvasGroupGUI.alpha = 1;//Met le GUI-JEU visible après le chargement d'un nouveau niveau (parce qu'il est mis invisible quand on charge une sauvegarde par l'interface du menu).
 }

@@ -40,21 +40,6 @@ private var gestionscAffichage: scAffichage;
 */
 public var AudioVictoire: AudioClip;
 
-//::::::::::::::::::::://
-/*
-* Nombbre de potions de vie
-* @access private
-* @var int
-*/
-private var nbPotionVie:int = 0;
-
-/*
-* Nombre de potions pour jetter un sort
-* @access private
-* @var int
-*/
-private var nbPotionSort:int = 0;
-
 /*
 * Script pour lancer un sort
 * @access private
@@ -71,11 +56,19 @@ private var scriptHeros: scHeros;
 
 /*
 * détermine le nombre de potions de réveil ammassées par le joueur
- * Permet de loader la prochaine scenes
+* Permet de loader la prochaine scenes
 * @access private
 * @var Script
 */
- private var nbPotionsReveille = 0;
+ private var nbPotionsReveille:int = 0;
+ 
+ /*
+* Variable de contrôle pour les points de vies du boss de la sauvegarde
+* @access private
+* @var false
+*/
+ private var santeBossSauvegarde:boolean = false;
+
 
 function Awake () {
     DontDestroyOnLoad (transform.gameObject);
@@ -83,26 +76,127 @@ function Awake () {
 
 function Start () {
     
-    scriptHeros = GameObject.FindWithTag("heros").GetComponent.<scHeros>();
+    scriptHeros = GetComponent.<scHeros>();
     
     canvas = GameObject.FindWithTag("canvas");//GUI jeu
 
     //:: Chercher LES SCRIPTS JS
     gestionscAffichage=canvas.GetComponent.<scAffichage>();
     scriptLancerSort = GetComponent.<scLancerSort>();
-    
-    var camActuelle:Camera = GameObject.FindWithTag("camPrincipale").GetComponent.<Camera>();//Doit aller chercher la cam à chaque activation car elle n'est pas la même d'un niveau à l'autre.
-    var scriptLookAtMouse:scLookAtMouse = this.gameObject.GetComponent.<scLookAtMouse>();
-    scriptLookAtMouse.setCam(camActuelle);//Actualisation de la caméra dans le script LookAtMouse
 }
 
 function Update () {
+    
+    if (SceneManager.GetActiveScene().name != "tutoriel" && SceneManager.GetActiveScene().name != "gagnant" && SceneManager.GetActiveScene().name != "gameOver" && SceneManager.GetActiveScene().name != "menu" && SceneManager.GetActiveScene().name != "choixPerso") {
+        
+        //Effacer la sauvegarde
+        if (Input.GetKeyDown(KeyCode.F5)) {
+            PlayerPrefs.DeleteKey("niveau");
+            PlayerPrefs.SetInt("partieSauvegardee", 0);
+            PlayerPrefs.Save();
+            gestionscAffichage.afficherMessage("Sauvegarde effacée");
+        }
+        //Sauvegarder
+        if (Input.GetKeyDown(KeyCode.F9)) {
 
-	 //::::::envoyer le numero de potions que le heros possede vers le script de lancer un sort  et changerArme:::::::::::::::://
+            if (SceneManager.GetActiveScene().name != "tutoriel") {//On ne peut pas sauvegarder au niveau tutoriel.
+                PlayerPrefs.SetFloat("positionX", this.transform.position.x);
+                PlayerPrefs.SetFloat("positionY", this.transform.position.y);
+                PlayerPrefs.SetFloat("positionZ", this.transform.position.z);
+                PlayerPrefs.SetFloat("rotationX", this.transform.rotation.x);
+                PlayerPrefs.SetFloat("rotationY", this.transform.rotation.y);
+                PlayerPrefs.SetFloat("rotationZ", this.transform.rotation.z);
+                PlayerPrefs.SetInt("nbPotionsSort", scriptHeros.getNbPotionsSort());
+                PlayerPrefs.SetInt("nbPotionsReveil", nbPotionsReveille);
+                PlayerPrefs.SetFloat("sante", scriptHeros.getSante());
+                PlayerPrefs.SetInt("vies", scriptHeros.getVies());
+                PlayerPrefs.SetString("niveau", SceneManager.GetActiveScene().name);
+                PlayerPrefs.SetString("heros", this.gameObject.transform.name);
+                PlayerPrefs.SetString("dateSauvegarde", System.DateTime.Now.ToString());
 
-//    scriptLancerSort.noPotions = nbPotionSort;
+                if (SceneManager.GetActiveScene().name == "boss1" || SceneManager.GetActiveScene().name == "boss2") {
+                    var boss1:GameObject = GameObject.FindWithTag("boss1");
+                    if (boss1) {
+        //                Debug.Log("Boss 1");
+                        var scriptBoss1:scBoss1 = boss1.GetComponent.<scBoss1>();
+                        PlayerPrefs.SetFloat("santeBoss", scriptBoss1.getSanteBoss());
+                    }
+                    else {
+                        var boss2:GameObject = GameObject.FindWithTag("boss2");
+                        if (boss2) {
+        //                    Debug.Log("Boss 2");
+                            var scriptBoss2:scBoss2 = boss2.GetComponent.<scBoss2>();
+                            PlayerPrefs.SetFloat("santeBoss", scriptBoss2.getSanteBoss());
+                        }
+                    }
+                }
+                else if (PlayerPrefs.HasKey("santeBoss")) {
+                    PlayerPrefs.DeleteKey("santeBoss");
+                }
 
-}//FIn update
+                PlayerPrefs.Save();
+                gestionscAffichage.afficherMessage("Partie sauvegardée");
+            }
+        }
+
+        //Charger
+        if (Input.GetKeyDown(KeyCode.F12)) {
+
+            if (PlayerPrefs.HasKey("niveau")) {
+                
+                PlayerPrefs.SetInt("partieSauvegardee", 1);
+                
+                SceneManager.LoadScene(PlayerPrefs.GetString("niveau"));
+                
+                var heros: GameObject = Instantiate (Resources.Load ("Prefabs/Personnages/" + PlayerPrefs.GetString("heros"))) as GameObject;
+                var scriptGestionJeu:scGestionJeu = heros.GetComponent.<scGestionJeu>();
+                var scriptHeros:scHeros = heros.GetComponent.<scHeros>();
+
+                heros.transform.name = PlayerPrefs.GetString("heros");
+
+                PlayerPrefs.SetString("nomHeros", PlayerPrefs.GetString("heros"));
+
+                if (PlayerPrefs.HasKey("positionX")) {
+                    heros.transform.position.x = PlayerPrefs.GetFloat("positionX");
+                }
+                if (PlayerPrefs.HasKey("positionY")) {
+                    heros.transform.position.y = PlayerPrefs.GetFloat("positionY");
+                }
+                if (PlayerPrefs.HasKey("positionZ")) {
+                    heros.transform.position.z = PlayerPrefs.GetFloat("positionZ");
+                }
+                if (PlayerPrefs.HasKey("rotationX")) {
+                    heros.transform.rotation.x = PlayerPrefs.GetFloat("rotationX");
+                }
+                if (PlayerPrefs.HasKey("rotationY")) {
+                    heros.transform.rotation.y = PlayerPrefs.GetFloat("rotationY");
+                }
+                if (PlayerPrefs.HasKey("rotationZ")) {
+                    heros.transform.rotation.z = PlayerPrefs.GetFloat("rotationZ");
+                }
+                if (PlayerPrefs.HasKey("nbPotionsSort")) {
+                    scriptHeros.setNbPotionsSort(PlayerPrefs.GetInt("nbPotionsSort"));
+                }
+                if (PlayerPrefs.HasKey("nbPotionsReveil")) {
+                    scriptGestionJeu.setNbPotionsReveille(PlayerPrefs.GetInt("nbPotionsReveil"));
+                }
+                if (PlayerPrefs.HasKey("sante")) {
+                    scriptHeros.setSante(PlayerPrefs.GetFloat("sante"));
+                }
+                if (PlayerPrefs.HasKey("vies")) {
+                    scriptHeros.setVies(PlayerPrefs.GetInt("vies"));
+                }
+                if (PlayerPrefs.HasKey("santeBoss")) {
+                    scriptGestionJeu.setSanteBossSauvegarde(true);
+                }
+                Destroy(this.gameObject);
+            }
+            else {
+                gestionscAffichage.afficherMessage("Aucune partie sauvegardée");
+            }
+        }
+    }
+}//Fin update
 
 //:::::::::::::: OnTriggerEnter :::::::::::::://
 function OnTriggerEnter(other: Collider) {
@@ -133,10 +227,12 @@ function OnTriggerEnter(other: Collider) {
                 nbPotionsReveille++;
                 if (nbPotionsReveille == 1) {
                     //permet de passé au niveau deux après avoir tuer le boss niveau1
+                    PlayerPrefs.SetInt("partieSauvegardee", 0);
                     SceneManager.LoadScene("niveau2");
                 }
                 else if (nbPotionsReveille == 2) {
                     //permet de passé à la scène de fin de jeu
+                    PlayerPrefs.SetInt("partieSauvegardee", 0);
                     SceneManager.LoadScene("gagnant");
                 }
                 break;
@@ -156,4 +252,48 @@ function OnTriggerEnter(other: Collider) {
 //:::::::::::::: function jouer une fois l'AudioVictoire :::::::::::::://
 function JoueSonVictoire(){
     GetComponent.<AudioSource>().PlayOneShot(AudioVictoire);
+}
+
+function setNbPotionsReveille(nbPotions:int) {
+    nbPotionsReveille = nbPotions;
+}
+
+function getNbPotionsReveille() {
+    return nbPotionsReveille;
+}
+
+function setSanteBossSauvegarde(etat:boolean) {
+    santeBossSauvegarde = etat;
+}
+
+//Quand un niveau a fini de charger...
+function OnLevelWasLoaded() {
+    
+    if (santeBossSauvegarde) {//Si on arrive d'une sauvegarde de niveau boss...
+        var santeBoss:float = PlayerPrefs.GetFloat("santeBoss");
+        var boss1:GameObject = GameObject.FindWithTag("boss1");
+        if (boss1) {
+//            Debug.Log("Boss 1");
+            var scriptBoss1:scBoss1 = boss1.GetComponent.<scBoss1>();
+            gestionscAffichage.setBarreBoss(scriptBoss1.getSanteBoss());//Afficher le panneau + rempli barre de vie en fonction des points de vie sauvegardés du boss.
+            yield WaitForSeconds(0.1);
+            scriptBoss1.setSanteBoss(PlayerPrefs.GetFloat("santeBoss"));
+        }
+        else {
+            var boss2:GameObject = GameObject.FindWithTag("boss2");
+            if (boss2) {
+//                Debug.Log("Boss 2");
+                var scriptBoss2:scBoss2 = boss2.GetComponent.<scBoss2>();
+                gestionscAffichage.setBarreBoss(scriptBoss2.getSanteBoss());//Afficher le panneau + rempli barre de vie en fonction des points de vie sauvegardés du boss.
+                yield WaitForSeconds(0.1);
+                scriptBoss2.setSanteBoss(PlayerPrefs.GetFloat("santeBoss"));
+            }
+        }
+    }
+}
+
+//Quand on quite le jeu
+function OnApplicationQuit () {
+    
+    PlayerPrefs.SetInt("partieSauvegardee", 0);//Reset valeur à false.
 }

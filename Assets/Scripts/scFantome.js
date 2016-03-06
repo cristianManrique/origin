@@ -73,7 +73,11 @@ function Update () {
     }
 }
 function detruireFantome(){
-		//le heros aura juste quelques secondes pour voir le fantome, apres il disparraitra pour toujours
-		yield WaitForSeconds (5);
-		Destroy(this.gameObject);
+    //le heros aura juste quelques secondes pour voir le fantome, apres il disparraitra pour toujours
+    yield WaitForSeconds (5);
+    var explosion: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/explosionFantome")) as GameObject;
+    var positionExplosion = this.gameObject.transform.position;
+    positionExplosion.y += 3;
+    explosion.transform.position = positionExplosion;
+    Destroy(this.gameObject);
 }

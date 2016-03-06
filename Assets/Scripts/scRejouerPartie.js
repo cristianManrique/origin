@@ -22,7 +22,7 @@ function Update () {
 
 function rejouerUnePartie()
 {
-    SceneManager.LoadScene("niveau1");
+    SceneManager.LoadScene("choixPerso");
 }
 
 //::::::::::::::::::::function pour retourné au menu:::::::::::::://
