@@ -51,7 +51,7 @@ private var rotationVersClara:boolean = true;
 
 function Start () {
     
-    PlayerPrefs.SetString("nouveauHeros", "malcom");
+    PlayerPrefs.SetString("nomHeros", "malcom");
 }
 
 function Update() {
@@ -68,12 +68,12 @@ function switchPerso() {
     if (rotationVersClara) {
         nouvelleRotation = new Quaternion(0,180,0,0);
         rotationVersClara = false;
-        PlayerPrefs.SetString("nouveauHeros", "clara");
+        PlayerPrefs.SetString("nomHeros", "clara");
     }
     else {
         nouvelleRotation = new Quaternion(0,0,0,180);
         rotationVersClara = true;
-        PlayerPrefs.SetString("nouveauHeros", "malcom");
+        PlayerPrefs.SetString("nomHeros", "malcom");
     }
     rotationPlateforme = true;
 }

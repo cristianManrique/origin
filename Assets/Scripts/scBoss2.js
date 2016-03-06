@@ -109,7 +109,7 @@ private var destinationPatrouilleActuelle:int;
 * @access private
 * @var float
 */
-private var tempsPause : float = 3.0;
+private var tempsPause : float = 3.5;
 
 /*
 * Le temps actuel dans le jeu.
@@ -233,7 +233,7 @@ private var decalageHauteurPetitMorceauLave: float = 2.0;
 
 function Start () {
 
-    
+    animateurBoss2.SetBool('enDeplacement', true);
     //Initialisation et configuration du navMeshAgent
     navMeshBoss2 = this.gameObject.GetComponent(NavMeshAgent);
     navMeshBoss2 = GetComponentInChildren(NavMeshAgent);
@@ -274,12 +274,9 @@ function Update () {
 
         if (sauter && peutSauter) {//Si le Boss peut et doit sauter...
             peutSauter = false;//Ne pourra plus sauter.
-            animateurBoss2.SetBool('sauter', true);//Saut par animation.
+            animateurBoss2.SetTrigger('sauter');//Saut par animation.
         }
-        else {
-            animateurBoss2.SetBool('sauter', false);
-        }
-        //Les animations de deplacement sont determinees par la velocite du boss.
+        //Les animations de deplacement sont determinees par la velocite et la vitesse du boss.
         animateurBoss2.SetFloat('velociteX', navMeshBoss2.velocity.x / vitesse);
         animateurBoss2.SetFloat('velociteZ', navMeshBoss2.velocity.z / vitesse);
     }
@@ -304,6 +301,8 @@ function patrouiller () {
     if(distanceDestination <= 1) {//Si rendu a destination...
         //Arret du Boss2.
 
+        animateurBoss2.SetBool('enDeplacement', false);
+        
         if (peutSauter) {//Si le boss peut sauter...
             sauter = true;//Le Boss saute
         }
@@ -315,6 +314,7 @@ function patrouiller () {
             tempsActuel = Time.time;// Pause sur chaque destination
         }
         if ((Time.time - tempsActuel) >= tempsPause){//Si le temps de pause est ecoule...
+            animateurBoss2.SetBool('enDeplacement', true);
             destinationPatrouilleActuelle++;//Prochaine destination.
             navMeshBoss2.SetDestination(ciblePatrouille.position);
             tempsActuel = 0;//Reset du temps.
@@ -327,10 +327,9 @@ function patrouiller () {
 function mort() {
     
     navMeshBoss2.SetDestination(this.transform.position);//Brake
-    animateurBoss2.SetBool('mort', true);
+    animateurBoss2.SetTrigger('mort');
     navMeshBoss2.speed = vitesseArret;
     gestionscAffichage.AfficherPanneauBarreVieEnnemi(false);//ne pas afficher Barre de vie de Ennemi
-
 }
 
 //Détruit le boss et instancie la potion qui permet de passer au niveau suivant.
@@ -401,7 +400,12 @@ function pluieDeLave() {
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:float) {
+    
     pointsVieBoss2 -= dommages;
+    if (pointsVieBoss2 > 0) {
+        var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;
+        etoiles.transform.position = this.gameObject.transform.position;
+    }
 //    Debug.Log(pointsVieBoss2);
 }
 

@@ -88,7 +88,8 @@ function Start () {
 function Update () {
     
     if (SceneManager.GetActiveScene().name != "tutoriel" && SceneManager.GetActiveScene().name != "gagnant" && SceneManager.GetActiveScene().name != "gameOver" && SceneManager.GetActiveScene().name != "menu" && SceneManager.GetActiveScene().name != "choixPerso") {
-        //Tout effacer
+        
+        //Effacer la sauvegarde
         if (Input.GetKeyDown(KeyCode.F5)) {
             PlayerPrefs.DeleteKey("niveau");
             PlayerPrefs.SetInt("partieSauvegardee", 0);
@@ -129,6 +130,9 @@ function Update () {
                         }
                     }
                 }
+                else if (PlayerPrefs.HasKey("santeBoss")) {
+                    PlayerPrefs.DeleteKey("santeBoss");
+                }
 
                 PlayerPrefs.Save();
                 gestionscAffichage.afficherMessage("Partie sauvegardée");
@@ -143,30 +147,38 @@ function Update () {
                 PlayerPrefs.SetInt("partieSauvegardee", 1);
                 
                 SceneManager.LoadScene(PlayerPrefs.GetString("niveau"));
+                
+                var heros: GameObject = Instantiate (Resources.Load ("Prefabs/Personnages/" + PlayerPrefs.GetString("heros"))) as GameObject;
+                var scriptGestionJeu:scGestionJeu = heros.GetComponent.<scGestionJeu>();
+                var scriptHeros:scHeros = heros.GetComponent.<scHeros>();
+
+                heros.transform.name = PlayerPrefs.GetString("heros");
+
+                PlayerPrefs.SetString("nomHeros", PlayerPrefs.GetString("heros"));
 
                 if (PlayerPrefs.HasKey("positionX")) {
-                    this.transform.position.x = PlayerPrefs.GetFloat("positionX");
+                    heros.transform.position.x = PlayerPrefs.GetFloat("positionX");
                 }
                 if (PlayerPrefs.HasKey("positionY")) {
-                    this.transform.position.y = PlayerPrefs.GetFloat("positionY");
+                    heros.transform.position.y = PlayerPrefs.GetFloat("positionY");
                 }
                 if (PlayerPrefs.HasKey("positionZ")) {
-                    this.transform.position.z = PlayerPrefs.GetFloat("positionZ");
+                    heros.transform.position.z = PlayerPrefs.GetFloat("positionZ");
                 }
                 if (PlayerPrefs.HasKey("rotationX")) {
-                    this.transform.rotation.x = PlayerPrefs.GetFloat("rotationX");
+                    heros.transform.rotation.x = PlayerPrefs.GetFloat("rotationX");
                 }
                 if (PlayerPrefs.HasKey("rotationY")) {
-                    this.transform.rotation.y = PlayerPrefs.GetFloat("rotationY");
+                    heros.transform.rotation.y = PlayerPrefs.GetFloat("rotationY");
                 }
                 if (PlayerPrefs.HasKey("rotationZ")) {
-                    this.transform.rotation.z = PlayerPrefs.GetFloat("rotationZ");
+                    heros.transform.rotation.z = PlayerPrefs.GetFloat("rotationZ");
                 }
                 if (PlayerPrefs.HasKey("nbPotionsSort")) {
                     scriptHeros.setNbPotionsSort(PlayerPrefs.GetInt("nbPotionsSort"));
                 }
                 if (PlayerPrefs.HasKey("nbPotionsReveil")) {
-                    nbPotionsReveille = PlayerPrefs.GetInt("nbPotionsReveil");
+                    scriptGestionJeu.setNbPotionsReveille(PlayerPrefs.GetInt("nbPotionsReveil"));
                 }
                 if (PlayerPrefs.HasKey("sante")) {
                     scriptHeros.setSante(PlayerPrefs.GetFloat("sante"));
@@ -175,8 +187,9 @@ function Update () {
                     scriptHeros.setVies(PlayerPrefs.GetInt("vies"));
                 }
                 if (PlayerPrefs.HasKey("santeBoss")) {
-                    santeBossSauvegarde = true;
+                    scriptGestionJeu.setSanteBossSauvegarde(true);
                 }
+                Destroy(this.gameObject);
             }
             else {
                 gestionscAffichage.afficherMessage("Aucune partie sauvegardée");
@@ -214,10 +227,12 @@ function OnTriggerEnter(other: Collider) {
                 nbPotionsReveille++;
                 if (nbPotionsReveille == 1) {
                     //permet de passé au niveau deux après avoir tuer le boss niveau1
+                    PlayerPrefs.SetInt("partieSauvegardee", 0);
                     SceneManager.LoadScene("niveau2");
                 }
                 else if (nbPotionsReveille == 2) {
                     //permet de passé à la scène de fin de jeu
+                    PlayerPrefs.SetInt("partieSauvegardee", 0);
                     SceneManager.LoadScene("gagnant");
                 }
                 break;

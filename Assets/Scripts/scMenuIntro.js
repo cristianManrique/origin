@@ -317,14 +317,14 @@ function chargerSauvegarde() {
         
         SceneManager.LoadScene(PlayerPrefs.GetString("niveau"));
         
+        var gui: GameObject = Instantiate (Resources.Load ("UI/GUI-JEU")) as GameObject;
         var heros: GameObject = Instantiate (Resources.Load ("Prefabs/Personnages/" + PlayerPrefs.GetString("heros"))) as GameObject;
         var scriptGestionJeu:scGestionJeu = heros.GetComponent.<scGestionJeu>();
-        var gui: GameObject = Instantiate (Resources.Load ("UI/GUI-JEU")) as GameObject;
-        var alphaGui = gui.GetComponent.<CanvasGroup>();
         var scriptHeros:scHeros = heros.GetComponent.<scHeros>();
-        
-        alphaGui.alpha = 0;
+
         heros.transform.name = PlayerPrefs.GetString("heros");
+        
+        PlayerPrefs.SetString("nomHeros", PlayerPrefs.GetString("heros"));
         
         if (PlayerPrefs.HasKey("positionX")) {
             heros.transform.position.x = PlayerPrefs.GetFloat("positionX");
