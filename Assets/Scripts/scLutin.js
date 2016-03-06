@@ -326,6 +326,10 @@ function mortLutin()
 function updateDommages(dommages:float) 
 {
     nombreVieLutin -= dommages;
+    if (nombreVieLutin > 0) {
+        var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;
+        etoiles.transform.position = this.gameObject.transform.position;
+    }
    //Debug.Log(nombreVieLutin);
 }
 

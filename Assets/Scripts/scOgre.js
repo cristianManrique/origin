@@ -209,10 +209,7 @@ function Start () {
 function Update () {
 
     velociteHorizontale = Vector3(navMeshOgre.velocity.x, 0, navMeshOgre.velocity.z);
-
-    // The speed on the x-z plane ignoring any speed 
     var vitesseHorizontale: float = velociteHorizontale.magnitude;
-
     animateur.SetFloat('vitesse', vitesseHorizontale);
 
     if (!estGele) {//Si le lutin n'est pas gelé...
@@ -309,7 +306,12 @@ function mort() {
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:float) {
+    
     pointsVieOgre -= dommages;
+    if (pointsVieOgre > 0) {
+        var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;
+        etoiles.transform.position = this.gameObject.transform.position;
+    }
 //    Debug.Log(pointsVieOgre);
 }
 
