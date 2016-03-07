@@ -74,7 +74,7 @@ private var decalageCibleCamX:int = 30;//Détermine l'angle de la caméra
 * @access private
 * @var int
 */
-private var decalageCibleCamZ:int = 10;//Détermine l'angle de la caméra
+private var decalageCibleCamZ:int = 15;//Détermine l'angle de la caméra
 
 
 function Start () {

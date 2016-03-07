@@ -194,6 +194,13 @@ private var tempsAffichageMsg: int = 2;
 */
 private var CanvasGroupMessageJoueur: CanvasGroup;
 
+/**
+*Affiche le temps restant pour le vol en secondes
+*@var Text
+*@access public
+**/
+public var affichageTempsVol: Text;
+
 
 function Awake () {
     DontDestroyOnLoad (transform.gameObject);
@@ -201,25 +208,27 @@ function Awake () {
 
 function Start () {
     
-    CanvasGroupMessageJoueur = messageJoueur.GetComponent(CanvasGroup);
+    affichageTempsVol.enabled = false;
     
+    if (PlayerPrefs.GetInt("partieSauvegardee") == 0) {//S'il s'agit d'une nouvelle partie...
+
+        heros = GameObject.FindWithTag("heros");
+        gestionscHeros = heros.GetComponent.<scHeros>();
+
+        maxBarreHeros = gestionscHeros.santeMax;
+        restantHeros = maxBarreHeros;//Débuter
+
+        nbVies = gestionscHeros.getNbVies();
+        nbPotions = gestionscHeros.getNbPotionsSort();
+
+        vieSlider.maxValue = maxBarreHeros;
+        EnnemiSlider.maxValue = maxBarreBoss;
+    }
+    
+    CanvasGroupMessageJoueur = messageJoueur.GetComponent(CanvasGroup);
     CanvasGroupMessageJoueur.alpha = 0;
     
 	canvas = this.gameObject;
-    
-	heros = GameObject.FindWithTag("heros");
-
-    gestionscHeros = heros.GetComponent.<scHeros>();
-    
-    maxBarreHeros = gestionscHeros.santeMax;
-    
-    nbVies = gestionscHeros.getNbVies();
-    nbPotions = gestionscHeros.getNbPotionsSort();
-    
-    vieSlider.maxValue = maxBarreHeros;
-    EnnemiSlider.maxValue = maxBarreBoss;
-    
-    restantHeros = maxBarreHeros;//Débuter
     
 	//:: Chercher le composant Image dans les sprites UI 
     RenderPotion1 = potionSortImage.GetComponent.<Image>();
@@ -328,19 +337,21 @@ function TimerMsg() {
 
 function OnLevelWasLoaded() {
     
+    //En cas du chargement d'une partie sauvegardée, les liens entre les différents objets doit être créé une fois le niveau chargé, sinon Unity ne trouve pas les éléments dans le Start();
     if (PlayerPrefs.GetInt("partieSauvegardee") == 1) {
         PlayerPrefs.SetInt("partieSauvegardee", 0);
         heros = GameObject.FindWithTag("heros");
         gestionscHeros = heros.GetComponent.<scHeros>();
 
         maxBarreHeros = gestionscHeros.santeMax;
+        restantHeros = maxBarreHeros;//Débuter
 
         nbVies = gestionscHeros.getNbVies();
         nbPotions = gestionscHeros.getNbPotionsSort();
 
         vieSlider.maxValue = maxBarreHeros;
         EnnemiSlider.maxValue = maxBarreBoss;
+        var cgGUI:CanvasGroup = GetComponent.<CanvasGroup>();
+        cgGUI.alpha = 1;//Met le GUI-JEU visible après le chargement d'une sauvegarde (mit insivible au chargement par le menu pour éviter la superposition des éléments).
     }
-    var canvasGroupGUI:CanvasGroup = GetComponent.<CanvasGroup>();
-    canvasGroupGUI.alpha = 1;//Met le GUI-JEU visible après le chargement d'un nouveau niveau (parce qu'il est mis invisible quand on charge une sauvegarde par l'interface du menu).
 }
