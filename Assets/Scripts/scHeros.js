@@ -12,11 +12,11 @@
 public var santeMax:float = 100.0;
 
 /*
-* Nombre de Vie du hÃƒÂ©ros
-* @access private
+* Nombre de Vie du héros
+* @access public
 * @var GameObject
 */
-private var vies:int = 3;
+public var vies:int = 3;
 
 /*
 * Sante c'est la resistance avant de perdre une vie
@@ -26,7 +26,7 @@ private var vies:int = 3;
 private var sante:float;
 
 /**
-* Vitesse de dÃƒÂ©placement de base
+* Vitesse de déplacement de base
 * @access public
 * @var float
 */
@@ -132,41 +132,41 @@ private var gestionAffichage: scAffichage;
 
 /**
  * Pour diminuer la sante de facon progressive et constante
- * @access private
+ * @access public
  * @var float
  */
-private var vitesseDim:float = 0.2;
+public var vitesseDim:float = 0.3;
 
 /**
- * DÃƒÂ©termine si le joueur est en contact avec le sol
+ * Détermine si le joueur est en contact avec le sol
  * @access private
  * @var boolean
  */
 private var auSol:boolean = true;
 
 /**
- * Permet de calculer le temps passÃƒÂ© sur le sol
+ * Permet de calculer le temps passé sur le sol
  * @access private
  * @var float
  */
 private var tempsAuSol:float = 0.0;//temps en secondes
 
 /**
- * Permet de donner une marge de tolÃƒÂ©rence pour la propriÃƒÂ©tÃƒÂ© "auSol"
+ * Permet de donner une marge de tolérence pour la propriété "auSol"
  * @access private
  * @var float
  */
 private var toleranceAuSol:float = 0.3;//temps en secondes
 
 /**
- * DÃƒÂ©termine si le heros est en train de sauter
+ * Détermine si le heros est en train de sauter
  * @access private
  * @var float
  */
 private var enSaut:boolean = false;
 
 /**
- * DÃƒÂ©termine si l'aqnim de course doit jouer
+ * Détermine si l'aqnim de course doit jouer
  * @access private
  * @var float
  */
@@ -186,6 +186,14 @@ private var ColliderEpee: CapsuleCollider;
 */
 private var scriptLookAtMouse: scLookAtMouse;
 
+
+/**
+*Détermine la distance que le héros pourra parcourir vers le haut après avoir attrapé une fée
+*@var float
+*@access public
+**/
+ public var distanceVerticaleVol: int = 10;
+
 /*
 * Contient le AudioClip Marche
 * @access public
@@ -201,18 +209,32 @@ public var AudioWalk: AudioClip;
 public var epee: GameObject;
 
 /**
-*Vitesse de rotation du héros
-*@var float
-*@access private
-**/
- private var vitesseRotation: float = 1.5;
-
-/**
 *Le script de gestion du jeu
 *@var scGestionJeu
 *@access private
 **/
  private var scriptGestionJeu: scGestionJeu;
+
+/**
+*Détermine la hauteur maximum de vol pour le héros (variable, change à chaque nouvelle fée)
+*@var float
+*@access private
+**/
+ private var hauteurMaxVol: float = 0.0;
+
+/**
+*Détermine le temps restant pour voler
+*@var float
+*@access private
+**/
+private var tempsVolRestant: float;
+
+/**
+*Durée d'un vol (en secondes)
+*@var float
+*@access public
+**/
+public var dureeVol: int = 10;
 
 
 //:::::::::::Awake :::::::::://
@@ -225,6 +247,11 @@ function Awake()
 //:::::::::::Start :::::::::://
 function Start () 
 {
+    tempsVolRestant = dureeVol;
+    
+    var canvas:GameObject = GameObject.FindWithTag("canvas");
+    gestionAffichage = canvas.GetComponent.<scAffichage>();
+    
     scriptGestionJeu = GetComponent.<scGestionJeu>();
     TypeAudioSource = GetComponent.<AudioSource>();
     
@@ -235,6 +262,7 @@ function Start ()
         ColliderEpee = epee.GetComponent(CapsuleCollider);
     }
     scriptLookAtMouse = GetComponent(scLookAtMouse);
+    hauteurMaxVol = this.transform.position.y + distanceVerticaleVol;
 }
 
 
@@ -253,7 +281,7 @@ function Update()
 
 //:::::::::::::: GERER DEPLACEMENT :::::::::://
     
-    //Permet de donner une marge de tolÃƒÂ©rence à la propriÃƒÂ©tÃƒÂ© "auSol" qui dÃƒÂ©termine si le heros peut sauter.
+    //Permet de donner une marge de tolérence à la propriété "auSol" qui détermine si le heros peut sauter.
     //-------------------------------------
 
     if (controller.isGrounded) {
@@ -279,7 +307,7 @@ function Update()
     
 //:::::::::::::: GERER SAUT :::::::::://
     
-    if(Input.GetKeyDown('space') && !enSaut && !voler)//:: Si space est enfoncÃƒÂ© et que le heros n'est pas en train de voler
+    if(Input.GetKeyDown('space') && !enSaut && !voler)//:: Si space est enfoncé et que le heros n'est pas en train de voler
     {
         dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
         animateur.SetBool('animCourse', false);
@@ -300,7 +328,7 @@ function Update()
         
 //:::::::::::::: GERER COURSE :::::::::://
         
-        if(Input.GetKey('left shift'))
+        if(Input.GetKey('left shift') && !voler)
         {
             vitesse = vitesseCourse;
             animCourse = true;
@@ -313,33 +341,50 @@ function Update()
     
 //:::::::::::::: GERER VOLER :::::::::://
 //source rotation: http://docs.unity3d.com/ScriptReference/Transform-rotation.html
-        if(Input.GetKey(KeyCode.Z) && voler)
-        {
-            dirMouvement.y += 200 * Time.deltaTime;
-            //Debug.Log('il vole');
-            animateur.SetBool('voler', true);
-            //:: dire à l'animator d'utiliser cette variable du code
-
-            //:: Smoothly inclinaisons a transform towards a target rotation.
-            var smooth = 2.0;
-            var angleRotation = 60.0;
+        if (voler) {
             
-            var inclinaisonAutourDuX = inputY * angleRotation;
-
-            var target = Quaternion.Euler(inclinaisonAutourDuX, 0, 0);
-            // // Dampen towards the target rotation
-            this.transform.rotation = Quaternion.Slerp(transform.rotation, target,  Time.deltaTime * smooth);
-            // this.transform.rotation = Quaternion.Slerp(transform.rotation, new Quaternion (0, 0, 0, 1),  Time.deltaTime * smooth);
-        }
-
-        if(Input.GetKey(KeyCode.X) && voler)
-        {
-            dirMouvement.y -= 300*Time.deltaTime;
-            //Debug.Log('il descend');
-            animateur.SetBool('voler', false);
-            //:: dire à l'animator d'utiliser cette variable du code
-
-            reinitialiserRotation();//remettre rotation du héros à 0
+            if (tempsVolRestant >= 0) {
+                tempsVolRestant -= Time.deltaTime;
+                gestionAffichage.affichageTempsVol.text = "Vol : " + Mathf.Round(tempsVolRestant).ToString();
+            }
+            else {
+                gestionAffichage.affichageTempsVol.enabled = false;
+                animateur.SetBool('voler', false);//:: dire à l'animator d'utiliser cette variable du code
+                if (!auSol) {
+                    enSaut = true;
+                }
+                voler = false;
+            }
+            if (Input.GetKeyDown('left shift')) {
+                animateur.SetBool('saut', false);
+                animateur.SetBool('voler', true);//:: dire à l'animator d'utiliser cette variable du code
+            }
+            
+            //Monter dans les airs
+            if(Input.GetKey('left shift')) {
+                if (this.transform.position.y < hauteurMaxVol) {
+                    var monter:Vector3 = new Vector3(0,0,0);
+                    monter.x = this.transform.position.x;
+                    monter.y = hauteurMaxVol;
+                    monter.z = this.transform.position.z;
+                    transform.position = Vector3.Slerp(transform.position, monter, Time.deltaTime * 1);
+                }
+            }
+            //Descendre
+            else if (Input.GetKey(KeyCode.LeftControl)) {
+                var descendre:Vector3 = new Vector3(0,0,0);
+                descendre.x = this.transform.position.x;
+                descendre.y = 0;
+                descendre.z = this.transform.position.z;
+                transform.position = Vector3.Slerp(transform.position, descendre, Time.deltaTime * 1);
+            }
+            //Fin du vol
+            if (Input.GetKey(KeyCode.X)) {
+                gestionAffichage.affichageTempsVol.enabled = false;
+                animateur.SetBool('voler', false);//:: dire à l'animator d'utiliser cette variable du code
+                enSaut = true;
+                voler = false;
+            }
         }
     }//FIN controller    
 
@@ -351,13 +396,13 @@ function Update()
     animateur.SetBool('animCourse', animCourse);
 
     //:::::::::::::: GERER ATTAQUE :::::::::://
-    if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncÃƒÂ©
+    if(Input.GetButtonDown("Fire1"))//:: Si clic gauche est enfoncé
     {
         animateur.SetTrigger('animAttack');
         //:: dire à l'animator d'utiliser cette variable du code
     }
 
-    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncÃƒÂ©
+    if(Input.GetButtonUp("Fire1"))//:: Si clic gauche est enfoncé
     {
         animateur.SetBool('animAttack', false);
         //:: dire à l'animator d'utiliser cette variable du code
@@ -373,12 +418,15 @@ function Update()
 //:::::::::::::: OnTriggerExit :::::::::::::://
 function OnTriggerEnter(other: Collider) {
 
+//    Debug.Log(other);
     //:::::::::::::: ACTIVER Jetpack   
     if (other.gameObject.tag == 'feeVolante') 
     {
+        gestionAffichage.affichageTempsVol.enabled = true;
+        tempsVolRestant = dureeVol;
+        hauteurMaxVol = this.transform.position.y + distanceVerticaleVol;
         voler = true;// mettre a true
         Destroy(other.gameObject);
-        timerVoler();
     }
 }//FIN OnTriggerExit
 
@@ -433,18 +481,6 @@ function setVies(valeurVies:int) {
     vies = valeurVies;
 }
 
-//:::::::::::::: function qui permet de voler:::::::::://
-//Permet de limiter le vole du héros à 10 seconde
-function timerVoler()
-{
-    yield WaitForSeconds(10);
-    voler = false;
-    animateur.SetBool('voler', false);
-
-    reinitialiserRotation();//remettre rotation du héros à 0
-
-}
-
 //:::::::::::::: function getSante:::::::::://
 //Retourne la valeur de sante du heros
 function getSante() {
@@ -479,14 +515,14 @@ function augmenterSante(increment:int) {
 //function qui reduire le nb de potion sort
 function reductionPotionSort()
 {
-//condition pour rÃƒÂ©duire les potions sort
+//condition pour réduire les potions sort
     if(nbPotionSort > 0)
     {
         nbPotionSort--;  
     }
     else
     {
-        //condition pour que les potions ne soit pas en nÃƒÂ©gatif.
+        //condition pour que les potions ne soit pas en négatif.
         nbPotionSort = 0;
     }
 }
@@ -545,19 +581,7 @@ function toggleLookAtMouse() {
     gestionAffichage.afficherMessage(message);
 }
 
-//:::::::::::::: function reinitialiserRotation:::::::::://
-// Reinitialise la rotation du héros lorsqu'il ne vole pas ou descend
-function reinitialiserRotation(){
-    //:: Remettre la rotation du heros à 0 de X et Z
-    var positionInitiale = this.transform.rotation;
-    positionInitiale.x=0;
-    positionInitiale.z=0;
-    this.transform.rotation = positionInitiale;
-    var smooth = 2.0;
-}
-
-function OnLevelWasLoaded() {
-    
-    var canvas:GameObject = GameObject.FindWithTag("canvas");
-    gestionAffichage = canvas.GetComponent.<scAffichage>();
+//Méthode pour initialiser la hauteur maximum que le héros pourra atteindre en attrapant une fée
+function setHauteurMaxVol(hauteur:float) {
+    hauteurMaxVol = hauteur;
 }
