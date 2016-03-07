@@ -339,7 +339,7 @@ function OnLevelWasLoaded() {
     
     //En cas du chargement d'une partie sauvegardée, les liens entre les différents objets doit être créé une fois le niveau chargé, sinon Unity ne trouve pas les éléments dans le Start();
     if (PlayerPrefs.GetInt("partieSauvegardee") == 1) {
-        PlayerPrefs.SetInt("partieSauvegardee", 0);
+        
         heros = GameObject.FindWithTag("heros");
         gestionscHeros = heros.GetComponent.<scHeros>();
 

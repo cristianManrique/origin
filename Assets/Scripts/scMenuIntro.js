@@ -131,10 +131,10 @@ private var canvasGroupSauvegardes:CanvasGroup;
 
 function Start() {
 
-    if (PlayerPrefs.HasKey("niveau")) {
+    if (PlayerPrefs.HasKey("niveau")) {//Si un niveau a été enregistré...
         
         var affichageNiveau:String = "";
-        switch (PlayerPrefs.GetString("niveau")) {
+        switch (PlayerPrefs.GetString("niveau").ToLower()) {//On met en minuscule (pour régler un bug où des fois Unity met une majuscule au nom)
             case "niveau1":
                 affichageNiveau = "Niveau 1";
                 break;
