@@ -86,7 +86,7 @@ function Start () {
 }
 
 function Update () {
-    
+
     if (SceneManager.GetActiveScene().name != "tutoriel" && SceneManager.GetActiveScene().name != "gagnant" && SceneManager.GetActiveScene().name != "gameOver" && SceneManager.GetActiveScene().name != "menu" && SceneManager.GetActiveScene().name != "choixPerso") {
         
         //Effacer la sauvegarde
@@ -110,11 +110,11 @@ function Update () {
                 PlayerPrefs.SetInt("nbPotionsReveil", nbPotionsReveille);
                 PlayerPrefs.SetFloat("sante", scriptHeros.getSante());
                 PlayerPrefs.SetInt("vies", scriptHeros.getVies());
-                PlayerPrefs.SetString("niveau", SceneManager.GetActiveScene().name);
+                PlayerPrefs.SetString("niveau", SceneManager.GetActiveScene().name.ToLower());
                 PlayerPrefs.SetString("heros", this.gameObject.transform.name);
                 PlayerPrefs.SetString("dateSauvegarde", System.DateTime.Now.ToString());
 
-                if (SceneManager.GetActiveScene().name == "boss1" || SceneManager.GetActiveScene().name == "boss2") {
+                if (SceneManager.GetActiveScene().name.ToLower() == "boss1" || SceneManager.GetActiveScene().name.ToLower() == "boss2") {
                     var boss1:GameObject = GameObject.FindWithTag("boss1");
                     if (boss1) {
         //                Debug.Log("Boss 1");
