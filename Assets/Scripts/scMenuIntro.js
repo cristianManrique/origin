@@ -318,6 +318,8 @@ function chargerSauvegarde() {
         SceneManager.LoadScene(PlayerPrefs.GetString("niveau"));
         
         var gui: GameObject = Instantiate (Resources.Load ("UI/GUI-JEU")) as GameObject;
+        var cgGUI:CanvasGroup = gui.GetComponent(CanvasGroup);
+        cgGUI.alpha = 0;
         var heros: GameObject = Instantiate (Resources.Load ("Prefabs/Personnages/" + PlayerPrefs.GetString("heros"))) as GameObject;
         var scriptGestionJeu:scGestionJeu = heros.GetComponent.<scGestionJeu>();
         var scriptHeros:scHeros = heros.GetComponent.<scHeros>();

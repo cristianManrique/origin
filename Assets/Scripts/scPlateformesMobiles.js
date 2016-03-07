@@ -69,10 +69,10 @@ function Update () {
         changerDirection();//Si la limite haut ou bas est atteinte, la plateforme change de direction.
     }
     if (directionHaut) {
-        this.transform.Translate(Vector3.up * Time.deltaTime * vitesse, Space.World);//Monte
         if (herosSurPlateforme) {
             heros.transform.Translate(Vector3.up * Time.deltaTime * vitesse, Space.World);//Fait monter le heros s'il est sur la plateforme (pour rendre le mouvement plus fluide).
         }
+        this.transform.Translate(Vector3.up * Time.deltaTime * vitesse, Space.World);//Monte
     }
     else {
         this.transform.Translate(Vector3.down * Time.deltaTime * vitesse, Space.World);//Descend

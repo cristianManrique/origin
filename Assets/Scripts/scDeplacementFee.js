@@ -44,6 +44,13 @@ var limitZmin: float;
 **/
 private var positionActuel: Vector3;
 
+/**
+*Détermine si le déplacement de la fée peut commencer.
+*@var boolean
+*@access private
+**/
+private var deplacement:boolean;
+
 //private var rotationCible: Quaternion;
 
 //private var rotationActuel: Quaternion; 
@@ -71,35 +78,44 @@ function Start () {
 
 	incrementY = .5;
 
+    debutRandomMouvement();
 }
 
 function FixedUpdate () {
 
-	positionActuel.x += velX;
+    if (deplacement) {//Si la fée peut se déplacer...
+        positionActuel.x += velX;
 
-	//positionActuel en axe verticale egale a la somme du produit de l'angle cree entre la position anterieur et l'incrementY, calcule a chaque frame
-	positionActuel.y += Mathf.Sin(Time.deltaTime * velY)*incrementY;
+        //positionActuel en axe verticale egale a la somme du produit de l'angle cree entre la position anterieur et l'incrementY, calcule a chaque frame
+        positionActuel.y += Mathf.Sin(Time.deltaTime * velY)*incrementY;
 
-	positionActuel.z += velZ;
+        positionActuel.z += velZ;
 
-	//rotationCible= Quaternion.LookRotation(positionActuel);
-	//rotationActuel = transform.localRotation;
+        //rotationCible= Quaternion.LookRotation(positionActuel);
+        //rotationActuel = transform.localRotation;
 
-	// si la fee atteint les limites predetermines, elle changera de direction
-	if(positionActuel.x <=limitXmin || positionActuel.x >= limitXmax){
-		velX = velX * -1;
-	}
+        // si la fee atteint les limites predetermines, elle changera de direction
+        if(positionActuel.x <=limitXmin || positionActuel.x >= limitXmax){
+            velX = velX * -1;
+        }
 
-	if (positionActuel.y <=limitYmin || positionActuel.y >= limitYmax){
-		velY = velY * -1;
-	}
-	if(positionActuel.z <= limitZmin || positionActuel.z >= limitZmax){
-		velZ = velZ * -1;
-	}
+        if (positionActuel.y <=limitYmin || positionActuel.y >= limitYmax){
+            velY = velY * -1;
+        }
+        if(positionActuel.z <= limitZmin || positionActuel.z >= limitZmax){
+            velZ = velZ * -1;
+        }
 
-	//mise a jour de la position
-	//transform.localRotation = Quaternion.Slerp(rotationActuel, rotationCible, Time.deltaTime);
+        //mise a jour de la position
+        //transform.localRotation = Quaternion.Slerp(rotationActuel, rotationCible, Time.deltaTime);
 
-	transform.position = positionActuel;
+        transform.position = positionActuel;
+    }
+}
 
+//Détermine quand la fée commence à bouger (pour désynchroniser leurs mouvements quand il y en a plusieurs à proximité)
+function debutRandomMouvement() {
+    var chiffreRandom = Random.Range(0, 2);
+    yield WaitForSeconds(chiffreRandom);
+    deplacement = true;
 }
