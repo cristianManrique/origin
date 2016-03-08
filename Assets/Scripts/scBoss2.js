@@ -438,11 +438,11 @@ function updateDommages(dommages:float) {
 	sourceSon.PlayOneShot(sonBlesse);
     
     pointsVieBoss2 -= dommages;
-    if (pointsVieBoss2 > 0) {
+    if (estVivant) {
         var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;
         etoiles.transform.position = this.gameObject.transform.position;
-    }
 //    Debug.Log(pointsVieBoss2);
+    }
 }
 
 //Gèle et dégèle l'ennemi avant et après avoir été touché par un sort

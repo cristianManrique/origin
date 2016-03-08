@@ -38,11 +38,11 @@ public var texteSauvegarde2:Text;
 public var panneauSauvegardes:GameObject;
 
 /**
-* panneau UI des options du jeu
+* panneau UI des crédits du jeu
 * @access public
 * @var GameObject
 */
-public var panneauOptions:GameObject;
+public var panneauEquipe:GameObject;
 
 /**
 * vitesse du fade in/out
@@ -73,11 +73,11 @@ private var opaque:float = 1;
 private var panneauCreditsFade:boolean = false;
 
 /**
-* Détermine si le panneau des options doit être fadé
+* Détermine si le panneau des crédits doit être fadé
 * @access private
 * @var boolean
 */
-private var panneauOptionsFade:boolean = false;
+private var panneauEquipeFade:boolean = false;
 
 /**
 * Détermine si le panneau des sauvegardes doit être fadé
@@ -94,11 +94,11 @@ private var panneauSauvegardesFade:boolean = false;
 private var panneauCreditsFadeIn:boolean = false;
 
 /**
-* Détermine si le panneau des options doit être fadé IN
+* Détermine si le panneau des crédits doit être fadé IN
 * @access private
 * @var boolean
 */
-private var panneauOptionsFadeIn:boolean = false;
+private var panneauEquipeFadeIn:boolean = false;
 
 /**
 * Détermine si le panneau des sauvegardes doit être fadé IN
@@ -115,11 +115,11 @@ private var panneauSauvegardesFadeIn:boolean = false;
 private var canvasGroupCredits:CanvasGroup;
 
 /**
-* Composante CanvasGroup du panneau des options
+* Composante CanvasGroup du panneau des crédits
 * @access private
 * @var CanvasGroup
 */
-private var canvasGroupOptions:CanvasGroup;
+private var canvasGroupEquipe:CanvasGroup;
 
 /**
 * Composante CanvasGroup du panneau des sauvegardes
@@ -131,10 +131,10 @@ private var canvasGroupSauvegardes:CanvasGroup;
 
 function Start() {
 
-    if (PlayerPrefs.HasKey("niveau")) {
+    if (PlayerPrefs.HasKey("niveau")) {//Si un niveau a été enregistré...
         
         var affichageNiveau:String = "";
-        switch (PlayerPrefs.GetString("niveau")) {
+        switch (PlayerPrefs.GetString("niveau").ToLower()) {//On met en minuscule (pour régler un bug où des fois Unity met une majuscule au nom)
             case "niveau1":
                 affichageNiveau = "Niveau 1";
                 break;
@@ -157,18 +157,18 @@ function Start() {
     }
     //Initialisation du CanvasGroup de chaque panneau
     canvasGroupCredits = panneauCredits.GetComponent(CanvasGroup);
-    canvasGroupOptions = panneauOptions.GetComponent(CanvasGroup);
+    canvasGroupEquipe = panneauEquipe.GetComponent(CanvasGroup);
     canvasGroupSauvegardes = panneauSauvegardes.GetComponent(CanvasGroup);
     
     //Initialisation du alpha de chaque panneau à transparent
     canvasGroupCredits.alpha = transparent;
-    canvasGroupOptions.alpha = transparent;
+    canvasGroupEquipe.alpha = transparent;
     canvasGroupSauvegardes.alpha = transparent;
     
     //Désactivation de tous les panneaux
     panneauCredits.SetActive(false);
     panneauSauvegardes.SetActive(false);
-    panneauOptions.SetActive(false);
+    panneauEquipe.SetActive(false);
 }
 
 function Update() {
@@ -194,23 +194,23 @@ function Update() {
         }
     }
     
-    if (panneauOptionsFade) {//Si le panneau options doit fader...
-        if (panneauOptionsFadeIn) {//Si FADE IN...
-            if (canvasGroupOptions.alpha < opaque) {//Si l'alpha n'est pas complètement opaque...
-                canvasGroupOptions.alpha += vitesseFade * Time.deltaTime;//Diminution progressive de la valeur de l'alpha.
+    if (panneauEquipeFade) {//Si le panneau crédits doit fader...
+        if (panneauEquipeFadeIn) {//Si FADE IN...
+            if (canvasGroupEquipe.alpha < opaque) {//Si l'alpha n'est pas complètement opaque...
+                canvasGroupEquipe.alpha += vitesseFade * Time.deltaTime;//Diminution progressive de la valeur de l'alpha.
             }
             else {
-                canvasGroupOptions.alpha = opaque;//Alpha opaque.
+                canvasGroupEquipe.alpha = opaque;//Alpha opaque.
             }
         }
         else {//Si FADE OUT...
-            if (canvasGroupOptions.alpha > transparent) {//Si l'alpha n'est pas complètement opaque...
-                canvasGroupOptions.alpha -= vitesseFade * Time.deltaTime;
+            if (canvasGroupEquipe.alpha > transparent) {//Si l'alpha n'est pas complètement opaque...
+                canvasGroupEquipe.alpha -= vitesseFade * Time.deltaTime;
             }
             else {
-                canvasGroupOptions.alpha = transparent;//Alpha transparent.
-                panneauOptions.SetActive(false);//Désactivation du panneau.
-                panneauOptionsFade = false;//Le panneau crédits ne doit pas fader.
+                canvasGroupEquipe.alpha = transparent;//Alpha transparent.
+                panneauEquipe.SetActive(false);//Désactivation du panneau.
+                panneauEquipeFade = false;//Le panneau crédits ne doit pas fader.
             }
         }
     }
@@ -255,8 +255,8 @@ function demarrerJeu() {
 function afficherCredits() {
     
     EventSystem.current.SetSelectedGameObject(null, null);
-    if (panneauOptions.activeSelf || panneauSauvegardes.activeSelf) {//Si un autre panneau est déjà visible...
-        panneauOptionsFadeIn = false;
+    if (panneauEquipe.activeSelf || panneauSauvegardes.activeSelf) {//Si un autre panneau est déjà visible...
+        panneauEquipeFadeIn = false;
         panneauSauvegardesFadeIn = false;
     }
     
@@ -271,31 +271,31 @@ function afficherCredits() {
     panneauCreditsFade = true;//Pour fader le panneau dans la méthode Update().
 }
 
-//Méthode qui affiche le panneau des options et au besoin cache les autres panneaux ouverts.
-function afficherOptions() {
+//Méthode qui affiche le panneau des crédits et au besoin cache les autres panneaux ouverts.
+function afficherEquipe() {
     
     EventSystem.current.SetSelectedGameObject(null, null);
     if (panneauCredits.activeSelf || panneauSauvegardes.activeSelf) {//Si un autre panneau est déjà visible...
         panneauCreditsFadeIn = false;
         panneauSauvegardesFadeIn = false;
     }
-    if (panneauOptionsFadeIn) {
-        panneauOptionsFadeIn = false;
+    if (panneauEquipeFadeIn) {
+        panneauEquipeFadeIn = false;
     }
     else {
-        panneauOptions.SetActive(true);
-        panneauOptionsFadeIn = true;
+        panneauEquipe.SetActive(true);
+        panneauEquipeFadeIn = true;
     }
-    panneauOptionsFade = true;//Pour fader le panneau dans la méthode Update().
+    panneauEquipeFade = true;//Pour fader le panneau dans la méthode Update().
 }
 
 //Méthode qui affiche le panneau des sauvegardes et au besoin cache les autres panneaux ouverts.
 function afficherSauvegardes() {
     
     EventSystem.current.SetSelectedGameObject(null, null);
-    if (panneauCredits.activeSelf || panneauOptions.activeSelf) {//Si un autre panneau est déjà visible...
+    if (panneauCredits.activeSelf || panneauEquipe.activeSelf) {//Si un autre panneau est déjà visible...
         panneauCreditsFadeIn = false;
-        panneauOptionsFadeIn = false;
+        panneauEquipeFadeIn = false;
     }
     if (panneauSauvegardesFadeIn) {
         panneauSauvegardesFadeIn = false;
