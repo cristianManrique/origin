@@ -70,11 +70,11 @@
      <Compile Include="Assets\Scripts\scGelerEnnemi.js" />
      <Compile Include="Assets\Scripts\scGestionChoixPerso.js" />
      <Compile Include="Assets\Scripts\scGestionJeu.js" />
+     <Compile Include="Assets\Scripts\scGestionMusique.js" />
      <Compile Include="Assets\Scripts\scGestionNiveau1.js" />
      <Compile Include="Assets\Scripts\scGestionNiveau2.js" />
      <Compile Include="Assets\Scripts\scGestionNiveauBoss1.js" />
      <Compile Include="Assets\Scripts\scGestionNiveauBoss2.js" />
-     <Compile Include="Assets\Scripts\scGestionSauvegarde.js" />
      <Compile Include="Assets\Scripts\scGestionTuto.js" />
      <Compile Include="Assets\Scripts\scGrosProjectileBoss1.js" />
      <Compile Include="Assets\Scripts\scGrosProjectileBoss2.js" />
@@ -136,6 +136,7 @@
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
+     <None Include="Assets\Fantasy SFX for Particle Distort Texture effect library\readme_Fantasy SFX for Particle Distort Texture effect library.txt" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />

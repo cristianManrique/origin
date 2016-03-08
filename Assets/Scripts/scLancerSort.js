@@ -51,6 +51,20 @@ private var heros: GameObject;
 */
 private var scriptHeros:scHeros;
 
+/*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonLancerSort: AudioClip;
+
 
 //:::::::::::Awake :::::::::://
 function Awake()
@@ -67,6 +81,7 @@ function Awake()
 function Start () {
 
 	scriptHeros = heros.GetComponent.<scHeros>();
+	sourceSon = GetComponent.<AudioSource>();
 }
 
 function Update () {
@@ -82,7 +97,7 @@ function Update () {
 
 //Lance un sort - appelé par un animator event
 function lancerUnSort() {
-    
+    sourceSon.PlayOneShot(sonLancerSort);
     //:: Instancier un projectile sort
     var sort: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPrefabs/bouleBleue")) as GameObject;
     Physics.IgnoreCollision(sort.GetComponent.<Collider>(), heros.GetComponent.<Collider>());//Ignore les collisions entre le heros et le projectile

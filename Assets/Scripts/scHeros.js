@@ -94,6 +94,24 @@ private var voler: boolean = false;
 
 //::::::::::::::::::::://
 /**
+* Indiquer si est en train de marcher
+* @access private
+* @var boolean
+*/
+private var marcher: boolean = false;
+
+
+//::::::::::::::::::::://
+/**
+* Indiquer si est en train de courir
+* @access private
+* @var boolean
+*/
+//private var courir: boolean = false;
+
+
+//::::::::::::::::::::://
+/**
 * Contient le controleur d'animation
 * @access public
 * @var Animator
@@ -108,11 +126,11 @@ private var animateur: Animator;
 private var controller:CharacterController;
 
 /*
-* le Type AudioSource
+* composant de la source d'audio
 * @access private
 * @var AudioSource
 */
-private var TypeAudioSource:AudioSource;
+private var sourceSon:AudioSource;
 
 //::::::::::::::::::::://
 /*
@@ -195,11 +213,32 @@ private var scriptLookAtMouse: scLookAtMouse;
  public var distanceVerticaleVol: int = 10;
 
 /*
-* Contient le AudioClip Marche
+* Contient le son saut
 * @access public
 * @var AudioClip
 */
-public var AudioWalk: AudioClip;
+public var sonSaut: AudioClip;
+
+/*
+* Contient le son debut vol
+* @access public
+* @var AudioClip
+*/
+public var sonDebutVol: AudioClip;
+
+/*
+* Contient le son fin vol
+* @access public
+* @var AudioClip
+*/
+public var sonFinVol: AudioClip;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonBlesse: AudioClip;
 
 /*
 * Pointe de l'epee de Malcom
@@ -253,7 +292,7 @@ function Start ()
     gestionAffichage = canvas.GetComponent.<scAffichage>();
     
     scriptGestionJeu = GetComponent.<scGestionJeu>();
-    TypeAudioSource = GetComponent.<AudioSource>();
+    sourceSon = GetComponent.<AudioSource>();
     
     if (PlayerPrefs.GetInt("partieSauvegardee") == 0) {//Si le jeu n'est pas une sauvegarde...
         sante = santeMax;
@@ -275,6 +314,7 @@ function Update()
     
     if(vies == 0)
     {
+    	
         PlayerPrefs.SetInt("partieSauvegardee", 0);
         SceneManager.LoadScene("gameOver");
     }
@@ -312,6 +352,9 @@ function Update()
         dirMouvement.y = vitesseSaut; // Calcul du mouvement saut
         animateur.SetBool('animCourse', false);
         animateur.SetBool('saut', true);
+       
+        sourceSon.PlayOneShot(sonSaut);
+       
         inputY = 0;//Pour ameliorer l'animation
         enSaut = true;
     }
@@ -325,6 +368,7 @@ function Update()
         //:: dire à l'animator d'utiliser cette variable du code
         dirMouvement = transform.TransformDirection(dirMouvement);
         dirMouvement *= vitesse;
+
         
 //:::::::::::::: GERER COURSE :::::::::://
         
@@ -337,6 +381,7 @@ function Update()
         {
             vitesse = vitesseMarche;
             animCourse = false;
+           
         }
     
 //:::::::::::::: GERER VOLER :::::::::://
@@ -378,13 +423,19 @@ function Update()
                 descendre.z = this.transform.position.z;
                 transform.position = Vector3.Slerp(transform.position, descendre, Time.deltaTime * 1);
             }
+            if(tempsVolRestant > 0  && tempsVolRestant< 0.1){
+            	sourceSon.clip = sonFinVol;
+            	sourceSon.Play();
+            }
             //Fin du vol
             if (Input.GetKey(KeyCode.X)) {
                 gestionAffichage.affichageTempsVol.enabled = false;
                 animateur.SetBool('voler', false);//:: dire à l'animator d'utiliser cette variable du code
                 enSaut = true;
                 voler = false;
+
             }
+          
         }
     }//FIN controller    
 
@@ -421,7 +472,10 @@ function OnTriggerEnter(other: Collider) {
 //    Debug.Log(other);
     //:::::::::::::: ACTIVER Jetpack   
     if (other.gameObject.tag == 'feeVolante') 
-    {
+    {   	
+      
+        sourceSon.PlayOneShot(sonDebutVol);
+
         gestionAffichage.affichageTempsVol.enabled = true;
         tempsVolRestant = dureeVol;
         hauteurMaxVol = this.transform.position.y + distanceVerticaleVol;
@@ -459,6 +513,10 @@ function AugmenteVies() {
 //Lorsque le héros est attaqué, cette function lui afflige des dommages à la barre de vie
 function updateDommages(dommagesInfliges:int) {
    //Debug.Log("heros touche, baisse de : " + dommagesInfliges);
+
+   		sourceSon.playOnAwake = false;
+        sourceSon.loop = false;
+        sourceSon.PlayOneShot(sonBlesse);
     
     var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesHerosTouche")) as GameObject;
     etoiles.transform.position = this.gameObject.transform.position;
@@ -585,3 +643,4 @@ function toggleLookAtMouse() {
 function setHauteurMaxVol(hauteur:float) {
     hauteurMaxVol = hauteur;
 }
+

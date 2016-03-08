@@ -230,6 +230,34 @@ private var decalageHauteurPetitMorceauLave: float = 2.0;
 */
  private var estGele: boolean;
 
+ /*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonBlesse: AudioClip;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonMort: AudioClip;
+
+/*
+* Son produit quand la boule eclat
+* @access public
+* @var AudioClip
+*/
+public var sonEclater: AudioClip;
+
 
 function Start () {
 
@@ -247,6 +275,8 @@ function Start () {
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
     gestionscAffichage.setBarreBoss(pointsVieBoss2);//Afficher le panneau + rempli barre de vie en fonction des points de vie du boss.
+
+    sourceSon = GetComponent.<AudioSource>();
 }
 
 function Update () {
@@ -325,7 +355,9 @@ function patrouiller () {
 
 //Methode qui determine ce qui arrive quand le Boss2 est tue, soit sa destruction et l'apparition d'une recompense.
 function mort() {
-    
+
+	sourceSon.PlayOneShot(sonMort);
+	    
     navMeshBoss2.SetDestination(this.transform.position);//Brake
     animateurBoss2.SetTrigger('mort');
     navMeshBoss2.speed = vitesseArret;
@@ -396,10 +428,14 @@ function pluieDeLave() {
     petitMorceauLave3.transform.position = grosMorceauLave.transform.position;
     petitMorceauLave3.transform.position.z = grosMorceauLave.transform.position.z + Random.Range(-decalagePositionPetitMorceauLave, decalagePositionPetitMorceauLave);
     petitMorceauLave3.transform.position.y = grosMorceauLave.transform.position.y + Random.Range(0, decalageHauteurPetitMorceauLave); 
+
+    sourceSon.PlayOneShot(sonEclater);
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:float) {
+
+	sourceSon.PlayOneShot(sonBlesse);
     
     pointsVieBoss2 -= dommages;
     if (pointsVieBoss2 > 0) {
