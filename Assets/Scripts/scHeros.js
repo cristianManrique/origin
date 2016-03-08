@@ -408,6 +408,9 @@ function Update()
         //:: dire à l'animator d'utiliser cette variable du code
     }
     
+  
+    
+    
     if(Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(2)) {
         toggleLookAtMouse();
     }
