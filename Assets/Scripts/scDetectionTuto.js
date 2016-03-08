@@ -23,8 +23,6 @@ public var canvasTuto: GameObject;
 
 
 
-
-
 function Start() {
     gestionscAffichageTuto=canvasTuto.GetComponent.<scAffichageTuto>();//:: Chercher LE SCRIPT
 }
@@ -32,7 +30,7 @@ function Start() {
 //:::::::::::::: OnTriggerEnter ::::::::::::::
 function OnTriggerEnter(other: Collider) {
     
- 
+//    Debug.Log(other.gameObject.tag);
     if(other.gameObject.tag)
     {
         switch(other.gameObject.tag)
