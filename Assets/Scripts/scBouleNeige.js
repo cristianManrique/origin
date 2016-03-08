@@ -42,12 +42,28 @@ private var scriptHeros: scHeros;
 **/
  public var explosionNeige: GameObject;
 
+ /*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Son produit quand la boule eclat
+* @access public
+* @var AudioClip
+*/
+public var sonEclater: AudioClip;
+
 
 function Start () {
 	puissance = 8000;
 	rbBoule = GetComponent.<Rigidbody>();
 	rbBoule.AddRelativeForce(Vector3.forward * puissance, ForceMode.Impulse);
 	rbBoule.AddRelativeTorque((puissance),0,0, ForceMode.Impulse);
+
+	sourceSon = GetComponent.<AudioSource>();
 }
 
 
@@ -56,10 +72,12 @@ function Start () {
 function OnTriggerEnter(autreObjet: Collider) {
 
     if (autreObjet.tag == "heros") {
+
+    	sourceSon.PlayOneShot(sonEclater);
         scriptHeros = autreObjet.gameObject.GetComponent(scHeros);
         scriptHeros.updateDommages(dommages);
 
-
+        yield WaitForSeconds(sourceSon.clip.length);
 		 var explosion: GameObject = Instantiate (explosionNeige, transform.position , transform.rotation) as GameObject;//La boule eclat si elle touche le heros
     		
     
@@ -71,6 +89,7 @@ function OnTriggerEnter(autreObjet: Collider) {
 
 
  }
+
 
 
  Destroy(this.gameObject,20);

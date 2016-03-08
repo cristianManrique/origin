@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5F16780F-EBAF-F907-76D8-5E4063C9DA8E}</ProjectGuid>
+    <ProjectGuid>{847B753F-2FAE-B809-7BB1-DC6CC8395BAE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -42,10 +42,17 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
+<<<<<<< HEAD
       <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+=======
+      <HintPath>C:/Unity 5.3.1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:/Unity 5.3.1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+>>>>>>> upstream/master
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -144,18 +151,29 @@
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="UnityEngine.UI">
+<<<<<<< HEAD
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+=======
+ <HintPath>C:/Unity 5.3.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>C:/Unity 5.3.1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+>>>>>>> upstream/master
  </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Project>{D11B749F-F2B4-3FC3-A81C-5C3C1AB9A6BC}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
 =======
       <Project>{D11B749F-F2B4-3FC3-A81C-5C3C1AB9A6BC}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+>>>>>>> upstream/master
+=======
+      <Project>{0CBC3EFA-F33C-8303-5EDD-0FA54A9FB87D}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
 >>>>>>> upstream/master
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

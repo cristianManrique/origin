@@ -20,9 +20,29 @@ private var dommagesInfliges:int = 10;
 */
 private var scriptHeros:scHeros;
 
+/*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Contient le son quand de il frappe le heros
+* @access public
+* @var AudioClip
+*/
+public var sonFrapper: AudioClip;
+
+function Start(){
+
+	sourceSon = GetComponent.<AudioSource>();
+}
+
 //Infliges des dommages au héros quand la massue le touche.
 function OnTriggerEnter(autreObjet:Collider) {
     if (autreObjet.tag == "heros") {
+    	sourceSon.PlayOneShot(sonFrapper);
 //        Debug.Log(autreObjet.gameObject);
         scriptHeros = autreObjet.gameObject.GetComponent(scHeros);
         scriptHeros.updateDommages(dommagesInfliges);

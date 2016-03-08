@@ -1,14 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scInstantiateAvalanche.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\scOgre.js">
     <Files>
-      <File FileName="Assets\Scripts\scDeplacerStalag.js" Line="2" Column="1" />
-      <File FileName="Assets\Scripts\scStalagGlace.js" Line="4" Column="26" />
-      <File FileName="Assets\Scripts\scExplosionGlace.js" Line="22" Column="111" />
-      <File FileName="Assets\Scripts\scBouleNeige.js" Line="64" Column="7" />
-      <File FileName="Assets\Scripts\scInstantiateAvalanche.js" Line="73" Column="25" />
-      <File FileName="Assets\Scripts\scGrosProjectileBoss1.js" Line="18" Column="60" />
-      <File FileName="Assets\Scripts\scHeros.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scBoss1.js" Line="245" Column="33" />
+      <File FileName="Assets\Scripts\scBoss2.js" Line="432" Column="39" />
+      <File FileName="Assets\Scripts\scBouleFeu.js" Line="8" Column="3" />
+      <File FileName="Assets\Scripts\scGestionNiveauBoss1.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scGestionJeu.js" Line="209" Column="27" />
+      <File FileName="Assets\Scripts\scGestionMusique.js" Line="82" Column="17" />
+      <File FileName="Assets\Scripts\scToggleMusique.js" Line="19" Column="1" />
+      <File FileName="Assets\Scripts\scOgre.js" Line="325" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -188,7 +188,26 @@ private var colliderMassue: Collider;
 */
 private var distanceArret: float = 2.0;
 
+/*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
 
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonBlesse: AudioClip;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonMort: AudioClip;
 
 function Start () {
 
@@ -204,6 +223,8 @@ function Start () {
 
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
+
+    sourceSon = GetComponent.<AudioSource>();
 }
 
 function Update () {
@@ -221,6 +242,8 @@ function Update () {
         }
         else if (distanceHeros < distancePoursuite) {//Si le héros est assez près pour être poursuivi...
             //Debug.Log("poursuite");
+           
+
             poursuivre();
         }
         else {//Si le héros n'est pas suffisamment près...
@@ -261,6 +284,7 @@ function frapper () {
 
 //Méthode de poursuite de l'ogre.
 function poursuivre () {
+	
     navMeshOgre.speed = vitessePoursuite;
     navMeshOgre.SetDestination(cible.transform.position);//Poursuite du héros.
 }
@@ -297,6 +321,8 @@ function patrouiller () {
 
 //Méthode qui détermine ce qui arrive quand l'ogre est tué, soit sa destruction et l'apparition d'une récompense.
 function mort() {
+
+	sourceSon.PlayOneShot(sonMort);
     var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesRecompense")) as GameObject;
     etoiles.transform.position = this.gameObject.transform.position;
     var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/gateau")) as GameObject;
@@ -306,7 +332,9 @@ function mort() {
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:float) {
-    
+
+	sourceSon.PlayOneShot(sonBlesse);
+
     pointsVieOgre -= dommages;
     if (pointsVieOgre > 0) {
         var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;
