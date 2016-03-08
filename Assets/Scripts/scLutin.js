@@ -149,6 +149,27 @@ private var scriptHeros: scHeros;
 */
 private var animateurLutin: Animator;
 
+/*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonBlesse: AudioClip;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonRire: AudioClip;
+
 
 function Start () {
 //initialisation du temps de délai aléatoire avant de changer de direction.
@@ -164,6 +185,8 @@ function Start () {
     vitesse = vitesseMarche;
     //permet d'avoir l'animateur pour l'animation du personnage.
     animateurLutin = this.gameObject.GetComponent.<Animator>();
+
+    sourceSon = GetComponent.<AudioSource>();
 }
 
 function Update () {
@@ -221,6 +244,8 @@ function OnTriggerEnter(autreObjet:Collider)
         }
 	//Il y a contact avec le heros.
 		contactHeros=true;
+
+		sourceSon.PlayOneShot(sonRire);
 		
 //		Debug.Log(quantitePotionSort);
 	}	
@@ -312,6 +337,8 @@ function deplacementLutin()
 
 function mortLutin()
 	{
+
+		sourceSon.PlayOneShot(sonBlesse);
         var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesRecompense")) as GameObject;
         etoiles.transform.position = this.gameObject.transform.position;
 		var bonus:GameObject = Instantiate (Resources.Load ("Prefabs/Objets/potionSort")) as GameObject;
@@ -325,6 +352,8 @@ function mortLutin()
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:float) 
 {
+	sourceSon.PlayOneShot(sonBlesse);
+	
     nombreVieLutin -= dommages;
     if (nombreVieLutin > 0) {
         var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;

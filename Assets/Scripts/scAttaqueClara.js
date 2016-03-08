@@ -55,6 +55,20 @@ private var heros: GameObject;
 
 private var GroupesProjectiles:GameObject[];
 
+/*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonLancerBoule: AudioClip;
+
 
 function Awake()
 {
@@ -69,12 +83,14 @@ function Awake()
 //:::::::::::Start :::::::::://
 function Start () {
 
-	
+	sourceSon = GetComponent.<AudioSource>();
 }
 
 //:::::::::::::: function lancer ::::::::::// 
 function lancerBoule() {
 //    Debug.Log("lanceBoule");
+
+	sourceSon.PlayOneShot(sonLancerBoule);
     //:: Instancier un projectile sort
     var boule: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPrefabs/bouleFeux")) as GameObject;
     Physics.IgnoreCollision(boule.GetComponent.<Collider>(), this.GetComponent.<Collider>());//Ignore les collisions entre le heros et le projectile

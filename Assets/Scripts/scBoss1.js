@@ -230,6 +230,34 @@ private var decalageHauteurPetitRocher: float = 2.0;
 */
  private var estGele: boolean;
 
+ /*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonBlesse: AudioClip;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonMort: AudioClip;
+
+/*
+* Son produit quand la boule eclat
+* @access public
+* @var AudioClip
+*/
+public var sonEclater: AudioClip;
+
 
 function Start () {
 
@@ -247,11 +275,14 @@ function Start () {
     canvas = GameObject.FindWithTag("canvas");//chercher canvas
     gestionscAffichage=canvas.GetComponent.<scAffichage>();//:: Chercher LE SCRIPT
     gestionscAffichage.setBarreBoss(pointsVieBoss1);//Afficher le panneau + rempli barre de vie en fonction des points de vie du boss.
+
+    sourceSon = GetComponent.<AudioSource>();
 }
 
 function Update () {
 
     if (pointsVieBoss1 <= 0) {//le boss1 est mort
+
         estVivant = false;
         mort();
     }
@@ -324,7 +355,9 @@ function patrouiller () {
 
 //Methode qui determine ce qui arrive quand le boss1 est tue, soit sa destruction et l'apparition d'une recompense.
 function mort() {
-    
+
+	sourceSon.PlayOneShot(sonMort);
+	    
     navMeshBoss1.SetDestination(this.transform.position);//Brake
     animateurBoss1.SetBool('mort', true);
     navMeshBoss1.speed = vitesseArret;
@@ -397,11 +430,15 @@ function pluieDeRochers() {
     petitRocher3.transform.position = grosRocher.transform.position;
     petitRocher3.transform.position.z = grosRocher.transform.position.z + Random.Range(-decalagePositionPetitRocher, decalagePositionPetitRocher);
     petitRocher3.transform.position.y = grosRocher.transform.position.y + Random.Range(0, decalageHauteurPetitRocher);
+
+    sourceSon.PlayOneShot(sonEclater);
 }
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:float) {
-    
+
+	sourceSon.PlayOneShot(sonBlesse);
+
     pointsVieBoss1 -= dommages;
     if (estVivant) {
         var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;

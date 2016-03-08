@@ -3,6 +3,8 @@
 private var dommages: int = 5;//Le dommage inflige au heros
 private var scriptHeros: scHeros;
 
+
+
 function OnTriggerEnter(objetEnCollision: Collider) {
 
     if (objetEnCollision.tag == "heros") {//Si le rocher touche le heros...

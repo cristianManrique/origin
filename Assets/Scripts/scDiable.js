@@ -124,6 +124,19 @@ private var colliderFourche: Collider;
 */
 public var fourche: GameObject;
 
+/*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonBlesse: AudioClip;
 
 
 function Start () {
@@ -141,6 +154,8 @@ function Start () {
     
     //permet d'avoir l'animateur pour l'animation du personnage.
     animateurDiable = this.gameObject.GetComponent.<Animator>();
+
+    sourceSon = GetComponent.<AudioSource>();
 }
 
 function Update () {
@@ -156,6 +171,7 @@ function Update () {
         }
         else if (distanceHeros < distanceRepos) {//Si le héros est assez près pour être poursuivi...
     //        Debug.Log("poursuite");
+    		
             this.transform.LookAt(Vector3(cible.position.x, this.transform.position.y, cible.position.z));
             animateurDiable.SetBool("courirDiable",true);
             poursuivre();
@@ -180,17 +196,20 @@ function Update () {
 
 //Méthode d'attaque du diable.
 function frapper () {
+
     
+
     navMeshDiable.speed = vitesseArret;
     navMeshDiable.SetDestination(this.transform.position);//Brake
    
     
     if (donnerUnCoup) {//Si le temps est venu de frapper...
+    	
         donnerUnCoup = false;
         //Code pour donner un coup par animation
         yield WaitForSeconds(delaiCoupDiable);//Timer...
         donnerUnCoup = true;
-       
+
     }
 }
 
@@ -211,6 +230,8 @@ function seReposer () {
 
 //Méthode qui détermine ce qui arrive quand le diable est tué, soit sa destruction et l'apparition d'une récompense.
 function mort() {
+
+	sourceSon.PlayOneShot(sonBlesse);
     
     var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesRecompense")) as GameObject;
     etoiles.transform.position = this.gameObject.transform.position;
@@ -224,7 +245,9 @@ function mort() {
 
 //:::::::::::::: function updateDommages :::::::::::::://
 function updateDommages(dommages:float) {
-    
+
+	sourceSon.PlayOneShot(sonBlesse);
+
     pointsVieDiable -= dommages;
     if (pointsVieDiable > 0) {
         var etoiles: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/etoilesEnnemiTouche")) as GameObject;

@@ -43,6 +43,19 @@
 **/
  private var vitesseRotation: float = 1.5;
 
+ /*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Son produit quand le fantome apparaise
+* @access public
+* @var AudioClip
+*/
+public var sonApparition: AudioClip;
 
 function Awake() {
     fantome.SetActive(false);
@@ -50,6 +63,7 @@ function Awake() {
 
 function Start () {
 	heros = GameObject.FindWithTag("heros");
+	sourceSon = GetComponent.<AudioSource>();
 }
 
 function Update () {
@@ -67,12 +81,13 @@ function Update () {
         if (proximite <= distance){
 
             fantome.SetActive(true);
-
+            sourceSon.PlayOneShot(sonApparition);
             detruireFantome();
         }
     }
 }
 function detruireFantome(){
+		
     //le heros aura juste quelques secondes pour voir le fantome, apres il disparraitra pour toujours
     yield WaitForSeconds (5);
     var explosion: GameObject = Instantiate (Resources.Load ("Prefabs/EmmeteursPreFabs/explosionFantome")) as GameObject;

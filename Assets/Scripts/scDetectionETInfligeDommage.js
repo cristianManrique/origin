@@ -71,17 +71,34 @@ private var scriptAffichage: scAffichage;
 
 private var navAgent: GameObject;
 
+/*
+* composant de la source d'audio
+* @access private
+* @var AudioSource
+*/
+private var sourceSon:AudioSource;
+
+/*
+* Contient le son se blesser
+* @access public
+* @var AudioClip
+*/
+public var sonFrapper: AudioClip;
+
+
 function Start (){
 
 	heros = GameObject.FindWithTag("heros");
     canvas = GameObject.FindWithTag("canvas");
     scriptAffichage=canvas.GetComponent.<scAffichage>();
 
+    sourceSon = GetComponent.<AudioSource>();
 }
 
 
 //Infliges des dommages aux Ennemis
 function OnTriggerEnter(other:Collider) {
+	sourceSon.PlayOneShot(sonFrapper);
 //    Debug.Log(other.gameObject);
     //:::::::::::::: Gérer le jeu
     if(other.gameObject.tag)
